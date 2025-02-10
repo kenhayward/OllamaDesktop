@@ -38,8 +38,8 @@ Partial Class frmMain
         Me.txtPrompt = New System.Windows.Forms.TextBox()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.PromptEntry1 = New OllamaDesktop.PromptEntry()
-        Me.WebView21 = New Microsoft.Web.WebView2.WinForms.WebView2()
         Me.btnSend = New System.Windows.Forms.Button()
+        Me.WebView21 = New Microsoft.Web.WebView2.WinForms.WebView2()
         Me.ToolStrip1.SuspendLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
@@ -122,7 +122,8 @@ Partial Class frmMain
         '
         'TreeView1
         '
-        Me.TreeView1.Location = New System.Drawing.Point(20, 85)
+        Me.TreeView1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TreeView1.Location = New System.Drawing.Point(0, 42)
         Me.TreeView1.Name = "TreeView1"
         TreeNode1.Name = "Node2"
         TreeNode1.Text = "Node2"
@@ -131,7 +132,7 @@ Partial Class frmMain
         TreeNode3.Name = "Node1"
         TreeNode3.Text = "History"
         Me.TreeView1.Nodes.AddRange(New System.Windows.Forms.TreeNode() {TreeNode2, TreeNode3})
-        Me.TreeView1.Size = New System.Drawing.Size(494, 765)
+        Me.TreeView1.Size = New System.Drawing.Size(517, 1147)
         Me.TreeView1.TabIndex = 0
         '
         'Label1
@@ -139,7 +140,7 @@ Partial Class frmMain
         Me.Label1.AutoSize = True
         Me.Label1.BackColor = System.Drawing.Color.Transparent
         Me.Label1.Font = New System.Drawing.Font("Gadugi", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(72, 42)
+        Me.Label1.Location = New System.Drawing.Point(45, 937)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(561, 56)
         Me.Label1.TabIndex = 6
@@ -147,19 +148,17 @@ Partial Class frmMain
         '
         'txtPrompt
         '
-        Me.txtPrompt.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txtPrompt.Location = New System.Drawing.Point(189, 129)
+        Me.txtPrompt.Location = New System.Drawing.Point(173, 1020)
         Me.txtPrompt.Multiline = True
         Me.txtPrompt.Name = "txtPrompt"
-        Me.txtPrompt.Size = New System.Drawing.Size(924, 120)
+        Me.txtPrompt.Size = New System.Drawing.Size(923, 145)
         Me.txtPrompt.TabIndex = 5
         '
         'PictureBox1
         '
         Me.PictureBox1.BackColor = System.Drawing.Color.Gray
         Me.PictureBox1.Image = CType(resources.GetObject("PictureBox1.Image"), System.Drawing.Image)
-        Me.PictureBox1.Location = New System.Drawing.Point(47, 117)
+        Me.PictureBox1.Location = New System.Drawing.Point(21, 1012)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(136, 120)
         Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
@@ -168,38 +167,33 @@ Partial Class frmMain
         '
         'PromptEntry1
         '
-        Me.PromptEntry1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.PromptEntry1.BackColor = System.Drawing.Color.Transparent
-        Me.PromptEntry1.Location = New System.Drawing.Point(14, 12)
+        Me.PromptEntry1.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.PromptEntry1.Location = New System.Drawing.Point(0, 915)
         Me.PromptEntry1.Name = "PromptEntry1"
-        Me.PromptEntry1.Size = New System.Drawing.Size(1121, 274)
+        Me.PromptEntry1.Size = New System.Drawing.Size(1147, 274)
         Me.PromptEntry1.TabIndex = 3
-        '
-        'WebView21
-        '
-        Me.WebView21.AllowExternalDrop = True
-        Me.WebView21.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.WebView21.CreationProperties = Nothing
-        Me.WebView21.DefaultBackgroundColor = System.Drawing.Color.White
-        Me.WebView21.Location = New System.Drawing.Point(14, 306)
-        Me.WebView21.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
-        Me.WebView21.Name = "WebView21"
-        Me.WebView21.Size = New System.Drawing.Size(1116, 867)
-        Me.WebView21.Source = New System.Uri("https://www.clinicaltrials.gov", System.UriKind.Absolute)
-        Me.WebView21.TabIndex = 7
-        Me.WebView21.ZoomFactor = 1.0R
         '
         'btnSend
         '
-        Me.btnSend.Location = New System.Drawing.Point(941, 52)
+        Me.btnSend.Location = New System.Drawing.Point(926, 965)
         Me.btnSend.Name = "btnSend"
         Me.btnSend.Size = New System.Drawing.Size(172, 49)
         Me.btnSend.TabIndex = 8
         Me.btnSend.Text = "Send"
         Me.btnSend.UseVisualStyleBackColor = True
+        '
+        'WebView21
+        '
+        Me.WebView21.AllowExternalDrop = True
+        Me.WebView21.CreationProperties = Nothing
+        Me.WebView21.DefaultBackgroundColor = System.Drawing.Color.White
+        Me.WebView21.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.WebView21.Location = New System.Drawing.Point(0, 0)
+        Me.WebView21.Name = "WebView21"
+        Me.WebView21.Size = New System.Drawing.Size(1147, 915)
+        Me.WebView21.TabIndex = 9
+        Me.WebView21.ZoomFactor = 1.0R
         '
         'frmMain
         '
@@ -237,6 +231,6 @@ Partial Class frmMain
     Friend WithEvents PictureBox1 As PictureBox
     Friend WithEvents txtPrompt As TextBox
     Friend WithEvents Label1 As Label
-    Friend WithEvents WebView21 As Microsoft.Web.WebView2.WinForms.WebView2
     Friend WithEvents btnSend As Button
+    Friend WithEvents WebView21 As Microsoft.Web.WebView2.WinForms.WebView2
 End Class

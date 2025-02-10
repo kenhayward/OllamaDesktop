@@ -2,14 +2,17 @@
 Imports System.ComponentModel
 Imports System.Drawing.Drawing2D
 Imports System.Drawing.Imaging
+Imports Microsoft.Web.WebView2.Core
 
 Public Class frmMain
     Private DarkMode As DarkModeForms.DarkModeCS
     '        DarkMode = New DarkModeCS(Me, False, True) With {.ColorMode = DarkModeCS.DisplayMode.DarkMode}
 
 
-    Private Sub frmMain_Load(sender As Object, e As EventArgs) Handles Me.Load
+    Private Async Sub frmMain_Load(sender As Object, e As EventArgs) Handles Me.Load
+        Await WebView21.EnsureCoreWebView2Async()
         LoadServers()
+        WebView21.NavigateToString("<html><body><h1> </h1></body></html>")
         Me.Cursor = DefaultCursor
     End Sub
 
@@ -78,10 +81,11 @@ Public Class frmMain
     End Sub
 
     Private Sub ChatUpdate(Text As String)
-
+        WebView21.CoreWebView2.NavigateToString(Text)
     End Sub
     Private Sub ChatComplete()
         btnSend.Enabled = True
         txtPrompt.Enabled = True
     End Sub
+
 End Class
