@@ -61,6 +61,16 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property app() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("app", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to &lt;!DOCTYPE html&gt;
         '''&lt;html&gt;
         '''&lt;head&gt;

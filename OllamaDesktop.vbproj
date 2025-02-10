@@ -11,9 +11,10 @@
     <AssemblyName>OllamaDesktop</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>WindowsForms</MyType>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -47,6 +48,9 @@
   <PropertyGroup>
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Web.WebView2.Core">
       <HintPath>..\VisualClinicalGraph\bin\Debug\Microsoft.Web.WebView2.Core.dll</HintPath>
@@ -69,6 +73,7 @@
     <Reference Include="System.Net.Http" />
   </ItemGroup>
   <ItemGroup>
+    <Import Include="DarkModeForms" />
     <Import Include="Microsoft.VisualBasic" />
     <Import Include="System" />
     <Import Include="System.Collections" />
@@ -86,6 +91,12 @@
     <Compile Include="Classes\Markdown.vb" />
     <Compile Include="Classes\RegistrySettings.vb" />
     <Compile Include="Classes\Utils.vb" />
+    <Compile Include="Controls\PromptEntry.Designer.vb">
+      <DependentUpon>PromptEntry.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\PromptEntry.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Forms\frmMain.Designer.vb">
       <DependentUpon>frmMain.vb</DependentUpon>
     </Compile>
@@ -102,6 +113,7 @@
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
       <DependentUpon>Application.myapp</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="My Project\Resources.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -116,6 +128,9 @@
     <Compile Include="Ollama.vb" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Controls\PromptEntry.resx">
+      <DependentUpon>PromptEntry.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmMain.resx">
       <DependentUpon>frmMain.vb</DependentUpon>
     </EmbeddedResource>
@@ -130,6 +145,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="My Project\app.manifest" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
@@ -143,10 +159,16 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Controls\" />
+    <None Include="app.ico" />
   </ItemGroup>
   <ItemGroup>
     <None Include="spin.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Dark-Mode-Forms\DarkModeForms.csproj">
+      <Project>{cb5b5beb-1458-4909-85ec-c0f1699478b6}</Project>
+      <Name>DarkModeForms</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

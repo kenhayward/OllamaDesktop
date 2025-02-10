@@ -77,10 +77,10 @@ Public Class Ollama
         ThinkingNoShow = 1
         Response = 2
     End Enum
-    Public Sub GetChatResponse()
+    Private Sub GetChatResponse()
 
 
-        Dim Request As HttpWebRequest = GenerateRequest("", Model.Name)
+        Dim Request As HttpWebRequest = GenerateRequest(ChatMessage, Model.Name)
         ChatWorker.ReportProgress(0, "Awaiting Model Response")
         Try
             Dim Response As HttpWebResponse = CType(Request.GetResponse(), HttpWebResponse)
@@ -173,20 +173,21 @@ Public Class Ollama
     Private _Loading As Boolean = False
 
 
-    Public Sub SendChat(Prompt As String, SelectedModel As LLMmodel)
+    Public Sub SendChat(Prompt As String)
         If Prompt.Trim.Length > 0 Then
             Dim StartTime = DateTime.Now
             ChatWorker = New BackgroundWorker
             ChatWorker.WorkerReportsProgress = True
             ChatMessage = Prompt
-            Model = SelectedModel
             ChatWorker.RunWorkerAsync()
         End If
     End Sub
 
+    Public Event ChatUpdate(Text As String)
+    Public Event ChatComplete()
 
     Private Sub MyWorker_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles ChatWorker.RunWorkerCompleted
-
+        RaiseEvent ChatComplete()
     End Sub
 
     Private Sub MyWorker_DoWork(sender As Object, e As DoWorkEventArgs) Handles ChatWorker.DoWork
@@ -194,6 +195,7 @@ Public Class Ollama
     End Sub
 
     Private Sub MyWorker_ProgressChanged(sender As Object, e As ProgressChangedEventArgs) Handles ChatWorker.ProgressChanged
+        RaiseEvent ChatUpdate(e.UserState)
         'WebView1.Visible = True
         'Me.WebView1.ShowText(e.UserState)
         'Me.WebView1.Refresh()

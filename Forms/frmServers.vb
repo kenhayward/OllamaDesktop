@@ -1,4 +1,6 @@
 ﻿Public Class frmServers
+    Private DarkMode As DarkModeForms.DarkModeCS
+
     Private Sub frmServers_Load(sender As Object, e As EventArgs) Handles Me.Load
         For Each Server In Utils.OllamaServers
             Dim MyNode As New ListViewItem
