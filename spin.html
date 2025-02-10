@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+     <style>
+         .loader-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: flex;
+            align-items: center;
+            gap: 5px; /* Adds space between the spinner and text */
+            padding: 10px;
+            background-color: rgba(240, 240, 240, 0.9);
+            z-index: 1000; /* Ensures it's above other content */
+         }
+
+         .spinner {
+            position: relative;
+            width: 20px;
+            height: 20px;
+         }
+
+         .spinner::before {
+            content: " ";
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            width: 16px; /* Adjusted for border */
+            height: 16px;
+            border-radius: 50%;
+            border: 2px solid #f3f3f3;
+            border-Top-color: transparent;
+            box-sizing: border-box;
+            animation: spin 1s linear infinite;
+         }
+
+         .spinner::after {
+            content: " ";
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            width: 16px; /* Adjusted for border */
+            height: 16px;
+            border-radius: 50%;
+            border: 2px solid #ff3366;
+            border-Top-color: transparent;
+            box-sizing: border-box;
+            animation: spin 1s linear infinite reverse;
+         }
+
+         @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+         }
+
+         /* Optional text styling */
+         .text-container {
+             display: inline-block;
+             color: #555;
+             font-family: Arial, sans-serif;
+             font-size: 14px;
+             line-height: 1.2;
+         }
+     </style>
+</head>
+<body>
+     <div class="loader-container">
+         <div class="spinner"></div>
+         <div class="text-container">Thinking…</div>
+     </div>
+
+</body>
+</html>
