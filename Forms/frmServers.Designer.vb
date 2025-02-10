@@ -29,13 +29,15 @@ Partial Class frmServers
         Me.lstServers = New System.Windows.Forms.ListView()
         Me.ColumnHeader1 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColumnHeader2 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
         Me.btnAdd = New System.Windows.Forms.Button()
         Me.btnDelete = New System.Windows.Forms.Button()
         Me.grpServer = New System.Windows.Forms.GroupBox()
+        Me.btnReload = New System.Windows.Forms.Button()
+        Me.btnVerify = New System.Windows.Forms.Button()
         Me.lblModelDetails = New System.Windows.Forms.Label()
         Me.lblModel = New System.Windows.Forms.Label()
         Me.cmbModel = New System.Windows.Forms.ComboBox()
-        Me.btnVerify = New System.Windows.Forms.Button()
         Me.txtPort = New System.Windows.Forms.NumericUpDown()
         Me.txtProtocol = New System.Windows.Forms.TextBox()
         Me.lblProtocol = New System.Windows.Forms.Label()
@@ -45,8 +47,6 @@ Partial Class frmServers
         Me.btnSave = New System.Windows.Forms.Button()
         Me.btnClose = New System.Windows.Forms.Button()
         Me.btnSetDefault = New System.Windows.Forms.Button()
-        Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
-        Me.btnReload = New System.Windows.Forms.Button()
         Me.grpServer.SuspendLayout()
         CType(Me.txtPort, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -93,6 +93,12 @@ Partial Class frmServers
         '
         Me.ColumnHeader2.Text = "Server"
         Me.ColumnHeader2.Width = 327
+        '
+        'ImageList1
+        '
+        Me.ImageList1.ImageStream = CType(resources.GetObject("ImageList1.ImageStream"), System.Windows.Forms.ImageListStreamer)
+        Me.ImageList1.TransparentColor = System.Drawing.Color.Transparent
+        Me.ImageList1.Images.SetKeyName(0, "Default")
         '
         'btnAdd
         '
@@ -141,6 +147,26 @@ Partial Class frmServers
         Me.grpServer.TabStop = False
         Me.grpServer.Text = "Server"
         '
+        'btnReload
+        '
+        Me.btnReload.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnReload.Location = New System.Drawing.Point(669, 219)
+        Me.btnReload.Name = "btnReload"
+        Me.btnReload.Size = New System.Drawing.Size(172, 39)
+        Me.btnReload.TabIndex = 13
+        Me.btnReload.Text = "Refresh"
+        Me.btnReload.UseVisualStyleBackColor = True
+        '
+        'btnVerify
+        '
+        Me.btnVerify.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnVerify.Location = New System.Drawing.Point(697, 45)
+        Me.btnVerify.Name = "btnVerify"
+        Me.btnVerify.Size = New System.Drawing.Size(144, 38)
+        Me.btnVerify.TabIndex = 9
+        Me.btnVerify.Text = "Verify"
+        Me.btnVerify.UseVisualStyleBackColor = True
+        '
         'lblModelDetails
         '
         Me.lblModelDetails.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
@@ -172,16 +198,6 @@ Partial Class frmServers
         Me.cmbModel.Name = "cmbModel"
         Me.cmbModel.Size = New System.Drawing.Size(625, 39)
         Me.cmbModel.TabIndex = 10
-        '
-        'btnVerify
-        '
-        Me.btnVerify.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnVerify.Location = New System.Drawing.Point(697, 45)
-        Me.btnVerify.Name = "btnVerify"
-        Me.btnVerify.Size = New System.Drawing.Size(144, 38)
-        Me.btnVerify.TabIndex = 9
-        Me.btnVerify.Text = "Verify"
-        Me.btnVerify.UseVisualStyleBackColor = True
         '
         'txtPort
         '
@@ -271,22 +287,6 @@ Partial Class frmServers
         Me.btnSetDefault.Text = "Set Default"
         Me.btnSetDefault.UseVisualStyleBackColor = True
         '
-        'ImageList1
-        '
-        Me.ImageList1.ImageStream = CType(resources.GetObject("ImageList1.ImageStream"), System.Windows.Forms.ImageListStreamer)
-        Me.ImageList1.TransparentColor = System.Drawing.Color.Transparent
-        Me.ImageList1.Images.SetKeyName(0, "Default")
-        '
-        'btnReload
-        '
-        Me.btnReload.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnReload.Location = New System.Drawing.Point(669, 219)
-        Me.btnReload.Name = "btnReload"
-        Me.btnReload.Size = New System.Drawing.Size(172, 39)
-        Me.btnReload.TabIndex = 13
-        Me.btnReload.Text = "Refresh"
-        Me.btnReload.UseVisualStyleBackColor = True
-        '
         'frmServers
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(192.0!, 192.0!)
@@ -299,9 +299,12 @@ Partial Class frmServers
         Me.Controls.Add(Me.btnDelete)
         Me.Controls.Add(Me.btnAdd)
         Me.Controls.Add(Me.lstServers)
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "frmServers"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Ollama Servers"
         Me.grpServer.ResumeLayout(False)
         Me.grpServer.PerformLayout()

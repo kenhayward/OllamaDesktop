@@ -33,10 +33,11 @@ Partial Class frmMain
         'ToolStrip1
         '
         Me.ToolStrip1.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.ToolStrip1.ImageScalingSize = New System.Drawing.Size(32, 32)
         Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.btnServers, Me.cmbModel, Me.lblModelDetails})
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 0)
         Me.ToolStrip1.Name = "ToolStrip1"
-        Me.ToolStrip1.Size = New System.Drawing.Size(1134, 50)
+        Me.ToolStrip1.Size = New System.Drawing.Size(1134, 42)
         Me.ToolStrip1.TabIndex = 0
         Me.ToolStrip1.Text = "ToolStrip1"
         '
@@ -46,7 +47,7 @@ Partial Class frmMain
         Me.btnServers.Image = CType(resources.GetObject("btnServers.Image"), System.Drawing.Image)
         Me.btnServers.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.btnServers.Name = "btnServers"
-        Me.btnServers.Size = New System.Drawing.Size(46, 44)
+        Me.btnServers.Size = New System.Drawing.Size(46, 36)
         Me.btnServers.Text = "Ollama Network Settings"
         '
         'cmbModel
@@ -58,7 +59,7 @@ Partial Class frmMain
         'lblModelDetails
         '
         Me.lblModelDetails.Name = "lblModelDetails"
-        Me.lblModelDetails.Size = New System.Drawing.Size(299, 44)
+        Me.lblModelDetails.Size = New System.Drawing.Size(299, 36)
         Me.lblModelDetails.Text = "Parameters: 8b, Size: 23MB"
         '
         'frmMain
