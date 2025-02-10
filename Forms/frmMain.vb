@@ -17,34 +17,23 @@ Public Class frmMain
     End Sub
 
 
-    Private Sub btnServers_Click(sender As Object, e As EventArgs) Handles btnServers.Click
-        Dim MyForm As New frmServers
-        MyForm.ShowDialog(Me)
-        LoadServers()
-    End Sub
 
 
     Private Sub LoadServers()
         Me.cmbModel.Items.Clear()
-        Me.mnuServers.DropDownItems.Clear()
+        Me.cmbServer.Items.Clear()
         For Each Server In Utils.OllamaServers
-            Dim MyItem As New ToolStripMenuItem
-            MyItem.Text = Server.Name
-            MyItem.Tag = Server
+            Me.cmbServer.Items.Add(Server)
             If Server.isCurrent Then
-                Me.mnuServers.Text = "Server: " & Server.Name
+                cmbServer.SelectedItem = Server
                 Me.GetModels()
             End If
-            AddHandler MyItem.Click, AddressOf ServerClick
-            Me.mnuServers.DropDownItems.Add(MyItem)
         Next
     End Sub
 
-    Private Sub ServerClick(sender As Object, e As EventArgs)
-        Dim MyItem As ToolStripMenuItem = CType(sender, ToolStripMenuItem)
-        Dim MyServer As OllamaServer = CType(MyItem.Tag, OllamaServer)
-        Utils.OllamaServers.CurrentServer = MyServer
-        Me.mnuServers.Text = "Server: " & MyServer.Name
+    Private Sub ServerClick(sender As Object, e As EventArgs) Handles cmbServer.SelectedIndexChanged
+        Dim Myserver As OllamaServer = cmbServer.SelectedItem
+        Utils.OllamaServers.CurrentServer = Myserver
         Me.GetModels()
     End Sub
 
@@ -79,13 +68,19 @@ Public Class frmMain
             Me.Cursor = Cursors.Default
         End If
     End Sub
-
+    Private HTML As String
     Private Sub ChatUpdate(Text As String)
-        WebView21.CoreWebView2.NavigateToString(Text)
+        HTML = Text
     End Sub
     Private Sub ChatComplete()
+        WebView21.CoreWebView2.NavigateToString(HTML)
         btnSend.Enabled = True
         txtPrompt.Enabled = True
     End Sub
 
+    Private Sub btnSettings_Click(sender As Object, e As EventArgs) Handles btnSettings.Click
+        Dim MyForm As New frmServers
+        MyForm.ShowDialog(Me)
+        LoadServers()
+    End Sub
 End Class

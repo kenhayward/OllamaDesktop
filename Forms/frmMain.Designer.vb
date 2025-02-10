@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class frmMain
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,80 +20,34 @@ Partial Class frmMain
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Dim TreeNode4 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Node2")
+        Dim TreeNode5 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Prompt Library", New System.Windows.Forms.TreeNode() {TreeNode4})
+        Dim TreeNode6 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("History")
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmMain))
-        Dim TreeNode1 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Node2")
-        Dim TreeNode2 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Prompt Name 1", New System.Windows.Forms.TreeNode() {TreeNode1})
-        Dim TreeNode3 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("History")
-        Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
-        Me.btnServers = New System.Windows.Forms.ToolStripButton()
-        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
-        Me.mnuServers = New System.Windows.Forms.ToolStripDropDownButton()
-        Me.ToolStripLabel1 = New System.Windows.Forms.ToolStripLabel()
-        Me.cmbModel = New System.Windows.Forms.ToolStripComboBox()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
+        Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.cmbServer = New System.Windows.Forms.ComboBox()
+        Me.cmbModel = New System.Windows.Forms.ComboBox()
+        Me.btnSettings = New System.Windows.Forms.Button()
         Me.TreeView1 = New System.Windows.Forms.TreeView()
+        Me.WebView21 = New Microsoft.Web.WebView2.WinForms.WebView2()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.txtPrompt = New System.Windows.Forms.TextBox()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.PromptEntry1 = New OllamaDesktop.PromptEntry()
         Me.btnSend = New System.Windows.Forms.Button()
-        Me.WebView21 = New Microsoft.Web.WebView2.WinForms.WebView2()
-        Me.ToolStrip1.SuspendLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
         Me.SplitContainer1.SuspendLayout()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.Panel1.SuspendLayout()
         CType(Me.WebView21, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
-        '
-        'ToolStrip1
-        '
-        Me.ToolStrip1.Font = New System.Drawing.Font("Segoe UI", 9.0!)
-        Me.ToolStrip1.ImageScalingSize = New System.Drawing.Size(32, 32)
-        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.btnServers, Me.ToolStripSeparator1, Me.mnuServers, Me.ToolStripLabel1, Me.cmbModel})
-        Me.ToolStrip1.Location = New System.Drawing.Point(0, 0)
-        Me.ToolStrip1.Name = "ToolStrip1"
-        Me.ToolStrip1.Size = New System.Drawing.Size(517, 42)
-        Me.ToolStrip1.TabIndex = 0
-        Me.ToolStrip1.Text = "ToolStrip1"
-        '
-        'btnServers
-        '
-        Me.btnServers.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.btnServers.Image = CType(resources.GetObject("btnServers.Image"), System.Drawing.Image)
-        Me.btnServers.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.btnServers.Name = "btnServers"
-        Me.btnServers.Size = New System.Drawing.Size(46, 36)
-        Me.btnServers.Text = "Ollama Network Settings"
-        '
-        'ToolStripSeparator1
-        '
-        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(6, 42)
-        '
-        'mnuServers
-        '
-        Me.mnuServers.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
-        Me.mnuServers.Image = CType(resources.GetObject("mnuServers.Image"), System.Drawing.Image)
-        Me.mnuServers.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.mnuServers.Name = "mnuServers"
-        Me.mnuServers.Size = New System.Drawing.Size(113, 36)
-        Me.mnuServers.Text = "Servers"
-        '
-        'ToolStripLabel1
-        '
-        Me.ToolStripLabel1.Name = "ToolStripLabel1"
-        Me.ToolStripLabel1.Size = New System.Drawing.Size(88, 36)
-        Me.ToolStripLabel1.Text = "Model:"
-        '
-        'cmbModel
-        '
-        Me.cmbModel.AutoSize = False
-        Me.cmbModel.Name = "cmbModel"
-        Me.cmbModel.Size = New System.Drawing.Size(200, 40)
         '
         'SplitContainer1
         '
@@ -104,7 +58,7 @@ Partial Class frmMain
         'SplitContainer1.Panel1
         '
         Me.SplitContainer1.Panel1.Controls.Add(Me.TreeView1)
-        Me.SplitContainer1.Panel1.Controls.Add(Me.ToolStrip1)
+        Me.SplitContainer1.Panel1.Controls.Add(Me.Panel1)
         '
         'SplitContainer1.Panel2
         '
@@ -120,23 +74,94 @@ Partial Class frmMain
         Me.SplitContainer1.SplitterWidth = 10
         Me.SplitContainer1.TabIndex = 2
         '
+        'Panel1
+        '
+        Me.Panel1.Controls.Add(Me.Label3)
+        Me.Panel1.Controls.Add(Me.Label2)
+        Me.Panel1.Controls.Add(Me.cmbServer)
+        Me.Panel1.Controls.Add(Me.cmbModel)
+        Me.Panel1.Controls.Add(Me.btnSettings)
+        Me.Panel1.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel1.Location = New System.Drawing.Point(0, 0)
+        Me.Panel1.Name = "Panel1"
+        Me.Panel1.Size = New System.Drawing.Size(517, 95)
+        Me.Panel1.TabIndex = 1
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Location = New System.Drawing.Point(175, 53)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(101, 31)
+        Me.Label3.TabIndex = 4
+        Me.Label3.Text = "Models"
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(175, 11)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(108, 31)
+        Me.Label2.TabIndex = 3
+        Me.Label2.Text = "Servers"
+        '
+        'cmbServer
+        '
+        Me.cmbServer.FormattingEnabled = True
+        Me.cmbServer.Location = New System.Drawing.Point(289, 8)
+        Me.cmbServer.Name = "cmbServer"
+        Me.cmbServer.Size = New System.Drawing.Size(222, 39)
+        Me.cmbServer.TabIndex = 2
+        '
+        'cmbModel
+        '
+        Me.cmbModel.FormattingEnabled = True
+        Me.cmbModel.Location = New System.Drawing.Point(289, 53)
+        Me.cmbModel.Name = "cmbModel"
+        Me.cmbModel.Size = New System.Drawing.Size(222, 39)
+        Me.cmbModel.TabIndex = 1
+        '
+        'btnSettings
+        '
+        Me.btnSettings.Image = Global.OllamaDesktop.My.Resources.Resources.server_network
+        Me.btnSettings.Location = New System.Drawing.Point(3, 3)
+        Me.btnSettings.Name = "btnSettings"
+        Me.btnSettings.Size = New System.Drawing.Size(160, 89)
+        Me.btnSettings.TabIndex = 0
+        Me.btnSettings.Text = "Settings"
+        Me.btnSettings.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.btnSettings.UseVisualStyleBackColor = True
+        '
         'TreeView1
         '
         Me.TreeView1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TreeView1.Location = New System.Drawing.Point(0, 42)
+        Me.TreeView1.Location = New System.Drawing.Point(0, 95)
         Me.TreeView1.Name = "TreeView1"
-        TreeNode1.Name = "Node2"
-        TreeNode1.Text = "Node2"
-        TreeNode2.Name = "Node0"
-        TreeNode2.Text = "Prompt Name 1"
-        TreeNode3.Name = "Node1"
-        TreeNode3.Text = "History"
-        Me.TreeView1.Nodes.AddRange(New System.Windows.Forms.TreeNode() {TreeNode2, TreeNode3})
-        Me.TreeView1.Size = New System.Drawing.Size(517, 1147)
+        TreeNode4.Name = "Node2"
+        TreeNode4.Text = "Node2"
+        TreeNode5.Name = "Node0"
+        TreeNode5.Text = "Prompt Library"
+        TreeNode6.Name = "Node1"
+        TreeNode6.Text = "History"
+        Me.TreeView1.Nodes.AddRange(New System.Windows.Forms.TreeNode() {TreeNode5, TreeNode6})
+        Me.TreeView1.Size = New System.Drawing.Size(517, 1094)
         Me.TreeView1.TabIndex = 0
+        '
+        'WebView21
+        '
+        Me.WebView21.AllowExternalDrop = True
+        Me.WebView21.CreationProperties = Nothing
+        Me.WebView21.DefaultBackgroundColor = System.Drawing.Color.White
+        Me.WebView21.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.WebView21.Location = New System.Drawing.Point(0, 0)
+        Me.WebView21.Name = "WebView21"
+        Me.WebView21.Size = New System.Drawing.Size(1147, 915)
+        Me.WebView21.TabIndex = 9
+        Me.WebView21.ZoomFactor = 1.0R
         '
         'Label1
         '
+        Me.Label1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label1.AutoSize = True
         Me.Label1.BackColor = System.Drawing.Color.Transparent
         Me.Label1.Font = New System.Drawing.Font("Gadugi", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -148,14 +173,17 @@ Partial Class frmMain
         '
         'txtPrompt
         '
+        Me.txtPrompt.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtPrompt.Location = New System.Drawing.Point(173, 1020)
         Me.txtPrompt.Multiline = True
         Me.txtPrompt.Name = "txtPrompt"
-        Me.txtPrompt.Size = New System.Drawing.Size(923, 145)
+        Me.txtPrompt.Size = New System.Drawing.Size(905, 145)
         Me.txtPrompt.TabIndex = 5
         '
         'PictureBox1
         '
+        Me.PictureBox1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.PictureBox1.BackColor = System.Drawing.Color.Gray
         Me.PictureBox1.Image = CType(resources.GetObject("PictureBox1.Image"), System.Drawing.Image)
         Me.PictureBox1.Location = New System.Drawing.Point(21, 1012)
@@ -183,18 +211,6 @@ Partial Class frmMain
         Me.btnSend.Text = "Send"
         Me.btnSend.UseVisualStyleBackColor = True
         '
-        'WebView21
-        '
-        Me.WebView21.AllowExternalDrop = True
-        Me.WebView21.CreationProperties = Nothing
-        Me.WebView21.DefaultBackgroundColor = System.Drawing.Color.White
-        Me.WebView21.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.WebView21.Location = New System.Drawing.Point(0, 0)
-        Me.WebView21.Name = "WebView21"
-        Me.WebView21.Size = New System.Drawing.Size(1147, 915)
-        Me.WebView21.TabIndex = 9
-        Me.WebView21.ZoomFactor = 1.0R
-        '
         'frmMain
         '
         Me.AcceptButton = Me.btnSend
@@ -205,32 +221,31 @@ Partial Class frmMain
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "frmMain"
         Me.Text = "Ollama Desktop"
-        Me.ToolStrip1.ResumeLayout(False)
-        Me.ToolStrip1.PerformLayout()
         Me.SplitContainer1.Panel1.ResumeLayout(False)
-        Me.SplitContainer1.Panel1.PerformLayout()
         Me.SplitContainer1.Panel2.ResumeLayout(False)
         Me.SplitContainer1.Panel2.PerformLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SplitContainer1.ResumeLayout(False)
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Panel1.ResumeLayout(False)
+        Me.Panel1.PerformLayout()
         CType(Me.WebView21, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
+        DarkMode = New DarkModeCS(Me, False, True) With {.ColorMode = DarkModeCS.DisplayMode.DarkMode}
 
     End Sub
-
-    Friend WithEvents ToolStrip1 As ToolStrip
-    Friend WithEvents btnServers As ToolStripButton
-    Friend WithEvents cmbModel As ToolStripComboBox
-    Friend WithEvents ToolStripLabel1 As ToolStripLabel
-    Friend WithEvents ToolStripSeparator1 As ToolStripSeparator
     Friend WithEvents SplitContainer1 As SplitContainer
     Friend WithEvents TreeView1 As TreeView
-    Friend WithEvents mnuServers As ToolStripDropDownButton
     Friend WithEvents PromptEntry1 As PromptEntry
     Friend WithEvents PictureBox1 As PictureBox
     Friend WithEvents txtPrompt As TextBox
     Friend WithEvents Label1 As Label
     Friend WithEvents btnSend As Button
     Friend WithEvents WebView21 As Microsoft.Web.WebView2.WinForms.WebView2
+    Friend WithEvents Panel1 As Panel
+    Friend WithEvents btnSettings As Button
+    Friend WithEvents Label3 As Label
+    Friend WithEvents Label2 As Label
+    Friend WithEvents cmbServer As ComboBox
+    Friend WithEvents cmbModel As ComboBox
 End Class

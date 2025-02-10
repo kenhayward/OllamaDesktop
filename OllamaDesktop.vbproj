@@ -184,6 +184,9 @@
       <Name>DarkModeForms</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="server_network.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <Import Project="..\VisualClinicalGraph\packages\Microsoft.Web.WebView2.1.0.3065.39\build\Microsoft.Web.WebView2.targets" Condition="Exists('..\VisualClinicalGraph\packages\Microsoft.Web.WebView2.1.0.3065.39\build\Microsoft.Web.WebView2.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
