@@ -138,29 +138,12 @@ Public Class frmMain
         Hist.Model = cmbModel.SelectedItem.ToString
         Hist.Timed = Now
         Utils.OllamaServers.ChatHistory.Add(Hist)
-        HistoryToAdd = Hist
-        Dim OllamaServer As New Ollama(Utils.OllamaServers.CurrentServer, cmbModel.SelectedItem)
-        OllamaServer.ShowCOT = False
-        AddHandler OllamaServer.ChatComplete, AddressOf HistoryComplete
-        AddHandler OllamaServer.ChatUpdate, AddressOf UpdateHistory
-
-        OllamaServer.SendChat($"Create a single 2 to 5 word title for this prompt without using any quotes: {txtPrompt.Text}")
-
+        AddHandler Hist.NewTitle, AddressOf TitleComplete
+        Hist.GetTitle(cmbModel.SelectedItem)
     End Sub
-    Private TitleResponse As ChatResponseMessage
-    Private HistoryToAdd As ChatHistoryItem
-    Private Sub HistoryComplete()
-        HistoryToAdd.Title = TitleResponse.Markdown
-        HistoryToAdd.Title = HistoryToAdd.Title.Trim.Replace(vbLf, "")
-        HistoryToAdd.Title = HistoryToAdd.Title.Replace(vbCr, "")
-        HistoryToAdd.Title = HistoryToAdd.Title.Replace("""", "")
-
-        AddToHistoryNode(HistoryToAdd)
-        OllamaServers.Save(Utils.OllamaServers)
+    Private Sub TitleComplete(Hist As ChatHistoryItem)
+        AddToHistoryNode(Hist)
         Me.Cursor = Cursors.Default
-    End Sub
-    Private Sub UpdateHistory(ChatResponse As ChatResponseMessage)
-        TitleResponse = ChatResponse
     End Sub
 
     Public Sub AddToHistoryNode(Hist As ChatHistoryItem)

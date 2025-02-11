@@ -213,10 +213,3 @@ Public Class Ollama
 
 End Class
 
-Public Class ChatResponseMessage
-    Public Property FullHTML As Boolean = False
-    Public Property FirstPacket As Boolean = False
-    Public Property HTML As String
-    Public Property JustDiv As String
-    Public Property Markdown As String
-End Class

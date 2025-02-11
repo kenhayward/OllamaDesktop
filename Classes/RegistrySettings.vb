@@ -105,4 +105,33 @@ End Class
 
     Public Property Timed As Date
 
+    Public Event NewTitle(Hist As ChatHistoryItem)
+    Private TitleResponse As ChatResponseMessage
+    Public Sub GetTitle(theModel As LLMmodel)
+        Dim OllamaServer As New Ollama(Utils.OllamaServers.CurrentServer, theModel)
+        OllamaServer.ShowCOT = False
+        AddHandler OllamaServer.ChatComplete, AddressOf HistoryComplete
+        AddHandler OllamaServer.ChatUpdate, AddressOf UpdateHistory
+        OllamaServer.SendChat($"Create a single 2 to 5 word title for this prompt without using any quotes: {Prompt}")
+    End Sub
+    Private Sub HistoryComplete()
+
+        Title = TitleResponse.Markdown
+        Title = Title.Trim.Replace(vbLf, "")
+        Title = Title.Replace(vbCr, "")
+        Title = Title.Replace("""", "")
+        OllamaServers.Save(Utils.OllamaServers)
+        RaiseEvent NewTitle(Me)
+    End Sub
+    Private Sub UpdateHistory(ChatResponse As ChatResponseMessage)
+        TitleResponse = ChatResponse
+    End Sub
+End Class
+
+<Serializable()> Public Class ChatResponseMessage
+    Public Property FullHTML As Boolean = False
+    Public Property FirstPacket As Boolean = False
+    Public Property HTML As String
+    Public Property JustDiv As String
+    Public Property Markdown As String
 End Class
