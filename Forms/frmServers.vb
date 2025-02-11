@@ -1,4 +1,7 @@
-﻿Public Class frmServers
+﻿Imports System.Drawing.Drawing2D
+
+Public Class frmServers
+
     Private DarkMode As DarkModeForms.DarkModeCS
 
     Private Sub frmServers_Load(sender As Object, e As EventArgs) Handles Me.Load
@@ -15,10 +18,17 @@
             lstServers.Items.Add(MyNode)
         Next
     End Sub
+    Public Sub New()
+        ' This call is required by the Windows Form Designer.
+        InitializeComponent()
 
-    Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
+        ' Add any initialization after the InitializeComponent() call.
+        DarkMode = New DarkModeCS(Me, True, True) With {.ColorMode = DarkModeCS.DisplayMode.DarkMode}
+
+    End Sub
+
+    Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnClose.Click
         OllamaServers.Save(Utils.OllamaServers)
-        MsgBox("Servers Saved", MsgBoxStyle.OkOnly + MsgBoxStyle.Information, "Ollama")
         Me.Close()
     End Sub
 
@@ -80,11 +90,7 @@
         End If
     End Sub
 
-    Private Sub btnClose_Click(sender As Object, e As EventArgs) Handles btnClose.Click
-        If MsgBox("Are you sure, changes will not be saved?", MsgBoxStyle.YesNo + MsgBoxStyle.Question, "Ollama") = MsgBoxResult.Yes Then
-            Me.Close()
-        End If
-    End Sub
+
 
     Private Sub btnDelete_Click(sender As Object, e As EventArgs) Handles btnDelete.Click
         If lstServers.SelectedItems.Count = 1 Then
@@ -147,4 +153,6 @@
             PopulateModelList(Server)
         End If
     End Sub
+
+
 End Class

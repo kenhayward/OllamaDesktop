@@ -34,6 +34,7 @@ Public Class frmMain
         LoadServers()
         WebView21.NavigateToString("<html><body><div id=""MainContent""><h1> </h1></div></body></html>")
         Me.Cursor = DefaultCursor
+        Me.txtPrompt.Focus()
     End Sub
     Private Sub ClearHistory()
         Utils.OllamaServers.ChatHistory.Clear()
@@ -84,7 +85,8 @@ Public Class frmMain
         InitializeComponent()
 
         ' Add any initialization after the InitializeComponent() call.
-        DarkMode = New DarkModeCS(Me, False, True) With {.ColorMode = DarkModeCS.DisplayMode.DarkMode}
+        DarkMode = New DarkModeCS(Me, True, True) With {.ColorMode = DarkModeCS.DisplayMode.DarkMode}
+
     End Sub
 
     Private Sub LoadServers()
@@ -126,6 +128,7 @@ Public Class frmMain
         ' Send the Query
         If txtPrompt.Text.Trim <> "" And cmbModel.SelectedItem IsNot Nothing And cmbServer.SelectedItem IsNot Nothing Then
             Me.Cursor = Cursors.WaitCursor
+            pnlDetails.Visible = False
             Dim StartTime = DateTime.Now
             Me.btnSend.Enabled = False
             Me.txtPrompt.Enabled = False
@@ -175,6 +178,7 @@ Public Class frmMain
         Utils.OllamaServers.ChatHistory.Add(Hist)
         Hist.GetTitle(cmbModel.SelectedItem)
         AddToHistoryNode(Hist)
+        ShowDetailsPanel(Hist)
         Me.Cursor = Cursors.Default
     End Sub
 
@@ -194,7 +198,7 @@ Public Class frmMain
 
     Private Async Function UpdateElementAsync(ByVal elementID As String, ByVal [property] As String, ByVal value As String) As Task
         Try
-            value = value.Replace("\t", "\\t").Replace("\r", "\\r").Replace("\n", "\\n").Replace("'", "\'").Replace(":", "\:")
+            value = value.Replace("\t", "\\t").Replace("\r", "\\r").Replace("\n", "\\n").Replace("'", "\'").Replace(":", "\:").Replace("+", "\+")
             Await Me.WebView21.CoreWebView2.ExecuteScriptAsync("document.getElementById('" & elementID & "')." & [property] & " = '" & value & "'")
         Catch ex As Exception
             MessageBox.Show(ex.Message)
@@ -235,7 +239,12 @@ Public Class frmMain
             mnuClear.Enabled = False
         End If
     End Sub
-
+    Private Sub ShowDetailsPanel(Hist As ChatHistoryItem)
+        Me.lblHistModel.Text = $"Server: {Hist.Server}, Model: {Hist.Model}"
+        Me.lblHistDated.Text = Hist.Timed.ToString("ddd d MMM yyyy HH:mm")
+        Me.lblHistTitle.Text = Hist.Title
+        Me.pnlDetails.Visible = True
+    End Sub
     Private Sub TreeHistory_AfterSelect(sender As Object, e As TreeViewEventArgs) Handles TreeHistory.AfterSelect
         Dim EnableDelete As Boolean = False
         If TreeHistory.SelectedNode IsNot Nothing Then
@@ -243,6 +252,7 @@ Public Class frmMain
             If MyNode.Tag IsNot Nothing Then
                 If TypeOf MyNode.Tag Is ChatHistoryItem Then
                     Dim Hist As ChatHistoryItem = MyNode.Tag
+                    ShowDetailsPanel(Hist)
                     WebView21.CoreWebView2.NavigateToString(Hist.HTML)
                     Me.txtPrompt.Text = Hist.Prompt
                     EnableDelete = True

@@ -46,7 +46,6 @@ Partial Class frmServers
         Me.lblPort = New System.Windows.Forms.Label()
         Me.txtServer = New System.Windows.Forms.TextBox()
         Me.lblServer = New System.Windows.Forms.Label()
-        Me.btnSave = New System.Windows.Forms.Button()
         Me.btnClose = New System.Windows.Forms.Button()
         Me.btnSetDefault = New System.Windows.Forms.Button()
         Me.grpServer.SuspendLayout()
@@ -258,16 +257,6 @@ Partial Class frmServers
         Me.lblServer.TabIndex = 2
         Me.lblServer.Text = "Server"
         '
-        'btnSave
-        '
-        Me.btnSave.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnSave.Location = New System.Drawing.Point(1128, 541)
-        Me.btnSave.Name = "btnSave"
-        Me.btnSave.Size = New System.Drawing.Size(156, 50)
-        Me.btnSave.TabIndex = 6
-        Me.btnSave.Text = "Save"
-        Me.btnSave.UseVisualStyleBackColor = True
-        '
         'btnClose
         '
         Me.btnClose.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -296,7 +285,6 @@ Partial Class frmServers
         Me.ClientSize = New System.Drawing.Size(1458, 603)
         Me.Controls.Add(Me.btnSetDefault)
         Me.Controls.Add(Me.btnClose)
-        Me.Controls.Add(Me.btnSave)
         Me.Controls.Add(Me.grpServer)
         Me.Controls.Add(Me.btnDelete)
         Me.Controls.Add(Me.btnAdd)
@@ -307,12 +295,11 @@ Partial Class frmServers
         Me.MinimizeBox = False
         Me.Name = "frmServers"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
-        Me.Text = "Ollama Servers"
+        Me.Text = "Settings"
         Me.grpServer.ResumeLayout(False)
         Me.grpServer.PerformLayout()
         CType(Me.txtPort, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
-        DarkMode = New DarkModeForms.DarkModeCS(Me, False, True) With {.ColorMode = DarkModeCS.DisplayMode.DarkMode}
 
     End Sub
 
@@ -324,7 +311,6 @@ Partial Class frmServers
     Friend WithEvents ColumnHeader1 As ColumnHeader
     Friend WithEvents ColumnHeader2 As ColumnHeader
     Friend WithEvents grpServer As GroupBox
-    Friend WithEvents btnSave As Button
     Friend WithEvents btnClose As Button
     Friend WithEvents txtProtocol As TextBox
     Friend WithEvents lblProtocol As Label
