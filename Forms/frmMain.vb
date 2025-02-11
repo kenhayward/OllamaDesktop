@@ -20,10 +20,12 @@ Public Class frmMain
             End If
         Loop
         PromptLibraryNode = New TreeNode("Prompt Library")
-        LoadHistory()
-            Me.TreeHistory.Nodes.Add(PromptLibraryNode)
+        PromptLibraryNode.Tag = "Prompt Library"
 
-            Await WebView21.EnsureCoreWebView2Async()
+        Me.TreeHistory.Nodes.Add(PromptLibraryNode)
+        LoadHistory()
+
+        Await WebView21.EnsureCoreWebView2Async()
         ToolTip1.SetToolTip(btnExpand, "Show Settings, Chat History and Prompt Library")
         ToolTip2.SetToolTip(btnCollapse, "Hide Side Panel")
         ToolTip3.SetToolTip(btnSettings, "Establish connection to servers and set defaults")
@@ -44,10 +46,36 @@ Public Class frmMain
             TreeHistory.Nodes.Remove(HistoryNode)
         End If
         HistoryNode = New TreeNode("Chat History")
+        HistoryNode.Tag = "Chat History"
         Me.TreeHistory.Nodes.Insert(0, HistoryNode)
         For Each Hist In Utils.OllamaServers.ChatHistory
-            AddToHistoryNode(Hist)
+            If Hist.Group = "" Then
+                AddToHistoryNode(Hist)
+            Else
+                Dim TargetNode As TreeNode = Nothing
+                For Each Mynode In HistoryNode.Nodes
+                    If Mynode.tag IsNot Nothing Then
+                        If TypeOf Mynode.tag Is String Then
+                            If Mynode.tag = "Group" Then
+                                If Mynode.text.Equals(Hist.Group) Then
+                                    TargetNode = Mynode
+                                    Exit For
+                                End If
+                            End If
+                        End If
+                    End If
+                Next
+                If TargetNode Is Nothing Then
+                    TargetNode = New TreeNode(Hist.Group)
+                    TargetNode.Tag = "Group"
+                    HistoryNode.Nodes.Add(TargetNode)
+
+                End If
+                AddToHistoryNode(Hist, TargetNode)
+            End If
         Next
+        HistoryNode.ExpandAll()
+
     End Sub
 
     Public Sub New()
@@ -149,11 +177,15 @@ Public Class frmMain
         Me.Cursor = Cursors.Default
     End Sub
 
-    Public Sub AddToHistoryNode(Hist As ChatHistoryItem)
+    Public Sub AddToHistoryNode(Hist As ChatHistoryItem, Optional ParentNode As TreeNode = Nothing)
         Dim MyNode As New TreeNode
         MyNode.Text = Hist.Title
         MyNode.Tag = Hist
-        HistoryNode.Nodes.Add(MyNode)
+        If ParentNode Is Nothing Then
+            HistoryNode.Nodes.Add(MyNode)
+        Else
+            ParentNode.Nodes.Add(MyNode)
+        End If
         btnClearHistory.Enabled = True
         mnuClear.Enabled = True
     End Sub
@@ -213,6 +245,12 @@ Public Class frmMain
                     WebView21.CoreWebView2.NavigateToString(Hist.HTML)
                     Me.txtPrompt.Text = Hist.Prompt
                     EnableDelete = True
+                ElseIf TypeOf MyNode.Tag Is String Then
+                    If MyNode.Tag = "Group" Then
+                        If MyNode.Nodes.Count = 0 Then
+                            EnableDelete = True
+                        End If
+                    End If
                 End If
             End If
         End If
@@ -230,10 +268,15 @@ Public Class frmMain
                     MyNode.Parent.Nodes.Remove(MyNode)
                     Utils.OllamaServers.ChatHistory.Remove(MyNode.Tag)
                     OllamaServers.Save(Utils.OllamaServers)
+                ElseIf TypeOf MyNode.Tag Is String Then
+                    If MyNode.Tag = "Group" Then
+                        If MyNode.Nodes.Count = 0 Then
+                            MyNode.Parent.Nodes.Remove(MyNode)
+                        End If
+                    End If
                 End If
             End If
         End If
-
     End Sub
 
     Private Sub mnuRename_Click(sender As Object, e As EventArgs) Handles mnuRename.Click
@@ -251,5 +294,79 @@ Public Class frmMain
             End If
         End If
 
+    End Sub
+
+    Private Sub mnuCreateGroup_Click(sender As Object, e As EventArgs) Handles mnuCreateGroup.Click
+        Dim NewName As String = InputBox("Enter a name for the new chat group", "Create Chat Group", "")
+        If NewName.Trim <> "" Then
+            Dim MyNode As New TreeNode
+            MyNode.Text = NewName
+            MyNode.Tag = "Group"
+            HistoryNode.Nodes.Insert(0, MyNode)
+        End If
+    End Sub
+
+
+    Private lastDragDestination As TreeNode = Nothing
+    Private lastDragDestinationTime As DateTime
+
+
+    Private Sub TreeHistory_NodeMovingByDrag(sender As Object, e As NodeMovingByDragEventArgs) Handles TreeHistory.NodeMovingByDrag
+        Dim EnableMove As Boolean = False
+        If e.MovingNode.Tag IsNot Nothing Then
+            If TypeOf e.MovingNode.Tag Is ChatHistoryItem Then
+                Dim Hist As ChatHistoryItem = e.MovingNode.Tag
+                If e.ParentToBe IsNot Nothing Then
+                    If e.ParentToBe.Tag IsNot Nothing Then
+                        If TypeOf e.ParentToBe.Tag Is String Then
+                            If e.ParentToBe.Tag = "Group" Then
+                                EnableMove = True
+                            End If
+                            If e.ParentToBe.Tag = "Chat History" Then
+                                EnableMove = True
+                            End If
+                        End If
+                    End If
+                End If
+            End If
+        End If
+        e.CancelMove = Not EnableMove
+    End Sub
+
+    Private Sub TreeHistory_NodeMovedByDrag(sender As Object, e As NodeMovedByDragEventArgs) Handles TreeHistory.NodeMovedByDrag
+        If e.MovedNode.Tag IsNot Nothing Then
+            If TypeOf e.MovedNode.Tag Is ChatHistoryItem Then
+                Dim Hist As ChatHistoryItem = e.MovedNode.Tag
+                If e.MovedNode.Parent.Tag = "Chat History" Then
+                    Hist.Group = ""
+                ElseIf e.MovedNode.Parent.Tag = "Group" Then
+                    Hist.Group = e.MovedNode.Parent.Text
+                End If
+                OllamaServers.Save(Utils.OllamaServers)
+            End If
+        End If
+    End Sub
+
+    Private Sub TreeHistory_NodeDraggingOver(sender As Object, e As NodeDraggingOverEventArgs) Handles TreeHistory.NodeDraggingOver
+        Dim EnableMove As Boolean = False
+
+        If e.MovingNode.Tag IsNot Nothing Then
+            If TypeOf e.MovingNode.Tag Is ChatHistoryItem Then
+                Dim Hist As ChatHistoryItem = e.MovingNode.Tag
+                If e.TargetNode IsNot Nothing Then
+                    If e.TargetNode.Tag IsNot Nothing Then
+                        If TypeOf e.TargetNode.Tag Is String Then
+                            If e.TargetNode.Tag = "Group" Then
+                                EnableMove = True
+                            End If
+                            If e.TargetNode.Tag = "Chat History" Then
+                                EnableMove = True
+                            End If
+                        End If
+                    End If
+                End If
+            End If
+        End If
+        e.DropIsLegal = EnableMove
     End Sub
 End Class

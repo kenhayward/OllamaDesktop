@@ -102,6 +102,7 @@ End Class
     Public Property Markdown As String
     Public Property Server As String
     Public Property Model As String
+    Public Property Group As String
 
     Public Property Timed As Date
     Public Property TitleComplete As Boolean

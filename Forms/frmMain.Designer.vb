@@ -25,7 +25,7 @@ Partial Class frmMain
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmMain))
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
-        Me.TreeHistory = New System.Windows.Forms.TreeView()
+        Me.TreeHistory = New TreeViewDraggableNodes
         Me.MenuStripTree = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.mnuRename = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
@@ -53,6 +53,7 @@ Partial Class frmMain
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.ToolTip2 = New System.Windows.Forms.ToolTip(Me.components)
         Me.ToolTip3 = New System.Windows.Forms.ToolTip(Me.components)
+        Me.mnuCreateGroup = New System.Windows.Forms.ToolStripMenuItem()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
@@ -105,31 +106,31 @@ Partial Class frmMain
         'MenuStripTree
         '
         Me.MenuStripTree.ImageScalingSize = New System.Drawing.Size(32, 32)
-        Me.MenuStripTree.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuRename, Me.ToolStripSeparator1, Me.mnuDelete, Me.mnuClear})
+        Me.MenuStripTree.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuRename, Me.mnuCreateGroup, Me.ToolStripSeparator1, Me.mnuDelete, Me.mnuClear})
         Me.MenuStripTree.Name = "MenuStripTree"
-        Me.MenuStripTree.Size = New System.Drawing.Size(225, 124)
+        Me.MenuStripTree.Size = New System.Drawing.Size(296, 162)
         '
         'mnuRename
         '
         Me.mnuRename.Name = "mnuRename"
-        Me.mnuRename.Size = New System.Drawing.Size(224, 38)
+        Me.mnuRename.Size = New System.Drawing.Size(300, 38)
         Me.mnuRename.Text = "Rename"
         '
         'ToolStripSeparator1
         '
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(221, 6)
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(297, 6)
         '
         'mnuDelete
         '
         Me.mnuDelete.Name = "mnuDelete"
-        Me.mnuDelete.Size = New System.Drawing.Size(224, 38)
-        Me.mnuDelete.Text = "Delete"
+        Me.mnuDelete.Size = New System.Drawing.Size(300, 38)
+        Me.mnuDelete.Text = "Delete History Item"
         '
         'mnuClear
         '
         Me.mnuClear.Name = "mnuClear"
-        Me.mnuClear.Size = New System.Drawing.Size(224, 38)
+        Me.mnuClear.Size = New System.Drawing.Size(300, 38)
         Me.mnuClear.Text = "Clear History"
         '
         'Panel3
@@ -356,6 +357,12 @@ Partial Class frmMain
         '
         Me.ToolTip3.ToolTipTitle = "Server Settings"
         '
+        'mnuCreateGroup
+        '
+        Me.mnuCreateGroup.Name = "mnuCreateGroup"
+        Me.mnuCreateGroup.Size = New System.Drawing.Size(300, 38)
+        Me.mnuCreateGroup.Text = "Create Chat Group"
+        '
         'frmMain
         '
         Me.AcceptButton = Me.btnSend
@@ -384,7 +391,7 @@ Partial Class frmMain
 
     End Sub
     Friend WithEvents SplitContainer1 As SplitContainer
-    Friend WithEvents TreeHistory As TreeView
+    Friend WithEvents TreeHistory As TreeViewDraggableNodes
     Friend WithEvents PictureBox1 As PictureBox
     Friend WithEvents txtPrompt As TextBox
     Friend WithEvents Label1 As Label
@@ -412,4 +419,5 @@ Partial Class frmMain
     Friend WithEvents ToolStripSeparator1 As ToolStripSeparator
     Friend WithEvents mnuDelete As ToolStripMenuItem
     Friend WithEvents mnuClear As ToolStripMenuItem
+    Friend WithEvents mnuCreateGroup As ToolStripMenuItem
 End Class
