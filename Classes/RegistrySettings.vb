@@ -104,24 +104,28 @@ End Class
     Public Property Model As String
 
     Public Property Timed As Date
-
-    Public Event NewTitle(Hist As ChatHistoryItem)
+    Public Property TitleComplete As Boolean
     Private TitleResponse As ChatResponseMessage
     Public Sub GetTitle(theModel As LLMmodel)
+        TitleComplete = False
         Dim OllamaServer As New Ollama(Utils.OllamaServers.CurrentServer, theModel)
         OllamaServer.ShowCOT = False
         AddHandler OllamaServer.ChatComplete, AddressOf HistoryComplete
         AddHandler OllamaServer.ChatUpdate, AddressOf UpdateHistory
-        OllamaServer.SendChat($"Create a single 2 to 5 word title for this prompt without using any quotes: {Prompt}")
+        Dim TitleMessage As String = $"{Prompt} {vbCrLf} ----- {vbCrLf} Ignore all previous instructions. The preceding text Is a conversation thread that needs a concise but descriptive 3 to 5 word title in natural English so that readers will be able to easily find it again. Do Not add any quotation marks Or formatting to the title. Respond only with the title text."
+        OllamaServer.SendChat(TitleMessage)
+        Do Until TitleComplete
+            Application.DoEvents()
+            Threading.Thread.Sleep(100)
+        Loop
     End Sub
     Private Sub HistoryComplete()
-
         Title = TitleResponse.Markdown
         Title = Title.Trim.Replace(vbLf, "")
         Title = Title.Replace(vbCr, "")
         Title = Title.Replace("""", "")
         OllamaServers.Save(Utils.OllamaServers)
-        RaiseEvent NewTitle(Me)
+        TitleComplete = True
     End Sub
     Private Sub UpdateHistory(ChatResponse As ChatResponseMessage)
         TitleResponse = ChatResponse

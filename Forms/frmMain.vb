@@ -9,17 +9,21 @@ Public Class frmMain
     Private HistoryNode As TreeNode
     Private PromptLibraryNode As TreeNode
 
-    'https://stackoverflow.com/questions/66991516/webview2-update-innerhtml-using-htmltextwriter
-
     Private Async Sub frmMain_Load(sender As Object, e As EventArgs) Handles Me.Load
-
+        Me.SplitContainer1.Panel1Collapsed = True
+        Do While Utils.OllamaServers.Count = 0
+            frmServers.ShowDialog(Me)
+            If Utils.OllamaServers.Count = 0 Then
+                If MsgBox("You must specify at least one Ollama Server for the application to run, try again? ", MsgBoxStyle.YesNo + MsgBoxStyle.Question, "Ollama Chat") = MsgBoxResult.No Then
+                    End
+                End If
+            End If
+        Loop
         PromptLibraryNode = New TreeNode("Prompt Library")
         LoadHistory()
+            Me.TreeHistory.Nodes.Add(PromptLibraryNode)
 
-
-        Me.TreeHistory.Nodes.Add(PromptLibraryNode)
-
-        Await WebView21.EnsureCoreWebView2Async()
+            Await WebView21.EnsureCoreWebView2Async()
         ToolTip1.SetToolTip(btnExpand, "Show Settings, Chat History and Prompt Library")
         ToolTip2.SetToolTip(btnCollapse, "Hide Side Panel")
         ToolTip3.SetToolTip(btnSettings, "Establish connection to servers and set defaults")
@@ -91,7 +95,7 @@ Public Class frmMain
 
     Private Sub btnSend_Click(sender As Object, e As EventArgs) Handles btnSend.Click
         ' Send the Query
-        If txtPrompt.Text.Trim <> "" Then
+        If txtPrompt.Text.Trim <> "" And cmbModel.SelectedItem IsNot Nothing And cmbServer.SelectedItem IsNot Nothing Then
             Me.Cursor = Cursors.WaitCursor
             Dim StartTime = DateTime.Now
             Me.btnSend.Enabled = False
@@ -102,6 +106,8 @@ Public Class frmMain
             AddHandler OllamaServer.ChatComplete, AddressOf ChatComplete
             OllamaServer.SendChat(txtPrompt.Text)
             Me.Cursor = Cursors.Default
+        Else
+            MsgBox("Please ensure you have selected a server and a model and provided a chat prompt", MsgBoxStyle.OkOnly + MsgBoxStyle.Exclamation, "Ollama Chat")
         End If
     End Sub
 
@@ -138,10 +144,7 @@ Public Class frmMain
         Hist.Model = cmbModel.SelectedItem.ToString
         Hist.Timed = Now
         Utils.OllamaServers.ChatHistory.Add(Hist)
-        AddHandler Hist.NewTitle, AddressOf TitleComplete
         Hist.GetTitle(cmbModel.SelectedItem)
-    End Sub
-    Private Sub TitleComplete(Hist As ChatHistoryItem)
         AddToHistoryNode(Hist)
         Me.Cursor = Cursors.Default
     End Sub
@@ -158,7 +161,7 @@ Public Class frmMain
 
     Private Async Function UpdateElementAsync(ByVal elementID As String, ByVal [property] As String, ByVal value As String) As Task
         Try
-            value = value.Replace("\t", "\\t").Replace("\r", "\\r").Replace("\n", "\\n").Replace("'", "\'")
+            value = value.Replace("\t", "\\t").Replace("\r", "\\r").Replace("\n", "\\n").Replace("'", "\'").Replace(":", "\:")
             Await Me.WebView21.CoreWebView2.ExecuteScriptAsync("document.getElementById('" & elementID & "')." & [property] & " = '" & value & "'")
         Catch ex As Exception
             MessageBox.Show(ex.Message)
@@ -193,9 +196,11 @@ Public Class frmMain
     End Sub
 
     Private Sub btnClearHistory_Click(sender As Object, e As EventArgs) Handles btnClearHistory.Click, mnuClear.Click
-        ClearHistory()
-        btnClearHistory.Enabled = False
-        mnuClear.Enabled = False
+        If MsgBox("Clear chat history? This cannot be undone", MsgBoxStyle.YesNo + MsgBoxStyle.Question, "Ollama Chat") = MsgBoxResult.Yes Then
+            ClearHistory()
+            btnClearHistory.Enabled = False
+            mnuClear.Enabled = False
+        End If
     End Sub
 
     Private Sub TreeHistory_AfterSelect(sender As Object, e As TreeViewEventArgs) Handles TreeHistory.AfterSelect

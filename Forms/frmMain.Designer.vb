@@ -26,6 +26,14 @@ Partial Class frmMain
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmMain))
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
         Me.TreeHistory = New System.Windows.Forms.TreeView()
+        Me.MenuStripTree = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.mnuRename = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
+        Me.mnuDelete = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuClear = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Panel3 = New System.Windows.Forms.Panel()
+        Me.btnDelete = New System.Windows.Forms.Button()
+        Me.btnClearHistory = New System.Windows.Forms.Button()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.btnCollapse = New System.Windows.Forms.Button()
         Me.Label3 = New System.Windows.Forms.Label()
@@ -34,35 +42,27 @@ Partial Class frmMain
         Me.cmbModel = New System.Windows.Forms.ComboBox()
         Me.btnSettings = New System.Windows.Forms.Button()
         Me.btnExpand = New System.Windows.Forms.Button()
-        Me.btnCopy = New System.Windows.Forms.Button()
-        Me.chkShowCOT = New System.Windows.Forms.CheckBox()
         Me.WebView21 = New Microsoft.Web.WebView2.WinForms.WebView2()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.txtPrompt = New System.Windows.Forms.TextBox()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.btnSend = New System.Windows.Forms.Button()
+        Me.btnCopy = New System.Windows.Forms.Button()
+        Me.chkShowCOT = New System.Windows.Forms.CheckBox()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.ToolTip2 = New System.Windows.Forms.ToolTip(Me.components)
         Me.ToolTip3 = New System.Windows.Forms.ToolTip(Me.components)
-        Me.Panel3 = New System.Windows.Forms.Panel()
-        Me.btnClearHistory = New System.Windows.Forms.Button()
-        Me.btnDelete = New System.Windows.Forms.Button()
-        Me.MenuStripTree = New System.Windows.Forms.ContextMenuStrip(Me.components)
-        Me.mnuDelete = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mnuClear = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
-        Me.mnuRename = New System.Windows.Forms.ToolStripMenuItem()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
         Me.SplitContainer1.SuspendLayout()
+        Me.MenuStripTree.SuspendLayout()
+        Me.Panel3.SuspendLayout()
         Me.Panel1.SuspendLayout()
         CType(Me.WebView21, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel2.SuspendLayout()
-        Me.Panel3.SuspendLayout()
-        Me.MenuStripTree.SuspendLayout()
         Me.SuspendLayout()
         '
         'SplitContainer1
@@ -96,11 +96,74 @@ Partial Class frmMain
         '
         Me.TreeHistory.ContextMenuStrip = Me.MenuStripTree
         Me.TreeHistory.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TreeHistory.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TreeHistory.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TreeHistory.Location = New System.Drawing.Point(0, 107)
         Me.TreeHistory.Name = "TreeHistory"
         Me.TreeHistory.Size = New System.Drawing.Size(559, 1025)
         Me.TreeHistory.TabIndex = 0
+        '
+        'MenuStripTree
+        '
+        Me.MenuStripTree.ImageScalingSize = New System.Drawing.Size(32, 32)
+        Me.MenuStripTree.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuRename, Me.ToolStripSeparator1, Me.mnuDelete, Me.mnuClear})
+        Me.MenuStripTree.Name = "MenuStripTree"
+        Me.MenuStripTree.Size = New System.Drawing.Size(225, 124)
+        '
+        'mnuRename
+        '
+        Me.mnuRename.Name = "mnuRename"
+        Me.mnuRename.Size = New System.Drawing.Size(224, 38)
+        Me.mnuRename.Text = "Rename"
+        '
+        'ToolStripSeparator1
+        '
+        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(221, 6)
+        '
+        'mnuDelete
+        '
+        Me.mnuDelete.Name = "mnuDelete"
+        Me.mnuDelete.Size = New System.Drawing.Size(224, 38)
+        Me.mnuDelete.Text = "Delete"
+        '
+        'mnuClear
+        '
+        Me.mnuClear.Name = "mnuClear"
+        Me.mnuClear.Size = New System.Drawing.Size(224, 38)
+        Me.mnuClear.Text = "Clear History"
+        '
+        'Panel3
+        '
+        Me.Panel3.Controls.Add(Me.btnDelete)
+        Me.Panel3.Controls.Add(Me.btnClearHistory)
+        Me.Panel3.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.Panel3.Location = New System.Drawing.Point(0, 1132)
+        Me.Panel3.Name = "Panel3"
+        Me.Panel3.Size = New System.Drawing.Size(559, 57)
+        Me.Panel3.TabIndex = 2
+        '
+        'btnDelete
+        '
+        Me.btnDelete.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnDelete.Enabled = False
+        Me.btnDelete.Location = New System.Drawing.Point(423, 4)
+        Me.btnDelete.Name = "btnDelete"
+        Me.btnDelete.Size = New System.Drawing.Size(133, 48)
+        Me.btnDelete.TabIndex = 2
+        Me.btnDelete.Text = "Delete"
+        Me.btnDelete.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.btnDelete.UseVisualStyleBackColor = True
+        '
+        'btnClearHistory
+        '
+        Me.btnClearHistory.Enabled = False
+        Me.btnClearHistory.Location = New System.Drawing.Point(5, 3)
+        Me.btnClearHistory.Name = "btnClearHistory"
+        Me.btnClearHistory.Size = New System.Drawing.Size(203, 48)
+        Me.btnClearHistory.TabIndex = 1
+        Me.btnClearHistory.Text = "Clear History"
+        Me.btnClearHistory.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.btnClearHistory.UseVisualStyleBackColor = True
         '
         'Panel1
         '
@@ -132,7 +195,7 @@ Partial Class frmMain
         Me.Label3.AutoSize = True
         Me.Label3.Location = New System.Drawing.Point(107, 55)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(101, 31)
+        Me.Label3.Size = New System.Drawing.Size(102, 31)
         Me.Label3.TabIndex = 4
         Me.Label3.Text = "Models"
         '
@@ -141,7 +204,7 @@ Partial Class frmMain
         Me.Label2.AutoSize = True
         Me.Label2.Location = New System.Drawing.Point(107, 13)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(108, 31)
+        Me.Label2.Size = New System.Drawing.Size(98, 31)
         Me.Label2.TabIndex = 3
         Me.Label2.Text = "Servers"
         '
@@ -188,31 +251,6 @@ Partial Class frmMain
         Me.btnExpand.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         Me.btnExpand.UseVisualStyleBackColor = False
         '
-        'btnCopy
-        '
-        Me.btnCopy.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnCopy.BackColor = System.Drawing.Color.Transparent
-        Me.btnCopy.Image = Global.OllamaDesktop.My.Resources.Resources.I_Copy32x
-        Me.btnCopy.Location = New System.Drawing.Point(1016, 18)
-        Me.btnCopy.Name = "btnCopy"
-        Me.btnCopy.Size = New System.Drawing.Size(64, 64)
-        Me.btnCopy.TabIndex = 11
-        Me.btnCopy.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
-        Me.btnCopy.UseVisualStyleBackColor = False
-        '
-        'chkShowCOT
-        '
-        Me.chkShowCOT.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.chkShowCOT.AutoSize = True
-        Me.chkShowCOT.BackColor = System.Drawing.Color.Gray
-        Me.chkShowCOT.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.chkShowCOT.Location = New System.Drawing.Point(653, 34)
-        Me.chkShowCOT.Name = "chkShowCOT"
-        Me.chkShowCOT.Size = New System.Drawing.Size(329, 35)
-        Me.chkShowCOT.TabIndex = 10
-        Me.chkShowCOT.Text = "Show Chain of Thought"
-        Me.chkShowCOT.UseVisualStyleBackColor = False
-        '
         'WebView21
         '
         Me.WebView21.AllowExternalDrop = True
@@ -223,7 +261,7 @@ Partial Class frmMain
         Me.WebView21.DefaultBackgroundColor = System.Drawing.Color.White
         Me.WebView21.Location = New System.Drawing.Point(35, 0)
         Me.WebView21.Name = "WebView21"
-        Me.WebView21.Size = New System.Drawing.Size(1063, 915)
+        Me.WebView21.Size = New System.Drawing.Size(1057, 915)
         Me.WebView21.TabIndex = 9
         Me.WebView21.ZoomFactor = 1.0R
         '
@@ -246,7 +284,7 @@ Partial Class frmMain
         Me.txtPrompt.Location = New System.Drawing.Point(173, 1020)
         Me.txtPrompt.Multiline = True
         Me.txtPrompt.Name = "txtPrompt"
-        Me.txtPrompt.Size = New System.Drawing.Size(907, 145)
+        Me.txtPrompt.Size = New System.Drawing.Size(901, 145)
         Me.txtPrompt.TabIndex = 5
         '
         'PictureBox1
@@ -281,6 +319,31 @@ Partial Class frmMain
         Me.btnSend.Text = "Send"
         Me.btnSend.UseVisualStyleBackColor = True
         '
+        'btnCopy
+        '
+        Me.btnCopy.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnCopy.BackColor = System.Drawing.Color.Transparent
+        Me.btnCopy.Image = Global.OllamaDesktop.My.Resources.Resources.I_Copy32x
+        Me.btnCopy.Location = New System.Drawing.Point(1016, 18)
+        Me.btnCopy.Name = "btnCopy"
+        Me.btnCopy.Size = New System.Drawing.Size(64, 64)
+        Me.btnCopy.TabIndex = 11
+        Me.btnCopy.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.btnCopy.UseVisualStyleBackColor = False
+        '
+        'chkShowCOT
+        '
+        Me.chkShowCOT.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.chkShowCOT.AutoSize = True
+        Me.chkShowCOT.BackColor = System.Drawing.Color.Gray
+        Me.chkShowCOT.ForeColor = System.Drawing.SystemColors.ControlLightLight
+        Me.chkShowCOT.Location = New System.Drawing.Point(658, 34)
+        Me.chkShowCOT.Name = "chkShowCOT"
+        Me.chkShowCOT.Size = New System.Drawing.Size(324, 35)
+        Me.chkShowCOT.TabIndex = 10
+        Me.chkShowCOT.Text = "Show Chain of Thought"
+        Me.chkShowCOT.UseVisualStyleBackColor = False
+        '
         'ToolTip1
         '
         Me.ToolTip1.ToolTipTitle = "Expand Panel"
@@ -293,69 +356,6 @@ Partial Class frmMain
         '
         Me.ToolTip3.ToolTipTitle = "Server Settings"
         '
-        'Panel3
-        '
-        Me.Panel3.Controls.Add(Me.btnDelete)
-        Me.Panel3.Controls.Add(Me.btnClearHistory)
-        Me.Panel3.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.Panel3.Location = New System.Drawing.Point(0, 1132)
-        Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(559, 57)
-        Me.Panel3.TabIndex = 2
-        '
-        'btnClearHistory
-        '
-        Me.btnClearHistory.Enabled = False
-        Me.btnClearHistory.Location = New System.Drawing.Point(5, 3)
-        Me.btnClearHistory.Name = "btnClearHistory"
-        Me.btnClearHistory.Size = New System.Drawing.Size(203, 48)
-        Me.btnClearHistory.TabIndex = 1
-        Me.btnClearHistory.Text = "Clear History"
-        Me.btnClearHistory.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
-        Me.btnClearHistory.UseVisualStyleBackColor = True
-        '
-        'btnDelete
-        '
-        Me.btnDelete.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnDelete.Enabled = False
-        Me.btnDelete.Location = New System.Drawing.Point(423, 4)
-        Me.btnDelete.Name = "btnDelete"
-        Me.btnDelete.Size = New System.Drawing.Size(133, 48)
-        Me.btnDelete.TabIndex = 2
-        Me.btnDelete.Text = "Delete"
-        Me.btnDelete.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
-        Me.btnDelete.UseVisualStyleBackColor = True
-        '
-        'MenuStripTree
-        '
-        Me.MenuStripTree.ImageScalingSize = New System.Drawing.Size(32, 32)
-        Me.MenuStripTree.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuRename, Me.ToolStripSeparator1, Me.mnuDelete, Me.mnuClear})
-        Me.MenuStripTree.Name = "MenuStripTree"
-        Me.MenuStripTree.Size = New System.Drawing.Size(225, 124)
-        '
-        'mnuDelete
-        '
-        Me.mnuDelete.Name = "mnuDelete"
-        Me.mnuDelete.Size = New System.Drawing.Size(300, 38)
-        Me.mnuDelete.Text = "Delete"
-        '
-        'mnuClear
-        '
-        Me.mnuClear.Name = "mnuClear"
-        Me.mnuClear.Size = New System.Drawing.Size(300, 38)
-        Me.mnuClear.Text = "Clear History"
-        '
-        'ToolStripSeparator1
-        '
-        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(297, 6)
-        '
-        'mnuRename
-        '
-        Me.mnuRename.Name = "mnuRename"
-        Me.mnuRename.Size = New System.Drawing.Size(300, 38)
-        Me.mnuRename.Text = "Rename"
-        '
         'frmMain
         '
         Me.AcceptButton = Me.btnSend
@@ -363,6 +363,7 @@ Partial Class frmMain
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.ClientSize = New System.Drawing.Size(1674, 1189)
         Me.Controls.Add(Me.SplitContainer1)
+        Me.Font = New System.Drawing.Font("Gadugi", 10.125!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "frmMain"
         Me.Text = "Ollama Desktop"
@@ -371,14 +372,14 @@ Partial Class frmMain
         Me.SplitContainer1.Panel2.PerformLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SplitContainer1.ResumeLayout(False)
+        Me.MenuStripTree.ResumeLayout(False)
+        Me.Panel3.ResumeLayout(False)
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
         CType(Me.WebView21, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel2.ResumeLayout(False)
         Me.Panel2.PerformLayout()
-        Me.Panel3.ResumeLayout(False)
-        Me.MenuStripTree.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
