@@ -146,11 +146,13 @@ Public Class Ollama
         MyResponse.FirstPacket = FirstPacket
         If FullHTML Then
             MyResponse.HTML = Markd
+            MyResponse.Markdown = Markd
             MyResponse.FullHTML = True
             MyResponse.JustDiv = JustDiv
             ChatWorker.ReportProgress(0, MyResponse)
         Else
             MyResponse.HTML = OutHTML
+            MyResponse.Markdown = Markd
             MyResponse.FullHTML = False
             MyResponse.JustDiv = JustDiv
             ChatWorker.ReportProgress(0, MyResponse)
@@ -216,4 +218,5 @@ Public Class ChatResponseMessage
     Public Property FirstPacket As Boolean = False
     Public Property HTML As String
     Public Property JustDiv As String
+    Public Property Markdown As String
 End Class

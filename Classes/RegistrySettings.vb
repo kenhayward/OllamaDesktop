@@ -7,6 +7,16 @@ Imports Microsoft.Win32
     Inherits List(Of OllamaServer)
     Public Property CurrentServer As OllamaServer
 
+    Private _ChatHistory As ChatHistoryList
+    Public ReadOnly Property ChatHistory As ChatHistoryList
+        Get
+            If _ChatHistory Is Nothing Then
+                _ChatHistory = New ChatHistoryList
+            End If
+            Return _ChatHistory
+        End Get
+    End Property
+
     Public Function isCurrentServer(Server As OllamaServer) As Boolean
         Dim isCurrent As Boolean = False
         If CurrentServer IsNot Nothing Then
@@ -79,5 +89,20 @@ End Class
     Public Overrides Function ToString() As String
         Return Me.Name
     End Function
+
+End Class
+
+<Serializable()> Public Class ChatHistoryList
+    Inherits List(Of ChatHistoryItem)
+End Class
+<Serializable()> Public Class ChatHistoryItem
+    Public Property Title As String
+    Public Property Prompt As String
+    Public Property HTML As String
+    Public Property Markdown As String
+    Public Property Server As String
+    Public Property Model As String
+
+    Public Property Timed As Date
 
 End Class

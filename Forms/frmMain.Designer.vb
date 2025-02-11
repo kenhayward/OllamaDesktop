@@ -23,31 +23,36 @@ Partial Class frmMain
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim TreeNode7 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Node2")
-        Dim TreeNode8 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Prompt Library", New System.Windows.Forms.TreeNode() {TreeNode7})
-        Dim TreeNode9 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("History")
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmMain))
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
-        Me.TreeView1 = New System.Windows.Forms.TreeView()
+        Me.TreeHistory = New System.Windows.Forms.TreeView()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.btnCollapse = New System.Windows.Forms.Button()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.cmbServer = New System.Windows.Forms.ComboBox()
         Me.cmbModel = New System.Windows.Forms.ComboBox()
         Me.btnSettings = New System.Windows.Forms.Button()
+        Me.btnExpand = New System.Windows.Forms.Button()
         Me.btnCopy = New System.Windows.Forms.Button()
         Me.chkShowCOT = New System.Windows.Forms.CheckBox()
         Me.WebView21 = New Microsoft.Web.WebView2.WinForms.WebView2()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.txtPrompt = New System.Windows.Forms.TextBox()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
-        Me.btnSend = New System.Windows.Forms.Button()
-        Me.btnCollapse = New System.Windows.Forms.Button()
-        Me.btnExpand = New System.Windows.Forms.Button()
-        Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.btnSend = New System.Windows.Forms.Button()
+        Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.ToolTip2 = New System.Windows.Forms.ToolTip(Me.components)
         Me.ToolTip3 = New System.Windows.Forms.ToolTip(Me.components)
+        Me.Panel3 = New System.Windows.Forms.Panel()
+        Me.btnClearHistory = New System.Windows.Forms.Button()
+        Me.btnDelete = New System.Windows.Forms.Button()
+        Me.MenuStripTree = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.mnuDelete = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuClear = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
+        Me.mnuRename = New System.Windows.Forms.ToolStripMenuItem()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
@@ -56,6 +61,8 @@ Partial Class frmMain
         CType(Me.WebView21, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel2.SuspendLayout()
+        Me.Panel3.SuspendLayout()
+        Me.MenuStripTree.SuspendLayout()
         Me.SuspendLayout()
         '
         'SplitContainer1
@@ -66,17 +73,15 @@ Partial Class frmMain
         '
         'SplitContainer1.Panel1
         '
-        Me.SplitContainer1.Panel1.Controls.Add(Me.TreeView1)
+        Me.SplitContainer1.Panel1.Controls.Add(Me.TreeHistory)
+        Me.SplitContainer1.Panel1.Controls.Add(Me.Panel3)
         Me.SplitContainer1.Panel1.Controls.Add(Me.Panel1)
-        Me.SplitContainer1.Panel1Collapsed = True
         Me.SplitContainer1.Panel1MinSize = 26
         '
         'SplitContainer1.Panel2
         '
         Me.SplitContainer1.Panel2.BackColor = System.Drawing.SystemColors.Window
         Me.SplitContainer1.Panel2.Controls.Add(Me.btnExpand)
-        Me.SplitContainer1.Panel2.Controls.Add(Me.btnCopy)
-        Me.SplitContainer1.Panel2.Controls.Add(Me.chkShowCOT)
         Me.SplitContainer1.Panel2.Controls.Add(Me.WebView21)
         Me.SplitContainer1.Panel2.Controls.Add(Me.Label1)
         Me.SplitContainer1.Panel2.Controls.Add(Me.txtPrompt)
@@ -87,20 +92,15 @@ Partial Class frmMain
         Me.SplitContainer1.SplitterWidth = 10
         Me.SplitContainer1.TabIndex = 2
         '
-        'TreeView1
+        'TreeHistory
         '
-        Me.TreeView1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TreeView1.Location = New System.Drawing.Point(0, 107)
-        Me.TreeView1.Name = "TreeView1"
-        TreeNode7.Name = "Node2"
-        TreeNode7.Text = "Node2"
-        TreeNode8.Name = "Node0"
-        TreeNode8.Text = "Prompt Library"
-        TreeNode9.Name = "Node1"
-        TreeNode9.Text = "History"
-        Me.TreeView1.Nodes.AddRange(New System.Windows.Forms.TreeNode() {TreeNode8, TreeNode9})
-        Me.TreeView1.Size = New System.Drawing.Size(559, 1082)
-        Me.TreeView1.TabIndex = 0
+        Me.TreeHistory.ContextMenuStrip = Me.MenuStripTree
+        Me.TreeHistory.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TreeHistory.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TreeHistory.Location = New System.Drawing.Point(0, 107)
+        Me.TreeHistory.Name = "TreeHistory"
+        Me.TreeHistory.Size = New System.Drawing.Size(559, 1025)
+        Me.TreeHistory.TabIndex = 0
         '
         'Panel1
         '
@@ -115,6 +115,17 @@ Partial Class frmMain
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(559, 107)
         Me.Panel1.TabIndex = 1
+        '
+        'btnCollapse
+        '
+        Me.btnCollapse.BackColor = System.Drawing.Color.Transparent
+        Me.btnCollapse.Location = New System.Drawing.Point(3, 7)
+        Me.btnCollapse.Name = "btnCollapse"
+        Me.btnCollapse.Size = New System.Drawing.Size(26, 87)
+        Me.btnCollapse.TabIndex = 12
+        Me.btnCollapse.Text = "<"
+        Me.btnCollapse.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.btnCollapse.UseVisualStyleBackColor = False
         '
         'Label3
         '
@@ -166,18 +177,28 @@ Partial Class frmMain
         Me.btnSettings.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         Me.btnSettings.UseVisualStyleBackColor = True
         '
+        'btnExpand
+        '
+        Me.btnExpand.BackColor = System.Drawing.Color.Transparent
+        Me.btnExpand.Location = New System.Drawing.Point(3, 0)
+        Me.btnExpand.Name = "btnExpand"
+        Me.btnExpand.Size = New System.Drawing.Size(26, 87)
+        Me.btnExpand.TabIndex = 13
+        Me.btnExpand.Text = ">"
+        Me.btnExpand.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.btnExpand.UseVisualStyleBackColor = False
+        '
         'btnCopy
         '
-        Me.btnCopy.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnCopy.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnCopy.BackColor = System.Drawing.Color.Transparent
         Me.btnCopy.Image = Global.OllamaDesktop.My.Resources.Resources.I_Copy32x
-        Me.btnCopy.Location = New System.Drawing.Point(1576, 834)
+        Me.btnCopy.Location = New System.Drawing.Point(1016, 18)
         Me.btnCopy.Name = "btnCopy"
         Me.btnCopy.Size = New System.Drawing.Size(64, 64)
         Me.btnCopy.TabIndex = 11
         Me.btnCopy.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         Me.btnCopy.UseVisualStyleBackColor = False
-        Me.btnCopy.Visible = False
         '
         'chkShowCOT
         '
@@ -185,7 +206,7 @@ Partial Class frmMain
         Me.chkShowCOT.AutoSize = True
         Me.chkShowCOT.BackColor = System.Drawing.Color.Gray
         Me.chkShowCOT.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.chkShowCOT.Location = New System.Drawing.Point(1274, 949)
+        Me.chkShowCOT.Location = New System.Drawing.Point(653, 34)
         Me.chkShowCOT.Name = "chkShowCOT"
         Me.chkShowCOT.Size = New System.Drawing.Size(329, 35)
         Me.chkShowCOT.TabIndex = 10
@@ -202,7 +223,7 @@ Partial Class frmMain
         Me.WebView21.DefaultBackgroundColor = System.Drawing.Color.White
         Me.WebView21.Location = New System.Drawing.Point(35, 0)
         Me.WebView21.Name = "WebView21"
-        Me.WebView21.Size = New System.Drawing.Size(1632, 915)
+        Me.WebView21.Size = New System.Drawing.Size(1063, 915)
         Me.WebView21.TabIndex = 9
         Me.WebView21.ZoomFactor = 1.0R
         '
@@ -225,7 +246,7 @@ Partial Class frmMain
         Me.txtPrompt.Location = New System.Drawing.Point(173, 1020)
         Me.txtPrompt.Multiline = True
         Me.txtPrompt.Name = "txtPrompt"
-        Me.txtPrompt.Size = New System.Drawing.Size(1467, 145)
+        Me.txtPrompt.Size = New System.Drawing.Size(907, 145)
         Me.txtPrompt.TabIndex = 5
         '
         'PictureBox1
@@ -240,6 +261,17 @@ Partial Class frmMain
         Me.PictureBox1.TabIndex = 4
         Me.PictureBox1.TabStop = False
         '
+        'Panel2
+        '
+        Me.Panel2.Controls.Add(Me.btnSend)
+        Me.Panel2.Controls.Add(Me.btnCopy)
+        Me.Panel2.Controls.Add(Me.chkShowCOT)
+        Me.Panel2.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.Panel2.Location = New System.Drawing.Point(0, 921)
+        Me.Panel2.Name = "Panel2"
+        Me.Panel2.Size = New System.Drawing.Size(1105, 268)
+        Me.Panel2.TabIndex = 14
+        '
         'btnSend
         '
         Me.btnSend.Location = New System.Drawing.Point(862, 99)
@@ -249,40 +281,9 @@ Partial Class frmMain
         Me.btnSend.Text = "Send"
         Me.btnSend.UseVisualStyleBackColor = True
         '
-        'btnCollapse
-        '
-        Me.btnCollapse.BackColor = System.Drawing.Color.Transparent
-        Me.btnCollapse.Location = New System.Drawing.Point(3, 7)
-        Me.btnCollapse.Name = "btnCollapse"
-        Me.btnCollapse.Size = New System.Drawing.Size(26, 87)
-        Me.btnCollapse.TabIndex = 12
-        Me.btnCollapse.Text = "<"
-        Me.btnCollapse.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
-        Me.btnCollapse.UseVisualStyleBackColor = False
-        '
-        'btnExpand
-        '
-        Me.btnExpand.BackColor = System.Drawing.Color.Transparent
-        Me.btnExpand.Location = New System.Drawing.Point(3, 0)
-        Me.btnExpand.Name = "btnExpand"
-        Me.btnExpand.Size = New System.Drawing.Size(26, 87)
-        Me.btnExpand.TabIndex = 13
-        Me.btnExpand.Text = ">"
-        Me.btnExpand.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
-        Me.btnExpand.UseVisualStyleBackColor = False
-        '
         'ToolTip1
         '
         Me.ToolTip1.ToolTipTitle = "Expand Panel"
-        '
-        'Panel2
-        '
-        Me.Panel2.Controls.Add(Me.btnSend)
-        Me.Panel2.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.Panel2.Location = New System.Drawing.Point(0, 921)
-        Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(1674, 268)
-        Me.Panel2.TabIndex = 14
         '
         'ToolTip2
         '
@@ -291,6 +292,69 @@ Partial Class frmMain
         'ToolTip3
         '
         Me.ToolTip3.ToolTipTitle = "Server Settings"
+        '
+        'Panel3
+        '
+        Me.Panel3.Controls.Add(Me.btnDelete)
+        Me.Panel3.Controls.Add(Me.btnClearHistory)
+        Me.Panel3.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.Panel3.Location = New System.Drawing.Point(0, 1132)
+        Me.Panel3.Name = "Panel3"
+        Me.Panel3.Size = New System.Drawing.Size(559, 57)
+        Me.Panel3.TabIndex = 2
+        '
+        'btnClearHistory
+        '
+        Me.btnClearHistory.Enabled = False
+        Me.btnClearHistory.Location = New System.Drawing.Point(5, 3)
+        Me.btnClearHistory.Name = "btnClearHistory"
+        Me.btnClearHistory.Size = New System.Drawing.Size(203, 48)
+        Me.btnClearHistory.TabIndex = 1
+        Me.btnClearHistory.Text = "Clear History"
+        Me.btnClearHistory.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.btnClearHistory.UseVisualStyleBackColor = True
+        '
+        'btnDelete
+        '
+        Me.btnDelete.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnDelete.Enabled = False
+        Me.btnDelete.Location = New System.Drawing.Point(423, 4)
+        Me.btnDelete.Name = "btnDelete"
+        Me.btnDelete.Size = New System.Drawing.Size(133, 48)
+        Me.btnDelete.TabIndex = 2
+        Me.btnDelete.Text = "Delete"
+        Me.btnDelete.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.btnDelete.UseVisualStyleBackColor = True
+        '
+        'MenuStripTree
+        '
+        Me.MenuStripTree.ImageScalingSize = New System.Drawing.Size(32, 32)
+        Me.MenuStripTree.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuRename, Me.ToolStripSeparator1, Me.mnuDelete, Me.mnuClear})
+        Me.MenuStripTree.Name = "MenuStripTree"
+        Me.MenuStripTree.Size = New System.Drawing.Size(225, 124)
+        '
+        'mnuDelete
+        '
+        Me.mnuDelete.Name = "mnuDelete"
+        Me.mnuDelete.Size = New System.Drawing.Size(300, 38)
+        Me.mnuDelete.Text = "Delete"
+        '
+        'mnuClear
+        '
+        Me.mnuClear.Name = "mnuClear"
+        Me.mnuClear.Size = New System.Drawing.Size(300, 38)
+        Me.mnuClear.Text = "Clear History"
+        '
+        'ToolStripSeparator1
+        '
+        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(297, 6)
+        '
+        'mnuRename
+        '
+        Me.mnuRename.Name = "mnuRename"
+        Me.mnuRename.Size = New System.Drawing.Size(300, 38)
+        Me.mnuRename.Text = "Rename"
         '
         'frmMain
         '
@@ -312,11 +376,14 @@ Partial Class frmMain
         CType(Me.WebView21, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel2.ResumeLayout(False)
+        Me.Panel2.PerformLayout()
+        Me.Panel3.ResumeLayout(False)
+        Me.MenuStripTree.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
     Friend WithEvents SplitContainer1 As SplitContainer
-    Friend WithEvents TreeView1 As TreeView
+    Friend WithEvents TreeHistory As TreeView
     Friend WithEvents PictureBox1 As PictureBox
     Friend WithEvents txtPrompt As TextBox
     Friend WithEvents Label1 As Label
@@ -336,4 +403,12 @@ Partial Class frmMain
     Friend WithEvents Panel2 As Panel
     Friend WithEvents ToolTip2 As ToolTip
     Friend WithEvents ToolTip3 As ToolTip
+    Friend WithEvents Panel3 As Panel
+    Friend WithEvents btnDelete As Button
+    Friend WithEvents btnClearHistory As Button
+    Friend WithEvents MenuStripTree As ContextMenuStrip
+    Friend WithEvents mnuRename As ToolStripMenuItem
+    Friend WithEvents ToolStripSeparator1 As ToolStripSeparator
+    Friend WithEvents mnuDelete As ToolStripMenuItem
+    Friend WithEvents mnuClear As ToolStripMenuItem
 End Class
