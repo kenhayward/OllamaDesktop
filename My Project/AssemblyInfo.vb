@@ -8,11 +8,11 @@ Imports System.Runtime.InteropServices
 
 ' Review the values of the assembly attributes
 
-<Assembly: AssemblyTitle("OllamaDesktop")>
+<Assembly: AssemblyTitle("Ollama Desktop")>
 <Assembly: AssemblyDescription("")>
-<Assembly: AssemblyCompany("")>
-<Assembly: AssemblyProduct("OllamaDesktop")>
-<Assembly: AssemblyCopyright("Copyright ©  2025")>
+<Assembly: AssemblyCompany("Ken Hayward")>
+<Assembly: AssemblyProduct("Ollama Desktop")>
+<Assembly: AssemblyCopyright("Copyright © Ken Hayward 2025")>
 <Assembly: AssemblyTrademark("")>
 
 <Assembly: ComVisible(False)>

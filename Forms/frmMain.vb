@@ -24,8 +24,9 @@ Public Class frmMain
 
         Me.TreeHistory.Nodes.Add(PromptLibraryNode)
         LoadHistory()
-
-        Await WebView21.EnsureCoreWebView2Async()
+        Dim CacheDirectory = My.Computer.FileSystem.SpecialDirectories.CurrentUserApplicationData & "\OllamaChat\Cache"
+        Dim env = Await Microsoft.Web.WebView2.Core.CoreWebView2Environment.CreateAsync(userDataFolder:=CacheDirectory)
+        Await WebView21.EnsureCoreWebView2Async(env)
         ToolTip1.SetToolTip(btnExpand, "Show Settings, Chat History and Prompt Library")
         ToolTip2.SetToolTip(btnCollapse, "Hide Side Panel")
         ToolTip3.SetToolTip(btnSettings, "Establish connection to servers and set defaults")
