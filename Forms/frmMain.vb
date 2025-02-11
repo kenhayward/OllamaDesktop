@@ -7,7 +7,7 @@ Imports Microsoft.Web.WebView2.Core
 Public Class frmMain
     Private DarkMode As DarkModeForms.DarkModeCS
     Private HistoryNode As TreeNode
-    Private PromptLibraryNode As TreeNode
+    'Private PromptLibraryNode As TreeNode
 
     Private Async Sub frmMain_Load(sender As Object, e As EventArgs) Handles Me.Load
         Me.SplitContainer1.Panel1Collapsed = True
@@ -19,10 +19,10 @@ Public Class frmMain
                 End If
             End If
         Loop
-        PromptLibraryNode = New TreeNode("Prompt Library")
-        PromptLibraryNode.Tag = "Prompt Library"
+        'PromptLibraryNode = New TreeNode("Prompt Library")
+        'PromptLibraryNode.Tag = "Prompt Library"
 
-        Me.TreeHistory.Nodes.Add(PromptLibraryNode)
+        'Me.TreeHistory.Nodes.Add(PromptLibraryNode)
         LoadHistory()
         Dim CacheDirectory = My.Computer.FileSystem.SpecialDirectories.CurrentUserApplicationData & "\OllamaChat\Cache"
         Dim env = Await Microsoft.Web.WebView2.Core.CoreWebView2Environment.CreateAsync(userDataFolder:=CacheDirectory)
@@ -245,6 +245,8 @@ Public Class frmMain
         Me.lblHistTitle.Text = Hist.Title
         Me.pnlDetails.Visible = True
     End Sub
+
+#Region "Tree Handling"
     Private Sub TreeHistory_AfterSelect(sender As Object, e As TreeViewEventArgs) Handles TreeHistory.AfterSelect
         Dim EnableDelete As Boolean = False
         If TreeHistory.SelectedNode IsNot Nothing Then
@@ -269,6 +271,90 @@ Public Class frmMain
         mnuDelete.Enabled = EnableDelete
         mnuRename.Enabled = EnableDelete
     End Sub
+
+
+    Private lastDragDestination As TreeNode = Nothing
+    Private lastDragDestinationTime As DateTime
+
+    Private Function IsLegalMove(SourceNode As TreeNode, TargetNode As TreeNode)
+
+        ' Legal Moves are
+        ' - ChatHistory onto Group 
+        ' - Group onto Group
+
+        Dim isLegal As Boolean = False
+        If SourceNode.Tag IsNot Nothing Then
+            If TypeOf SourceNode.Tag Is ChatHistoryItem Then
+                If TargetNode IsNot Nothing Then
+                    If TargetNode.Tag IsNot Nothing Then
+                        If TypeOf TargetNode.Tag Is String Then
+                            If TargetNode.Tag = "Group" Then
+                                isLegal = True
+                            End If
+                            If TargetNode.Tag = "Chat History" Then
+                                isLegal = True
+                            End If
+                        End If
+                    End If
+                End If
+            ElseIf TypeOf SourceNode.Tag Is String Then
+                If SourceNode.Tag = "Group" Then
+                    If TargetNode IsNot Nothing Then
+                        If TargetNode.Tag IsNot Nothing Then
+                            If TypeOf TargetNode.Tag Is String Then
+                                If TargetNode.Tag = "Group" Then
+                                    isLegal = True
+                                End If
+                            End If
+                        End If
+                    End If
+                End If
+            End If
+        End If
+        Return isLegal
+    End Function
+
+    Private Sub TreeHistory_NodeMovedByDrag(sender As Object, e As NodeMovedByDragEventArgs) Handles TreeHistory.NodeMovedByDrag
+        If e.MovedNode.Tag IsNot Nothing Then
+            If TypeOf e.MovedNode.Tag Is ChatHistoryItem Then
+                Dim Hist As ChatHistoryItem = e.MovedNode.Tag
+                If e.MovedNode.Parent.Tag = "Chat History" Then
+                    Hist.Group = ""
+                ElseIf e.MovedNode.Parent.Tag = "Group" Then
+                    Hist.Group = e.MovedNode.Parent.FullPath
+                End If
+            End If
+            SaveOllamas()
+        End If
+    End Sub
+
+    Private Sub TreeHistory_NodeDraggingOver(sender As Object, e As NodeDraggingOverEventArgs) Handles TreeHistory.NodeDraggingOver
+        e.DropIsLegal = IsLegalMove(e.MovingNode, e.TargetNode)
+    End Sub
+    Private Sub TreeHistory_NodeMovingByDrag(sender As Object, e As NodeMovingByDragEventArgs) Handles TreeHistory.NodeMovingByDrag
+        e.CancelMove = Not IsLegalMove(e.MovingNode, e.ParentToBe)
+    End Sub
+    Private Sub SaveOllamas()
+        ' Update the Paths of the Chat History Items
+        UpdateNodePaths(HistoryNode)
+        OllamaServers.Save(Utils.OllamaServers)
+    End Sub
+    Private Sub UpdateNodePaths(MyNode As TreeNode)
+        If MyNode.Tag IsNot Nothing Then
+            If TypeOf MyNode.Tag Is ChatHistoryItem Then
+                Dim Hist As ChatHistoryItem = MyNode.Tag
+                If MyNode.Parent.Tag = "Chat History" Then
+                    Hist.Group = ""
+                ElseIf MyNode.Parent.Tag = "Group" Then
+                    Hist.Group = MyNode.Parent.FullPath
+                End If
+            End If
+        End If
+        For Each node In MyNode.Nodes
+            UpdateNodePaths(node)
+        Next
+    End Sub
+#End Region
 
     Private Sub btnDelete_Click(sender As Object, e As EventArgs) Handles btnDelete.Click, mnuDelete.Click
         If TreeHistory.SelectedNode IsNot Nothing Then
@@ -318,66 +404,4 @@ Public Class frmMain
     End Sub
 
 
-    Private lastDragDestination As TreeNode = Nothing
-    Private lastDragDestinationTime As DateTime
-
-
-    Private Sub TreeHistory_NodeMovingByDrag(sender As Object, e As NodeMovingByDragEventArgs) Handles TreeHistory.NodeMovingByDrag
-        Dim EnableMove As Boolean = False
-        If e.MovingNode.Tag IsNot Nothing Then
-            If TypeOf e.MovingNode.Tag Is ChatHistoryItem Then
-                Dim Hist As ChatHistoryItem = e.MovingNode.Tag
-                If e.ParentToBe IsNot Nothing Then
-                    If e.ParentToBe.Tag IsNot Nothing Then
-                        If TypeOf e.ParentToBe.Tag Is String Then
-                            If e.ParentToBe.Tag = "Group" Then
-                                EnableMove = True
-                            End If
-                            If e.ParentToBe.Tag = "Chat History" Then
-                                EnableMove = True
-                            End If
-                        End If
-                    End If
-                End If
-            End If
-        End If
-        e.CancelMove = Not EnableMove
-    End Sub
-
-    Private Sub TreeHistory_NodeMovedByDrag(sender As Object, e As NodeMovedByDragEventArgs) Handles TreeHistory.NodeMovedByDrag
-        If e.MovedNode.Tag IsNot Nothing Then
-            If TypeOf e.MovedNode.Tag Is ChatHistoryItem Then
-                Dim Hist As ChatHistoryItem = e.MovedNode.Tag
-                If e.MovedNode.Parent.Tag = "Chat History" Then
-                    Hist.Group = ""
-                ElseIf e.MovedNode.Parent.Tag = "Group" Then
-                    Hist.Group = e.MovedNode.Parent.Text
-                End If
-                OllamaServers.Save(Utils.OllamaServers)
-            End If
-        End If
-    End Sub
-
-    Private Sub TreeHistory_NodeDraggingOver(sender As Object, e As NodeDraggingOverEventArgs) Handles TreeHistory.NodeDraggingOver
-        Dim EnableMove As Boolean = False
-
-        If e.MovingNode.Tag IsNot Nothing Then
-            If TypeOf e.MovingNode.Tag Is ChatHistoryItem Then
-                Dim Hist As ChatHistoryItem = e.MovingNode.Tag
-                If e.TargetNode IsNot Nothing Then
-                    If e.TargetNode.Tag IsNot Nothing Then
-                        If TypeOf e.TargetNode.Tag Is String Then
-                            If e.TargetNode.Tag = "Group" Then
-                                EnableMove = True
-                            End If
-                            If e.TargetNode.Tag = "Chat History" Then
-                                EnableMove = True
-                            End If
-                        End If
-                    End If
-                End If
-            End If
-        End If
-        e.DropIsLegal = EnableMove
-    End Sub
 End Class
