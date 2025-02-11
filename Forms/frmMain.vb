@@ -11,9 +11,20 @@ Public Class frmMain
 
     Private Async Sub frmMain_Load(sender As Object, e As EventArgs) Handles Me.Load
         Await WebView21.EnsureCoreWebView2Async()
+        ToolTip1.SetToolTip(btnExpand, "Show Settings, Chat History and Prompt Library")
+        ToolTip2.SetToolTip(btnCollapse, "Hide Side Panel")
+        ToolTip3.SetToolTip(btnSettings, "Establish connection to servers and set defaults")
+
         LoadServers()
         WebView21.NavigateToString("<html><body><div id=""MainContent""><h1> </h1></div></body></html>")
         Me.Cursor = DefaultCursor
+    End Sub
+    Public Sub New()
+        ' This call is required by the Windows Form Designer.
+        InitializeComponent()
+
+        ' Add any initialization after the InitializeComponent() call.
+        DarkMode = New DarkModeCS(Me, False, True) With {.ColorMode = DarkModeCS.DisplayMode.DarkMode}
     End Sub
 
     Private Sub LoadServers()
@@ -59,6 +70,7 @@ Public Class frmMain
             Me.btnSend.Enabled = False
             Me.txtPrompt.Enabled = False
             Dim OllamaServer As New Ollama(Utils.OllamaServers.CurrentServer, cmbModel.SelectedItem)
+            OllamaServer.ShowCOT = chkShowCOT.Checked
             AddHandler OllamaServer.ChatUpdate, AddressOf ChatUpdate
             AddHandler OllamaServer.ChatComplete, AddressOf ChatComplete
             OllamaServer.SendChat(txtPrompt.Text)
@@ -66,24 +78,29 @@ Public Class frmMain
         End If
     End Sub
     Private HTML As String
+    Private Locker As Boolean = False
     Private Async Sub ChatUpdate(CR As ChatResponseMessage)
-        If CR.FirstPacket Then
-            WebView21.CoreWebView2.NavigateToString(CR.HTML)
+        If Locker Then Exit Sub
 
-        Else
-            If CR.FullHTML Then
+        Locker = True
+        If CR.FirstPacket Then
                 WebView21.CoreWebView2.NavigateToString(CR.HTML)
             Else
-                Await UpdateElementAsync("MainContent", "innerHTML", CR.JustDiv)
+                If CR.FullHTML Then
+                    WebView21.CoreWebView2.NavigateToString(CR.HTML)
+                Else
+                    Await UpdateElementAsync("MainContent", "innerHTML", CR.JustDiv)
+                End If
             End If
-        End If
-        WebView21.Refresh()
-        HTML = Text
+        'Await WebView21.CoreWebView2.ExecuteScriptAsync("window.scrollTo(0,  document.body.scrollHeight)")
+        HTML = CR.HTML
+        Locker = False
     End Sub
     Private Sub ChatComplete()
-        'WebView21.CoreWebView2.NavigateToString(HTML)
         btnSend.Enabled = True
         txtPrompt.Enabled = True
+        btnCopy.Visible = True
+        WebView21.CoreWebView2.NavigateToString(HTML)
     End Sub
 
     Private Async Function UpdateElementAsync(ByVal elementID As String, ByVal [property] As String, ByVal value As String) As Task
@@ -98,5 +115,19 @@ Public Class frmMain
         Dim MyForm As New frmServers
         MyForm.ShowDialog(Me)
         LoadServers()
+    End Sub
+
+    Private Sub btnCollapse_Click(sender As Object, e As EventArgs) Handles btnCollapse.Click
+        If Not SplitContainer1.Panel1Collapsed Then
+            SplitContainer1.Panel1Collapsed = True
+            btnExpand.Visible = True
+        End If
+    End Sub
+
+    Private Sub btnExpand_Click(sender As Object, e As EventArgs) Handles btnExpand.Click
+        If SplitContainer1.Panel1Collapsed Then
+            SplitContainer1.Panel1Collapsed = False
+            btnExpand.Visible = False
+        End If
     End Sub
 End Class

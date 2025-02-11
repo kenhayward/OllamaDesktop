@@ -131,14 +131,14 @@ Public Class Ollama
         End Try
     End Sub
     Private Sub SendToBrowser(Markd As String, Optional FullHTML As Boolean = False, Optional FirstPacket As Boolean = False)
-        Const HTMLPrefix As String = "<!DOCTYPE html><html><head>
+        Dim HTMLPrefix As String = "<!DOCTYPE html><html><head>
    <script src=""https://code.jquery.com/jquery-3.6.0.min.js""></script>
    <script>
       $(document).ready(function(){window.scrollTo(0,  document.body.scrollHeight);});
    </script>
    </head>
    <body><div id=""MainContent"">" & vbCrLf
-
+        HTMLPrefix = "<!DOCTYPE html><html><head></head><body><div id=""MainContent"">" & vbCrLf
         Const HTMLSUffix As String = "</div></body></html>"
         Dim JustDiv As String = Markdown.Parse(Markd)
         Dim OutHTML As String = HTMLPrefix & JustDiv & vbCrLf & vbCrLf & HTMLSUffix

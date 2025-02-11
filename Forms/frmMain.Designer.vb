@@ -22,24 +22,32 @@ Partial Class frmMain
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim TreeNode4 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Node2")
-        Dim TreeNode5 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Prompt Library", New System.Windows.Forms.TreeNode() {TreeNode4})
-        Dim TreeNode6 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("History")
+        Me.components = New System.ComponentModel.Container()
+        Dim TreeNode7 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Node2")
+        Dim TreeNode8 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("Prompt Library", New System.Windows.Forms.TreeNode() {TreeNode7})
+        Dim TreeNode9 As System.Windows.Forms.TreeNode = New System.Windows.Forms.TreeNode("History")
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmMain))
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
+        Me.TreeView1 = New System.Windows.Forms.TreeView()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.cmbServer = New System.Windows.Forms.ComboBox()
         Me.cmbModel = New System.Windows.Forms.ComboBox()
         Me.btnSettings = New System.Windows.Forms.Button()
-        Me.TreeView1 = New System.Windows.Forms.TreeView()
+        Me.btnCopy = New System.Windows.Forms.Button()
+        Me.chkShowCOT = New System.Windows.Forms.CheckBox()
         Me.WebView21 = New Microsoft.Web.WebView2.WinForms.WebView2()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.txtPrompt = New System.Windows.Forms.TextBox()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
-        Me.PromptEntry1 = New OllamaDesktop.PromptEntry()
         Me.btnSend = New System.Windows.Forms.Button()
+        Me.btnCollapse = New System.Windows.Forms.Button()
+        Me.btnExpand = New System.Windows.Forms.Button()
+        Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
+        Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.ToolTip2 = New System.Windows.Forms.ToolTip(Me.components)
+        Me.ToolTip3 = New System.Windows.Forms.ToolTip(Me.components)
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
@@ -47,6 +55,7 @@ Partial Class frmMain
         Me.Panel1.SuspendLayout()
         CType(Me.WebView21, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.Panel2.SuspendLayout()
         Me.SuspendLayout()
         '
         'SplitContainer1
@@ -59,23 +68,43 @@ Partial Class frmMain
         '
         Me.SplitContainer1.Panel1.Controls.Add(Me.TreeView1)
         Me.SplitContainer1.Panel1.Controls.Add(Me.Panel1)
+        Me.SplitContainer1.Panel1Collapsed = True
+        Me.SplitContainer1.Panel1MinSize = 26
         '
         'SplitContainer1.Panel2
         '
         Me.SplitContainer1.Panel2.BackColor = System.Drawing.SystemColors.Window
+        Me.SplitContainer1.Panel2.Controls.Add(Me.btnExpand)
+        Me.SplitContainer1.Panel2.Controls.Add(Me.btnCopy)
+        Me.SplitContainer1.Panel2.Controls.Add(Me.chkShowCOT)
         Me.SplitContainer1.Panel2.Controls.Add(Me.WebView21)
         Me.SplitContainer1.Panel2.Controls.Add(Me.Label1)
         Me.SplitContainer1.Panel2.Controls.Add(Me.txtPrompt)
         Me.SplitContainer1.Panel2.Controls.Add(Me.PictureBox1)
-        Me.SplitContainer1.Panel2.Controls.Add(Me.PromptEntry1)
-        Me.SplitContainer1.Panel2.Controls.Add(Me.btnSend)
+        Me.SplitContainer1.Panel2.Controls.Add(Me.Panel2)
         Me.SplitContainer1.Size = New System.Drawing.Size(1674, 1189)
-        Me.SplitContainer1.SplitterDistance = 517
+        Me.SplitContainer1.SplitterDistance = 559
         Me.SplitContainer1.SplitterWidth = 10
         Me.SplitContainer1.TabIndex = 2
         '
+        'TreeView1
+        '
+        Me.TreeView1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TreeView1.Location = New System.Drawing.Point(0, 107)
+        Me.TreeView1.Name = "TreeView1"
+        TreeNode7.Name = "Node2"
+        TreeNode7.Text = "Node2"
+        TreeNode8.Name = "Node0"
+        TreeNode8.Text = "Prompt Library"
+        TreeNode9.Name = "Node1"
+        TreeNode9.Text = "History"
+        Me.TreeView1.Nodes.AddRange(New System.Windows.Forms.TreeNode() {TreeNode8, TreeNode9})
+        Me.TreeView1.Size = New System.Drawing.Size(559, 1082)
+        Me.TreeView1.TabIndex = 0
+        '
         'Panel1
         '
+        Me.Panel1.Controls.Add(Me.btnCollapse)
         Me.Panel1.Controls.Add(Me.Label3)
         Me.Panel1.Controls.Add(Me.Label2)
         Me.Panel1.Controls.Add(Me.cmbServer)
@@ -84,13 +113,13 @@ Partial Class frmMain
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel1.Location = New System.Drawing.Point(0, 0)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(517, 95)
+        Me.Panel1.Size = New System.Drawing.Size(559, 107)
         Me.Panel1.TabIndex = 1
         '
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(175, 53)
+        Me.Label3.Location = New System.Drawing.Point(107, 55)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(101, 31)
         Me.Label3.TabIndex = 4
@@ -99,7 +128,7 @@ Partial Class frmMain
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(175, 11)
+        Me.Label2.Location = New System.Drawing.Point(107, 13)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(108, 31)
         Me.Label2.TabIndex = 3
@@ -107,55 +136,73 @@ Partial Class frmMain
         '
         'cmbServer
         '
+        Me.cmbServer.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.cmbServer.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbServer.FormattingEnabled = True
-        Me.cmbServer.Location = New System.Drawing.Point(289, 8)
+        Me.cmbServer.Location = New System.Drawing.Point(221, 10)
         Me.cmbServer.Name = "cmbServer"
-        Me.cmbServer.Size = New System.Drawing.Size(222, 39)
+        Me.cmbServer.Size = New System.Drawing.Size(335, 39)
         Me.cmbServer.TabIndex = 2
         '
         'cmbModel
         '
+        Me.cmbModel.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.cmbModel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbModel.FormattingEnabled = True
-        Me.cmbModel.Location = New System.Drawing.Point(289, 53)
+        Me.cmbModel.Location = New System.Drawing.Point(221, 55)
         Me.cmbModel.Name = "cmbModel"
-        Me.cmbModel.Size = New System.Drawing.Size(222, 39)
+        Me.cmbModel.Size = New System.Drawing.Size(335, 39)
         Me.cmbModel.TabIndex = 1
         '
         'btnSettings
         '
         Me.btnSettings.Image = Global.OllamaDesktop.My.Resources.Resources.server_network
-        Me.btnSettings.Location = New System.Drawing.Point(3, 3)
+        Me.btnSettings.Location = New System.Drawing.Point(35, 6)
         Me.btnSettings.Name = "btnSettings"
-        Me.btnSettings.Size = New System.Drawing.Size(160, 89)
+        Me.btnSettings.Size = New System.Drawing.Size(56, 89)
         Me.btnSettings.TabIndex = 0
-        Me.btnSettings.Text = "Settings"
         Me.btnSettings.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         Me.btnSettings.UseVisualStyleBackColor = True
         '
-        'TreeView1
+        'btnCopy
         '
-        Me.TreeView1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TreeView1.Location = New System.Drawing.Point(0, 95)
-        Me.TreeView1.Name = "TreeView1"
-        TreeNode4.Name = "Node2"
-        TreeNode4.Text = "Node2"
-        TreeNode5.Name = "Node0"
-        TreeNode5.Text = "Prompt Library"
-        TreeNode6.Name = "Node1"
-        TreeNode6.Text = "History"
-        Me.TreeView1.Nodes.AddRange(New System.Windows.Forms.TreeNode() {TreeNode5, TreeNode6})
-        Me.TreeView1.Size = New System.Drawing.Size(517, 1094)
-        Me.TreeView1.TabIndex = 0
+        Me.btnCopy.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnCopy.BackColor = System.Drawing.Color.Transparent
+        Me.btnCopy.Image = Global.OllamaDesktop.My.Resources.Resources.I_Copy32x
+        Me.btnCopy.Location = New System.Drawing.Point(1576, 834)
+        Me.btnCopy.Name = "btnCopy"
+        Me.btnCopy.Size = New System.Drawing.Size(64, 64)
+        Me.btnCopy.TabIndex = 11
+        Me.btnCopy.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.btnCopy.UseVisualStyleBackColor = False
+        Me.btnCopy.Visible = False
+        '
+        'chkShowCOT
+        '
+        Me.chkShowCOT.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.chkShowCOT.AutoSize = True
+        Me.chkShowCOT.BackColor = System.Drawing.Color.Gray
+        Me.chkShowCOT.ForeColor = System.Drawing.SystemColors.ControlLightLight
+        Me.chkShowCOT.Location = New System.Drawing.Point(1274, 949)
+        Me.chkShowCOT.Name = "chkShowCOT"
+        Me.chkShowCOT.Size = New System.Drawing.Size(329, 35)
+        Me.chkShowCOT.TabIndex = 10
+        Me.chkShowCOT.Text = "Show Chain of Thought"
+        Me.chkShowCOT.UseVisualStyleBackColor = False
         '
         'WebView21
         '
         Me.WebView21.AllowExternalDrop = True
+        Me.WebView21.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.WebView21.CreationProperties = Nothing
         Me.WebView21.DefaultBackgroundColor = System.Drawing.Color.White
-        Me.WebView21.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.WebView21.Location = New System.Drawing.Point(0, 0)
+        Me.WebView21.Location = New System.Drawing.Point(35, 0)
         Me.WebView21.Name = "WebView21"
-        Me.WebView21.Size = New System.Drawing.Size(1147, 915)
+        Me.WebView21.Size = New System.Drawing.Size(1632, 915)
         Me.WebView21.TabIndex = 9
         Me.WebView21.ZoomFactor = 1.0R
         '
@@ -178,7 +225,7 @@ Partial Class frmMain
         Me.txtPrompt.Location = New System.Drawing.Point(173, 1020)
         Me.txtPrompt.Multiline = True
         Me.txtPrompt.Name = "txtPrompt"
-        Me.txtPrompt.Size = New System.Drawing.Size(905, 145)
+        Me.txtPrompt.Size = New System.Drawing.Size(1467, 145)
         Me.txtPrompt.TabIndex = 5
         '
         'PictureBox1
@@ -193,23 +240,57 @@ Partial Class frmMain
         Me.PictureBox1.TabIndex = 4
         Me.PictureBox1.TabStop = False
         '
-        'PromptEntry1
-        '
-        Me.PromptEntry1.BackColor = System.Drawing.Color.Transparent
-        Me.PromptEntry1.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.PromptEntry1.Location = New System.Drawing.Point(0, 915)
-        Me.PromptEntry1.Name = "PromptEntry1"
-        Me.PromptEntry1.Size = New System.Drawing.Size(1147, 274)
-        Me.PromptEntry1.TabIndex = 3
-        '
         'btnSend
         '
-        Me.btnSend.Location = New System.Drawing.Point(926, 965)
+        Me.btnSend.Location = New System.Drawing.Point(862, 99)
         Me.btnSend.Name = "btnSend"
         Me.btnSend.Size = New System.Drawing.Size(172, 49)
         Me.btnSend.TabIndex = 8
         Me.btnSend.Text = "Send"
         Me.btnSend.UseVisualStyleBackColor = True
+        '
+        'btnCollapse
+        '
+        Me.btnCollapse.BackColor = System.Drawing.Color.Transparent
+        Me.btnCollapse.Location = New System.Drawing.Point(3, 7)
+        Me.btnCollapse.Name = "btnCollapse"
+        Me.btnCollapse.Size = New System.Drawing.Size(26, 87)
+        Me.btnCollapse.TabIndex = 12
+        Me.btnCollapse.Text = "<"
+        Me.btnCollapse.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.btnCollapse.UseVisualStyleBackColor = False
+        '
+        'btnExpand
+        '
+        Me.btnExpand.BackColor = System.Drawing.Color.Transparent
+        Me.btnExpand.Location = New System.Drawing.Point(3, 0)
+        Me.btnExpand.Name = "btnExpand"
+        Me.btnExpand.Size = New System.Drawing.Size(26, 87)
+        Me.btnExpand.TabIndex = 13
+        Me.btnExpand.Text = ">"
+        Me.btnExpand.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.btnExpand.UseVisualStyleBackColor = False
+        '
+        'ToolTip1
+        '
+        Me.ToolTip1.ToolTipTitle = "Expand Panel"
+        '
+        'Panel2
+        '
+        Me.Panel2.Controls.Add(Me.btnSend)
+        Me.Panel2.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.Panel2.Location = New System.Drawing.Point(0, 921)
+        Me.Panel2.Name = "Panel2"
+        Me.Panel2.Size = New System.Drawing.Size(1674, 268)
+        Me.Panel2.TabIndex = 14
+        '
+        'ToolTip2
+        '
+        Me.ToolTip2.ToolTipTitle = "Collapse"
+        '
+        'ToolTip3
+        '
+        Me.ToolTip3.ToolTipTitle = "Server Settings"
         '
         'frmMain
         '
@@ -230,13 +311,12 @@ Partial Class frmMain
         Me.Panel1.PerformLayout()
         CType(Me.WebView21, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Panel2.ResumeLayout(False)
         Me.ResumeLayout(False)
-        DarkMode = New DarkModeCS(Me, False, True) With {.ColorMode = DarkModeCS.DisplayMode.DarkMode}
 
     End Sub
     Friend WithEvents SplitContainer1 As SplitContainer
     Friend WithEvents TreeView1 As TreeView
-    Friend WithEvents PromptEntry1 As PromptEntry
     Friend WithEvents PictureBox1 As PictureBox
     Friend WithEvents txtPrompt As TextBox
     Friend WithEvents Label1 As Label
@@ -248,4 +328,12 @@ Partial Class frmMain
     Friend WithEvents Label2 As Label
     Friend WithEvents cmbServer As ComboBox
     Friend WithEvents cmbModel As ComboBox
+    Friend WithEvents chkShowCOT As CheckBox
+    Friend WithEvents btnCopy As Button
+    Friend WithEvents btnCollapse As Button
+    Friend WithEvents btnExpand As Button
+    Friend WithEvents ToolTip1 As ToolTip
+    Friend WithEvents Panel2 As Panel
+    Friend WithEvents ToolTip2 As ToolTip
+    Friend WithEvents ToolTip3 As ToolTip
 End Class
