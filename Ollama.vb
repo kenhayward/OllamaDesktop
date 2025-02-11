@@ -11,13 +11,14 @@ Imports Newtonsoft.Json.Linq
 Public Class Ollama
 
     Public Property Server As OllamaServer
-    Private Model As LLMmodel
-
+    Public Event ChatUpdate(ChatResponse As ChatResponseMessage)
+    Public Event ChatComplete()
     Public Property API_ModelList As String = "tags"
     Public Property API_Chat As String = "generate"
-    Public ShowCOT As Boolean
+    Public Property ShowCOT As Boolean
+
+    Private Model As LLMmodel
     Private ChatMessage As String
-    Public Property WView As WebView2
     Private WithEvents ChatWorker As BackgroundWorker
     Private Function GenerateURL(CTail As String) As String
         If Server Is Nothing Then
@@ -81,7 +82,7 @@ Public Class Ollama
 
 
         Dim Request As HttpWebRequest = GenerateRequest(ChatMessage, Model.Name)
-        ChatWorker.ReportProgress(0, "Awaiting Model Response")
+        SendToBrowser("Awaiting Model Response", False, True)
         Try
             Dim Response As HttpWebResponse = CType(Request.GetResponse(), HttpWebResponse)
             Dim sr As System.IO.StreamReader = New System.IO.StreamReader(Response.GetResponseStream())
@@ -98,10 +99,10 @@ Public Class Ollama
                     If ShowCOT Then
                         Markd = "<b>Thinking...</b>"
                         Markd &= "<hr style=""height: 3px; border: none; background-color: #000;"">"
-                        ChatWorker.ReportProgress(0, Markd)
+                        SendToBrowser(Markd)
                     Else
                         Dim Spinner = My.Resources.spin
-                        ChatWorker.ReportProgress(0, Spinner)
+                        SendToBrowser(Spinner, False)
                         Markd = ""
                     End If
                 ElseIf Fragment.Equals("</think>") Then
@@ -126,21 +127,34 @@ Public Class Ollama
                 End If
             End While
         Catch ex As Exception
-            ChatWorker.ReportProgress(0, "Chat request failed: " & ex.Message)
+            SendToBrowser($"Chat request failed: {ex.Message}")
         End Try
     End Sub
-    Private Sub SendToBrowser(Markd As String)
+    Private Sub SendToBrowser(Markd As String, Optional FullHTML As Boolean = False, Optional FirstPacket As Boolean = False)
         Const HTMLPrefix As String = "<!DOCTYPE html><html><head>
    <script src=""https://code.jquery.com/jquery-3.6.0.min.js""></script>
    <script>
       $(document).ready(function(){window.scrollTo(0,  document.body.scrollHeight);});
    </script>
    </head>
-   <body>" & vbCrLf
+   <body><div id=""MainContent"">" & vbCrLf
 
-        Const HTMLSUffix As String = "</body></html>"
-        Dim OutHTML As String = HTMLPrefix & Markdown.Parse(Markd) & vbCrLf & vbCrLf & HTMLSUffix
-        ChatWorker.ReportProgress(0, OutHTML)
+        Const HTMLSUffix As String = "</div></body></html>"
+        Dim JustDiv As String = Markdown.Parse(Markd)
+        Dim OutHTML As String = HTMLPrefix & JustDiv & vbCrLf & vbCrLf & HTMLSUffix
+        Dim MyResponse As New ChatResponseMessage
+        MyResponse.FirstPacket = FirstPacket
+        If FullHTML Then
+            MyResponse.HTML = Markd
+            MyResponse.FullHTML = True
+            MyResponse.JustDiv = JustDiv
+            ChatWorker.ReportProgress(0, MyResponse)
+        Else
+            MyResponse.HTML = OutHTML
+            MyResponse.FullHTML = False
+            MyResponse.JustDiv = JustDiv
+            ChatWorker.ReportProgress(0, MyResponse)
+        End If
 
     End Sub
 
@@ -183,9 +197,6 @@ Public Class Ollama
         End If
     End Sub
 
-    Public Event ChatUpdate(Text As String)
-    Public Event ChatComplete()
-
     Private Sub MyWorker_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles ChatWorker.RunWorkerCompleted
         RaiseEvent ChatComplete()
     End Sub
@@ -196,10 +207,13 @@ Public Class Ollama
 
     Private Sub MyWorker_ProgressChanged(sender As Object, e As ProgressChangedEventArgs) Handles ChatWorker.ProgressChanged
         RaiseEvent ChatUpdate(e.UserState)
-        'WebView1.Visible = True
-        'Me.WebView1.ShowText(e.UserState)
-        'Me.WebView1.Refresh()
-        'Me.WebView1.VerticalScroll.Value = Me.WebView1.VerticalScroll.Maximum
     End Sub
 
+End Class
+
+Public Class ChatResponseMessage
+    Public Property FullHTML As Boolean = False
+    Public Property FirstPacket As Boolean = False
+    Public Property HTML As String
+    Public Property JustDiv As String
 End Class

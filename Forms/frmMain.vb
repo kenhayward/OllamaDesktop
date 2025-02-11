@@ -7,17 +7,14 @@ Imports Microsoft.Web.WebView2.Core
 Public Class frmMain
     Private DarkMode As DarkModeForms.DarkModeCS
     '        DarkMode = New DarkModeCS(Me, False, True) With {.ColorMode = DarkModeCS.DisplayMode.DarkMode}
-
+    'https://stackoverflow.com/questions/66991516/webview2-update-innerhtml-using-htmltextwriter
 
     Private Async Sub frmMain_Load(sender As Object, e As EventArgs) Handles Me.Load
         Await WebView21.EnsureCoreWebView2Async()
         LoadServers()
-        WebView21.NavigateToString("<html><body><h1> </h1></body></html>")
+        WebView21.NavigateToString("<html><body><div id=""MainContent""><h1> </h1></div></body></html>")
         Me.Cursor = DefaultCursor
     End Sub
-
-
-
 
     Private Sub LoadServers()
         Me.cmbModel.Items.Clear()
@@ -69,14 +66,33 @@ Public Class frmMain
         End If
     End Sub
     Private HTML As String
-    Private Sub ChatUpdate(Text As String)
+    Private Async Sub ChatUpdate(CR As ChatResponseMessage)
+        If CR.FirstPacket Then
+            WebView21.CoreWebView2.NavigateToString(CR.HTML)
+
+        Else
+            If CR.FullHTML Then
+                WebView21.CoreWebView2.NavigateToString(CR.HTML)
+            Else
+                Await UpdateElementAsync("MainContent", "innerHTML", CR.JustDiv)
+            End If
+        End If
+        WebView21.Refresh()
         HTML = Text
     End Sub
     Private Sub ChatComplete()
-        WebView21.CoreWebView2.NavigateToString(HTML)
+        'WebView21.CoreWebView2.NavigateToString(HTML)
         btnSend.Enabled = True
         txtPrompt.Enabled = True
     End Sub
+
+    Private Async Function UpdateElementAsync(ByVal elementID As String, ByVal [property] As String, ByVal value As String) As Task
+        Try
+            Await Me.WebView21.CoreWebView2.ExecuteScriptAsync("document.getElementById('" & elementID & "')." & [property] & " = '" & value & "'")
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+    End Function
 
     Private Sub btnSettings_Click(sender As Object, e As EventArgs) Handles btnSettings.Click
         Dim MyForm As New frmServers
