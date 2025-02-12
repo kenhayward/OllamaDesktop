@@ -50,7 +50,6 @@ Partial Class Knowledge
         Me.lstKnowledge.ContextMenuStrip = Me.MenuList
         Me.lstKnowledge.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lstKnowledge.ForeColor = System.Drawing.SystemColors.Window
-        Me.lstKnowledge.FullRowSelect = True
         Me.lstKnowledge.HideSelection = False
         Me.lstKnowledge.Location = New System.Drawing.Point(0, 0)
         Me.lstKnowledge.Name = "lstKnowledge"

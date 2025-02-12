@@ -53,6 +53,7 @@ Partial Class frmMain
         Me.Panel4 = New System.Windows.Forms.Panel()
         Me.btnExpand = New System.Windows.Forms.Button()
         Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.lblExpansions = New System.Windows.Forms.Label()
         Me.txtPrompt = New System.Windows.Forms.TextBox()
         Me.btnSend = New System.Windows.Forms.Button()
         Me.btnCopy = New System.Windows.Forms.Button()
@@ -62,7 +63,6 @@ Partial Class frmMain
         Me.ToolTip2 = New System.Windows.Forms.ToolTip(Me.components)
         Me.ToolTip3 = New System.Windows.Forms.ToolTip(Me.components)
         Me.ToolTipGeneral = New System.Windows.Forms.ToolTip(Me.components)
-        Me.lblExpansions = New System.Windows.Forms.Label()
         Me.TreeHistory = New OllamaDesktop.TreeViewDraggableNodes()
         Me.Knowledge1 = New OllamaDesktop.Knowledge()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -120,7 +120,7 @@ Partial Class frmMain
         Me.FlatTabControl1.Name = "FlatTabControl1"
         Me.FlatTabControl1.SelectedForeColor = System.Drawing.SystemColors.HighlightText
         Me.FlatTabControl1.SelectedIndex = 0
-        Me.FlatTabControl1.SelectTabColor = System.Drawing.SystemColors.ControlLight
+        Me.FlatTabControl1.SelectTabColor = System.Drawing.SystemColors.ControlDarkDark
         Me.FlatTabControl1.ShowTabCloseButton = True
         Me.FlatTabControl1.Size = New System.Drawing.Size(998, 1082)
         Me.FlatTabControl1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed
@@ -397,6 +397,16 @@ Partial Class frmMain
         Me.Panel2.Size = New System.Drawing.Size(1386, 268)
         Me.Panel2.TabIndex = 14
         '
+        'lblExpansions
+        '
+        Me.lblExpansions.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lblExpansions.Location = New System.Drawing.Point(206, 75)
+        Me.lblExpansions.Name = "lblExpansions"
+        Me.lblExpansions.Size = New System.Drawing.Size(1168, 43)
+        Me.lblExpansions.TabIndex = 12
+        Me.lblExpansions.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
         'txtPrompt
         '
         Me.txtPrompt.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
@@ -475,16 +485,6 @@ Partial Class frmMain
         'ToolTipGeneral
         '
         Me.ToolTipGeneral.ToolTipTitle = "Ollama Desktop Chat"
-        '
-        'lblExpansions
-        '
-        Me.lblExpansions.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.lblExpansions.Location = New System.Drawing.Point(206, 75)
-        Me.lblExpansions.Name = "lblExpansions"
-        Me.lblExpansions.Size = New System.Drawing.Size(1168, 43)
-        Me.lblExpansions.TabIndex = 12
-        Me.lblExpansions.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'TreeHistory
         '

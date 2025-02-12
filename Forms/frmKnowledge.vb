@@ -120,6 +120,10 @@ Public Class frmKnowledge
 
     Private Sub btnOK_Click(sender As Object, e As EventArgs) Handles btnOK.Click
         If NewKnowledge.Key <> "" And NewKnowledge.Text <> "" Then
+            If Utils.Knowledge.GetEntry(NewKnowledge.Key.Trim) IsNot Nothing Then
+                MsgBox($"The Knowledge entry for Key '{NewKnowledge.Key} already exists - please provide another key ", MsgBoxStyle.OkOnly + MsgBoxStyle.Exclamation, "Knowledge Management")
+                Exit Sub
+            End If
             Me.DialogResult = DialogResult.OK
             Me.Close()
         Else

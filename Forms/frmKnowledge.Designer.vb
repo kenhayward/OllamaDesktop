@@ -39,8 +39,8 @@ Partial Class frmKnowledge
         Me.TabControlMain = New DarkModeForms.FlatTabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
-        Me.TabPage3 = New System.Windows.Forms.TabPage()
         Me.WebView21 = New Microsoft.Web.WebView2.WinForms.WebView2()
+        Me.TabPage3 = New System.Windows.Forms.TabPage()
         Me.TabControlMain.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.TabPage2.SuspendLayout()
@@ -230,16 +230,6 @@ Partial Class frmKnowledge
         Me.TabPage2.TabIndex = 1
         Me.TabPage2.Text = "Original PDF"
         '
-        'TabPage3
-        '
-        Me.TabPage3.BackColor = System.Drawing.SystemColors.ControlLight
-        Me.TabPage3.Location = New System.Drawing.Point(4, 32)
-        Me.TabPage3.Name = "TabPage3"
-        Me.TabPage3.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage3.Size = New System.Drawing.Size(1642, 500)
-        Me.TabPage3.TabIndex = 2
-        Me.TabPage3.Text = "Potential Tables"
-        '
         'WebView21
         '
         Me.WebView21.AllowExternalDrop = True
@@ -253,6 +243,16 @@ Partial Class frmKnowledge
         Me.WebView21.Source = New System.Uri("https://www.google.com", System.UriKind.Absolute)
         Me.WebView21.TabIndex = 1
         Me.WebView21.ZoomFactor = 1.0R
+        '
+        'TabPage3
+        '
+        Me.TabPage3.BackColor = System.Drawing.SystemColors.ControlLight
+        Me.TabPage3.Location = New System.Drawing.Point(4, 32)
+        Me.TabPage3.Name = "TabPage3"
+        Me.TabPage3.Padding = New System.Windows.Forms.Padding(3)
+        Me.TabPage3.Size = New System.Drawing.Size(1642, 500)
+        Me.TabPage3.TabIndex = 2
+        Me.TabPage3.Text = "Potential Tables"
         '
         'frmKnowledge
         '

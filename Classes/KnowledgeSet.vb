@@ -29,8 +29,9 @@ Imports System.Runtime.Serialization.Formatters.Binary
     End Function
 
     Public Function GetEntry(Key As String) As KnowledgeEntry
+        Dim theKey = Key.Trim
         For Each entry In Me
-            If entry.Key.Equals(Key, StringComparison.CurrentCultureIgnoreCase) Then
+            If entry.Key.Equals(theKey, StringComparison.CurrentCultureIgnoreCase) Then
                 Return entry
             End If
         Next
