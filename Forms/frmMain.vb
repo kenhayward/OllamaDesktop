@@ -41,7 +41,16 @@ Public Class frmMain
         OllamaServers.Save(Utils.OllamaServers)
         LoadHistory()
     End Sub
-
+    Private Function isGroupNode(Node As TreeNode) As Boolean
+        If Node.Tag IsNot Nothing Then
+            If TypeOf Node.Tag Is String Then
+                If Node.Tag = "Group" Then
+                    Return True
+                End If
+            End If
+        End If
+        Return False
+    End Function
     Private Sub LoadHistory()
         If HistoryNode IsNot Nothing Then
             HistoryNode.Nodes.Clear()
@@ -50,30 +59,44 @@ Public Class frmMain
         HistoryNode = New TreeNode("Chat History")
         HistoryNode.Tag = "Chat History"
         Me.TreeHistory.Nodes.Insert(0, HistoryNode)
+
         For Each Hist In Utils.OllamaServers.ChatHistory
             If Hist.Group = "" Then
                 AddToHistoryNode(Hist)
             Else
-                Dim TargetNode As TreeNode = Nothing
-                For Each Mynode In HistoryNode.Nodes
-                    If Mynode.tag IsNot Nothing Then
-                        If TypeOf Mynode.tag Is String Then
-                            If Mynode.tag = "Group" Then
-                                If Mynode.text.Equals(Hist.Group) Then
-                                    TargetNode = Mynode
+                ' Need to find the full path of the object, split inot an array and recurse over it
+                Dim PathArray() As String = Hist.Group.Split("\")
+                Dim RootNode = HistoryNode
+                If PathArray.Count > 2 Then
+                    Debug.Print("here")
+                End If
+                For x As Integer = 1 To PathArray.Count - 1
+                    Dim NodeText As String = PathArray(x)
+                    Dim FoundNode As Boolean = False
+                    For Each node In RootNode.Nodes
+                        If isGroupNode(node) Then
+                            If node.Text = NodeText Then
+                                FoundNode = True
+                                RootNode = node
+                                If x = PathArray.Count - 1 Then
+                                    AddToHistoryNode(Hist, RootNode)
+                                Else
+                                    RootNode = node
                                     Exit For
                                 End If
                             End If
                         End If
+                    Next
+                    ' Next Iteration
+                    If Not FoundNode Then
+                        RootNode = AddGroupNode(NodeText, RootNode)
+                        ' If at the leaf node we didnt find it so need to add here
+                        If x = PathArray.Count - 1 Then
+                            AddToHistoryNode(Hist, RootNode)
+                        End If
                     End If
                 Next
-                If TargetNode Is Nothing Then
-                    TargetNode = New TreeNode(Hist.Group)
-                    TargetNode.Tag = "Group"
-                    HistoryNode.Nodes.Add(TargetNode)
 
-                End If
-                AddToHistoryNode(Hist, TargetNode)
             End If
         Next
         HistoryNode.ExpandAll()
@@ -194,7 +217,13 @@ Public Class frmMain
         btnClearHistory.Enabled = True
         mnuClear.Enabled = True
     End Sub
-
+    Public Function AddGroupNode(Name As String, Parent As TreeNode)
+        Dim MyNode As New TreeNode
+        MyNode.Text = Name
+        MyNode.Tag = "Group"
+        Parent.Nodes.Add(MyNode)
+        Return MyNode
+    End Function
 
     Private Async Function UpdateElementAsync(ByVal elementID As String, ByVal [property] As String, ByVal value As String) As Task
         Try
