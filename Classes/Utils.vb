@@ -12,6 +12,18 @@ Public Class Utils
         End Get
     End Property
 
+
+    Private Shared _Knowledge As KnowledgeSet
+    Public Shared ReadOnly Property Knowledge As KnowledgeSet
+        Get
+            If _Knowledge Is Nothing Then
+                _Knowledge = KnowledgeSet.Load()
+            End If
+            Return _Knowledge
+        End Get
+    End Property
+
+
     Public Shared Function TimeSpanFormat(ByVal timeSpan As TimeSpan) As String
         Dim result As String = String.Empty
         If Math.Floor(timeSpan.TotalDays) > 0.0R Then result += TrimFirst(String.Format("{0:ddd}d ", timeSpan), "0"c)
@@ -37,7 +49,9 @@ Public Class Utils
         If value.Substring(0, 1) = c Then Return value.Substring(1)
         Return value
     End Function
-
+    Public Shared Function FileNameOnly(FilePath As String) As String
+        Return System.IO.Path.GetFileNameWithoutExtension(FilePath)
+    End Function
     Public Shared Function IgnoreNulls(Cell As Object, Optional NullReturn As String = "n/a") As String
         Dim Result As String
         If IsDBNull(Cell) Then

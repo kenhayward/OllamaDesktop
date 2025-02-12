@@ -32,6 +32,7 @@ Public Class frmMain
         ToolTip3.SetToolTip(btnSettings, "Establish connection to servers and set defaults")
 
         LoadServers()
+
         WebView21.NavigateToString("<html><body><div id=""MainContent""><h1> </h1></div></body></html>")
         Me.Cursor = DefaultCursor
         Me.txtPrompt.Focus()
@@ -432,5 +433,7 @@ Public Class frmMain
         End If
     End Sub
 
+    Private Sub btnAddKnowledge_Click(sender As Object, e As EventArgs)
 
+    End Sub
 End Class

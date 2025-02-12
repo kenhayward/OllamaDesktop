@@ -25,6 +25,9 @@ Partial Class frmMain
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmMain))
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
+        Me.FlatTabControl1 = New DarkModeForms.FlatTabControl()
+        Me.TabPage1 = New System.Windows.Forms.TabPage()
+        Me.TreeHistory = New OllamaDesktop.TreeViewDraggableNodes()
         Me.MenuStripTree = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.mnuRename = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuCreateGroup = New System.Windows.Forms.ToolStripMenuItem()
@@ -34,6 +37,8 @@ Partial Class frmMain
         Me.Panel3 = New System.Windows.Forms.Panel()
         Me.btnDelete = New System.Windows.Forms.Button()
         Me.btnClearHistory = New System.Windows.Forms.Button()
+        Me.TabPage2 = New System.Windows.Forms.TabPage()
+        Me.TabPage3 = New System.Windows.Forms.TabPage()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.btnCollapse = New System.Windows.Forms.Button()
         Me.Label3 = New System.Windows.Forms.Label()
@@ -48,23 +53,26 @@ Partial Class frmMain
         Me.lblHistDated = New System.Windows.Forms.Label()
         Me.Panel4 = New System.Windows.Forms.Panel()
         Me.btnExpand = New System.Windows.Forms.Button()
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.txtPrompt = New System.Windows.Forms.TextBox()
         Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.txtPrompt = New System.Windows.Forms.TextBox()
         Me.btnSend = New System.Windows.Forms.Button()
         Me.btnCopy = New System.Windows.Forms.Button()
         Me.chkShowCOT = New System.Windows.Forms.CheckBox()
+        Me.Label1 = New System.Windows.Forms.Label()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.ToolTip2 = New System.Windows.Forms.ToolTip(Me.components)
         Me.ToolTip3 = New System.Windows.Forms.ToolTip(Me.components)
         Me.ToolTipGeneral = New System.Windows.Forms.ToolTip(Me.components)
-        Me.TreeHistory = New OllamaDesktop.TreeViewDraggableNodes()
+        Me.Knowledge1 = New OllamaDesktop.Knowledge()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
         Me.SplitContainer1.SuspendLayout()
+        Me.FlatTabControl1.SuspendLayout()
+        Me.TabPage1.SuspendLayout()
         Me.MenuStripTree.SuspendLayout()
         Me.Panel3.SuspendLayout()
+        Me.TabPage3.SuspendLayout()
         Me.Panel1.SuspendLayout()
         CType(Me.WebView21, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.pnlDetails.SuspendLayout()
@@ -80,8 +88,7 @@ Partial Class frmMain
         '
         'SplitContainer1.Panel1
         '
-        Me.SplitContainer1.Panel1.Controls.Add(Me.TreeHistory)
-        Me.SplitContainer1.Panel1.Controls.Add(Me.Panel3)
+        Me.SplitContainer1.Panel1.Controls.Add(Me.FlatTabControl1)
         Me.SplitContainer1.Panel1.Controls.Add(Me.Panel1)
         Me.SplitContainer1.Panel1MinSize = 26
         '
@@ -92,10 +99,55 @@ Partial Class frmMain
         Me.SplitContainer1.Panel2.Controls.Add(Me.pnlDetails)
         Me.SplitContainer1.Panel2.Controls.Add(Me.Panel4)
         Me.SplitContainer1.Panel2.Controls.Add(Me.Panel2)
-        Me.SplitContainer1.Size = New System.Drawing.Size(1674, 1189)
-        Me.SplitContainer1.SplitterDistance = 559
+        Me.SplitContainer1.Size = New System.Drawing.Size(2394, 1189)
+        Me.SplitContainer1.SplitterDistance = 998
         Me.SplitContainer1.SplitterWidth = 10
         Me.SplitContainer1.TabIndex = 2
+        '
+        'FlatTabControl1
+        '
+        Me.FlatTabControl1.Appearance = System.Windows.Forms.TabAppearance.Buttons
+        Me.FlatTabControl1.BorderColor = System.Drawing.SystemColors.ControlDark
+        Me.FlatTabControl1.Controls.Add(Me.TabPage1)
+        Me.FlatTabControl1.Controls.Add(Me.TabPage2)
+        Me.FlatTabControl1.Controls.Add(Me.TabPage3)
+        Me.FlatTabControl1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.FlatTabControl1.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed
+        Me.FlatTabControl1.ItemSize = New System.Drawing.Size(192, 35)
+        Me.FlatTabControl1.LineColor = System.Drawing.SystemColors.Highlight
+        Me.FlatTabControl1.Location = New System.Drawing.Point(0, 107)
+        Me.FlatTabControl1.Name = "FlatTabControl1"
+        Me.FlatTabControl1.SelectedForeColor = System.Drawing.SystemColors.HighlightText
+        Me.FlatTabControl1.SelectedIndex = 0
+        Me.FlatTabControl1.SelectTabColor = System.Drawing.SystemColors.ControlLight
+        Me.FlatTabControl1.ShowTabCloseButton = True
+        Me.FlatTabControl1.Size = New System.Drawing.Size(998, 1082)
+        Me.FlatTabControl1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed
+        Me.FlatTabControl1.TabCloseColor = System.Drawing.SystemColors.ControlText
+        Me.FlatTabControl1.TabColor = System.Drawing.SystemColors.ControlLight
+        Me.FlatTabControl1.TabIndex = 3
+        '
+        'TabPage1
+        '
+        Me.TabPage1.BackColor = System.Drawing.SystemColors.ControlLight
+        Me.TabPage1.Controls.Add(Me.TreeHistory)
+        Me.TabPage1.Controls.Add(Me.Panel3)
+        Me.TabPage1.Location = New System.Drawing.Point(4, 39)
+        Me.TabPage1.Name = "TabPage1"
+        Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
+        Me.TabPage1.Size = New System.Drawing.Size(990, 1039)
+        Me.TabPage1.TabIndex = 0
+        Me.TabPage1.Text = "Chat History"
+        '
+        'TreeHistory
+        '
+        Me.TreeHistory.ContextMenuStrip = Me.MenuStripTree
+        Me.TreeHistory.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TreeHistory.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TreeHistory.Location = New System.Drawing.Point(3, 3)
+        Me.TreeHistory.Name = "TreeHistory"
+        Me.TreeHistory.Size = New System.Drawing.Size(984, 976)
+        Me.TreeHistory.TabIndex = 0
         '
         'MenuStripTree
         '
@@ -138,16 +190,16 @@ Partial Class frmMain
         Me.Panel3.Controls.Add(Me.btnDelete)
         Me.Panel3.Controls.Add(Me.btnClearHistory)
         Me.Panel3.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.Panel3.Location = New System.Drawing.Point(0, 1132)
+        Me.Panel3.Location = New System.Drawing.Point(3, 979)
         Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(559, 57)
+        Me.Panel3.Size = New System.Drawing.Size(984, 57)
         Me.Panel3.TabIndex = 2
         '
         'btnDelete
         '
         Me.btnDelete.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnDelete.Enabled = False
-        Me.btnDelete.Location = New System.Drawing.Point(423, 4)
+        Me.btnDelete.Location = New System.Drawing.Point(848, 4)
         Me.btnDelete.Name = "btnDelete"
         Me.btnDelete.Size = New System.Drawing.Size(133, 48)
         Me.btnDelete.TabIndex = 2
@@ -166,6 +218,27 @@ Partial Class frmMain
         Me.btnClearHistory.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         Me.btnClearHistory.UseVisualStyleBackColor = True
         '
+        'TabPage2
+        '
+        Me.TabPage2.BackColor = System.Drawing.SystemColors.ControlLight
+        Me.TabPage2.Location = New System.Drawing.Point(4, 39)
+        Me.TabPage2.Name = "TabPage2"
+        Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
+        Me.TabPage2.Size = New System.Drawing.Size(990, 1039)
+        Me.TabPage2.TabIndex = 1
+        Me.TabPage2.Text = "Prompt Library"
+        '
+        'TabPage3
+        '
+        Me.TabPage3.BackColor = System.Drawing.SystemColors.ControlLight
+        Me.TabPage3.Controls.Add(Me.Knowledge1)
+        Me.TabPage3.Location = New System.Drawing.Point(4, 39)
+        Me.TabPage3.Name = "TabPage3"
+        Me.TabPage3.Padding = New System.Windows.Forms.Padding(3)
+        Me.TabPage3.Size = New System.Drawing.Size(990, 1039)
+        Me.TabPage3.TabIndex = 2
+        Me.TabPage3.Text = "Knowledge"
+        '
         'Panel1
         '
         Me.Panel1.Controls.Add(Me.btnCollapse)
@@ -177,7 +250,7 @@ Partial Class frmMain
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel1.Location = New System.Drawing.Point(0, 0)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(559, 107)
+        Me.Panel1.Size = New System.Drawing.Size(998, 107)
         Me.Panel1.TabIndex = 1
         '
         'btnCollapse
@@ -217,7 +290,7 @@ Partial Class frmMain
         Me.cmbServer.FormattingEnabled = True
         Me.cmbServer.Location = New System.Drawing.Point(221, 10)
         Me.cmbServer.Name = "cmbServer"
-        Me.cmbServer.Size = New System.Drawing.Size(335, 39)
+        Me.cmbServer.Size = New System.Drawing.Size(774, 39)
         Me.cmbServer.TabIndex = 2
         '
         'cmbModel
@@ -228,7 +301,7 @@ Partial Class frmMain
         Me.cmbModel.FormattingEnabled = True
         Me.cmbModel.Location = New System.Drawing.Point(221, 55)
         Me.cmbModel.Name = "cmbModel"
-        Me.cmbModel.Size = New System.Drawing.Size(335, 39)
+        Me.cmbModel.Size = New System.Drawing.Size(774, 39)
         Me.cmbModel.TabIndex = 1
         '
         'btnSettings
@@ -249,7 +322,7 @@ Partial Class frmMain
         Me.WebView21.Dock = System.Windows.Forms.DockStyle.Fill
         Me.WebView21.Location = New System.Drawing.Point(43, 95)
         Me.WebView21.Name = "WebView21"
-        Me.WebView21.Size = New System.Drawing.Size(1062, 826)
+        Me.WebView21.Size = New System.Drawing.Size(1343, 826)
         Me.WebView21.TabIndex = 9
         Me.WebView21.ZoomFactor = 1.0R
         '
@@ -261,7 +334,7 @@ Partial Class frmMain
         Me.pnlDetails.Dock = System.Windows.Forms.DockStyle.Top
         Me.pnlDetails.Location = New System.Drawing.Point(43, 0)
         Me.pnlDetails.Name = "pnlDetails"
-        Me.pnlDetails.Size = New System.Drawing.Size(1062, 95)
+        Me.pnlDetails.Size = New System.Drawing.Size(1343, 95)
         Me.pnlDetails.TabIndex = 15
         Me.pnlDetails.Visible = False
         '
@@ -271,7 +344,7 @@ Partial Class frmMain
         Me.lblHistTitle.Font = New System.Drawing.Font("Gadugi", 13.875!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblHistTitle.Location = New System.Drawing.Point(0, 0)
         Me.lblHistTitle.Name = "lblHistTitle"
-        Me.lblHistTitle.Size = New System.Drawing.Size(1062, 35)
+        Me.lblHistTitle.Size = New System.Drawing.Size(1343, 35)
         Me.lblHistTitle.TabIndex = 6
         Me.lblHistTitle.Text = "24th Jan 2025 13:28 - Rise of rome"
         Me.lblHistTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -292,7 +365,7 @@ Partial Class frmMain
         '
         Me.lblHistDated.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblHistDated.Font = New System.Drawing.Font("Gadugi", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblHistDated.Location = New System.Drawing.Point(712, 55)
+        Me.lblHistDated.Location = New System.Drawing.Point(993, 55)
         Me.lblHistDated.Name = "lblHistDated"
         Me.lblHistDated.Size = New System.Drawing.Size(338, 37)
         Me.lblHistDated.TabIndex = 4
@@ -319,29 +392,6 @@ Partial Class frmMain
         Me.btnExpand.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         Me.btnExpand.UseVisualStyleBackColor = False
         '
-        'Label1
-        '
-        Me.Label1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.Label1.AutoSize = True
-        Me.Label1.BackColor = System.Drawing.Color.Transparent
-        Me.Label1.Font = New System.Drawing.Font("Gadugi", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(18, 18)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(561, 56)
-        Me.Label1.TabIndex = 6
-        Me.Label1.Text = "Hi There, How can I help?"
-        '
-        'txtPrompt
-        '
-        Me.txtPrompt.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txtPrompt.Font = New System.Drawing.Font("Gadugi", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtPrompt.Location = New System.Drawing.Point(195, 101)
-        Me.txtPrompt.Multiline = True
-        Me.txtPrompt.Name = "txtPrompt"
-        Me.txtPrompt.Size = New System.Drawing.Size(898, 143)
-        Me.txtPrompt.TabIndex = 5
-        '
         'Panel2
         '
         Me.Panel2.Controls.Add(Me.txtPrompt)
@@ -352,8 +402,19 @@ Partial Class frmMain
         Me.Panel2.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.Panel2.Location = New System.Drawing.Point(0, 921)
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(1105, 268)
+        Me.Panel2.Size = New System.Drawing.Size(1386, 268)
         Me.Panel2.TabIndex = 14
+        '
+        'txtPrompt
+        '
+        Me.txtPrompt.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.txtPrompt.Font = New System.Drawing.Font("Gadugi", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtPrompt.Location = New System.Drawing.Point(195, 101)
+        Me.txtPrompt.Multiline = True
+        Me.txtPrompt.Name = "txtPrompt"
+        Me.txtPrompt.Size = New System.Drawing.Size(1179, 143)
+        Me.txtPrompt.TabIndex = 5
         '
         'btnSend
         '
@@ -374,7 +435,7 @@ Partial Class frmMain
         Me.btnCopy.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnCopy.BackColor = System.Drawing.Color.Transparent
         Me.btnCopy.Image = Global.OllamaDesktop.My.Resources.Resources.I_Copy32x
-        Me.btnCopy.Location = New System.Drawing.Point(1029, 18)
+        Me.btnCopy.Location = New System.Drawing.Point(1310, 18)
         Me.btnCopy.Name = "btnCopy"
         Me.btnCopy.Size = New System.Drawing.Size(64, 64)
         Me.btnCopy.TabIndex = 11
@@ -388,12 +449,24 @@ Partial Class frmMain
         Me.chkShowCOT.AutoSize = True
         Me.chkShowCOT.BackColor = System.Drawing.Color.Gray
         Me.chkShowCOT.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.chkShowCOT.Location = New System.Drawing.Point(658, 34)
+        Me.chkShowCOT.Location = New System.Drawing.Point(939, 34)
         Me.chkShowCOT.Name = "chkShowCOT"
         Me.chkShowCOT.Size = New System.Drawing.Size(324, 35)
         Me.chkShowCOT.TabIndex = 10
         Me.chkShowCOT.Text = "Show Chain of Thought"
         Me.chkShowCOT.UseVisualStyleBackColor = False
+        '
+        'Label1
+        '
+        Me.Label1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.Label1.AutoSize = True
+        Me.Label1.BackColor = System.Drawing.Color.Transparent
+        Me.Label1.Font = New System.Drawing.Font("Gadugi", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.Location = New System.Drawing.Point(18, 18)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(561, 56)
+        Me.Label1.TabIndex = 6
+        Me.Label1.Text = "Hi There, How can I help?"
         '
         'ToolTip1
         '
@@ -411,22 +484,20 @@ Partial Class frmMain
         '
         Me.ToolTipGeneral.ToolTipTitle = "Ollama Desktop Chat"
         '
-        'TreeHistory
+        'Knowledge1
         '
-        Me.TreeHistory.ContextMenuStrip = Me.MenuStripTree
-        Me.TreeHistory.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TreeHistory.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TreeHistory.Location = New System.Drawing.Point(0, 107)
-        Me.TreeHistory.Name = "TreeHistory"
-        Me.TreeHistory.Size = New System.Drawing.Size(559, 1025)
-        Me.TreeHistory.TabIndex = 0
+        Me.Knowledge1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Knowledge1.Location = New System.Drawing.Point(3, 3)
+        Me.Knowledge1.Name = "Knowledge1"
+        Me.Knowledge1.Size = New System.Drawing.Size(984, 1033)
+        Me.Knowledge1.TabIndex = 0
         '
         'frmMain
         '
         Me.AcceptButton = Me.btnSend
         Me.AutoScaleDimensions = New System.Drawing.SizeF(192.0!, 192.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
-        Me.ClientSize = New System.Drawing.Size(1674, 1189)
+        Me.ClientSize = New System.Drawing.Size(2394, 1189)
         Me.Controls.Add(Me.SplitContainer1)
         Me.Font = New System.Drawing.Font("Gadugi", 10.125!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
@@ -436,8 +507,11 @@ Partial Class frmMain
         Me.SplitContainer1.Panel2.ResumeLayout(False)
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SplitContainer1.ResumeLayout(False)
+        Me.FlatTabControl1.ResumeLayout(False)
+        Me.TabPage1.ResumeLayout(False)
         Me.MenuStripTree.ResumeLayout(False)
         Me.Panel3.ResumeLayout(False)
+        Me.TabPage3.ResumeLayout(False)
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
         CType(Me.WebView21, System.ComponentModel.ISupportInitialize).EndInit()
@@ -484,4 +558,9 @@ Partial Class frmMain
     Friend WithEvents ToolTipGeneral As ToolTip
     Friend WithEvents Panel4 As Panel
     Friend WithEvents lblHistTitle As Label
+    Friend WithEvents FlatTabControl1 As FlatTabControl
+    Friend WithEvents TabPage1 As TabPage
+    Friend WithEvents TabPage2 As TabPage
+    Friend WithEvents TabPage3 As TabPage
+    Friend WithEvents Knowledge1 As Knowledge
 End Class
