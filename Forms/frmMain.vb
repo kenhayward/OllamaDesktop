@@ -490,4 +490,12 @@ Public Class frmMain
             End If
         End If
     End Sub
+
+    Private Sub mnuCollapse_Click(sender As Object, e As EventArgs) Handles mnuCollapse.Click
+        Me.TreeHistory.CollapseAll()
+    End Sub
+
+    Private Sub mnuexpandall_Click(sender As Object, e As EventArgs) Handles mnuexpandall.Click
+        Me.TreeHistory.ExpandAll()
+    End Sub
 End Class

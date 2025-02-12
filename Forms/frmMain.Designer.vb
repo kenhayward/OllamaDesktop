@@ -27,6 +27,7 @@ Partial Class frmMain
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
         Me.FlatTabControl1 = New DarkModeForms.FlatTabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
+        Me.TreeHistory = New OllamaDesktop.TreeViewDraggableNodes()
         Me.MenuStripTree = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.mnuRename = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuCreateGroup = New System.Windows.Forms.ToolStripMenuItem()
@@ -38,6 +39,7 @@ Partial Class frmMain
         Me.btnClearHistory = New System.Windows.Forms.Button()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
         Me.TabPage3 = New System.Windows.Forms.TabPage()
+        Me.Knowledge1 = New OllamaDesktop.Knowledge()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.btnCollapse = New System.Windows.Forms.Button()
         Me.Label3 = New System.Windows.Forms.Label()
@@ -63,8 +65,9 @@ Partial Class frmMain
         Me.ToolTip2 = New System.Windows.Forms.ToolTip(Me.components)
         Me.ToolTip3 = New System.Windows.Forms.ToolTip(Me.components)
         Me.ToolTipGeneral = New System.Windows.Forms.ToolTip(Me.components)
-        Me.TreeHistory = New OllamaDesktop.TreeViewDraggableNodes()
-        Me.Knowledge1 = New OllamaDesktop.Knowledge()
+        Me.mnuexpandall = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuCollapse = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
@@ -140,40 +143,50 @@ Partial Class frmMain
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "Chat History"
         '
+        'TreeHistory
+        '
+        Me.TreeHistory.ContextMenuStrip = Me.MenuStripTree
+        Me.TreeHistory.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TreeHistory.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TreeHistory.Location = New System.Drawing.Point(3, 3)
+        Me.TreeHistory.Name = "TreeHistory"
+        Me.TreeHistory.Size = New System.Drawing.Size(984, 976)
+        Me.TreeHistory.TabIndex = 0
+        '
         'MenuStripTree
         '
         Me.MenuStripTree.ImageScalingSize = New System.Drawing.Size(32, 32)
-        Me.MenuStripTree.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuRename, Me.mnuCreateGroup, Me.ToolStripSeparator1, Me.mnuDelete, Me.mnuClear})
+        Me.MenuStripTree.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuRename, Me.mnuCreateGroup, Me.ToolStripSeparator1, Me.mnuCollapse, Me.mnuexpandall, Me.ToolStripSeparator2, Me.mnuDelete, Me.mnuClear})
         Me.MenuStripTree.Name = "MenuStripTree"
-        Me.MenuStripTree.Size = New System.Drawing.Size(296, 162)
+        Me.MenuStripTree.Size = New System.Drawing.Size(301, 288)
         '
         'mnuRename
         '
         Me.mnuRename.Name = "mnuRename"
-        Me.mnuRename.Size = New System.Drawing.Size(295, 38)
+        Me.mnuRename.Size = New System.Drawing.Size(300, 38)
         Me.mnuRename.Text = "Rename"
         '
         'mnuCreateGroup
         '
         Me.mnuCreateGroup.Name = "mnuCreateGroup"
-        Me.mnuCreateGroup.Size = New System.Drawing.Size(295, 38)
+        Me.mnuCreateGroup.Size = New System.Drawing.Size(300, 38)
         Me.mnuCreateGroup.Text = "Create Chat Group"
         '
         'ToolStripSeparator1
         '
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(292, 6)
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(297, 6)
         '
         'mnuDelete
         '
         Me.mnuDelete.Name = "mnuDelete"
-        Me.mnuDelete.Size = New System.Drawing.Size(295, 38)
+        Me.mnuDelete.Size = New System.Drawing.Size(300, 38)
         Me.mnuDelete.Text = "Delete History Item"
         '
         'mnuClear
         '
         Me.mnuClear.Name = "mnuClear"
-        Me.mnuClear.Size = New System.Drawing.Size(295, 38)
+        Me.mnuClear.Size = New System.Drawing.Size(300, 38)
         Me.mnuClear.Text = "Clear History"
         '
         'Panel3
@@ -229,6 +242,14 @@ Partial Class frmMain
         Me.TabPage3.Size = New System.Drawing.Size(990, 1039)
         Me.TabPage3.TabIndex = 2
         Me.TabPage3.Text = "Knowledge"
+        '
+        'Knowledge1
+        '
+        Me.Knowledge1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Knowledge1.Location = New System.Drawing.Point(3, 3)
+        Me.Knowledge1.Name = "Knowledge1"
+        Me.Knowledge1.Size = New System.Drawing.Size(984, 1033)
+        Me.Knowledge1.TabIndex = 0
         '
         'Panel1
         '
@@ -486,23 +507,22 @@ Partial Class frmMain
         '
         Me.ToolTipGeneral.ToolTipTitle = "Ollama Desktop Chat"
         '
-        'TreeHistory
+        'mnuexpandall
         '
-        Me.TreeHistory.ContextMenuStrip = Me.MenuStripTree
-        Me.TreeHistory.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TreeHistory.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TreeHistory.Location = New System.Drawing.Point(3, 3)
-        Me.TreeHistory.Name = "TreeHistory"
-        Me.TreeHistory.Size = New System.Drawing.Size(984, 976)
-        Me.TreeHistory.TabIndex = 0
+        Me.mnuexpandall.Name = "mnuexpandall"
+        Me.mnuexpandall.Size = New System.Drawing.Size(300, 38)
+        Me.mnuexpandall.Text = "Expand All"
         '
-        'Knowledge1
+        'mnuCollapse
         '
-        Me.Knowledge1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Knowledge1.Location = New System.Drawing.Point(3, 3)
-        Me.Knowledge1.Name = "Knowledge1"
-        Me.Knowledge1.Size = New System.Drawing.Size(984, 1033)
-        Me.Knowledge1.TabIndex = 0
+        Me.mnuCollapse.Name = "mnuCollapse"
+        Me.mnuCollapse.Size = New System.Drawing.Size(300, 38)
+        Me.mnuCollapse.Text = "Collapse All"
+        '
+        'ToolStripSeparator2
+        '
+        Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(297, 6)
         '
         'frmMain
         '
@@ -576,4 +596,7 @@ Partial Class frmMain
     Friend WithEvents TabPage3 As TabPage
     Friend WithEvents Knowledge1 As Knowledge
     Friend WithEvents lblExpansions As Label
+    Friend WithEvents mnuCollapse As ToolStripMenuItem
+    Friend WithEvents mnuexpandall As ToolStripMenuItem
+    Friend WithEvents ToolStripSeparator2 As ToolStripSeparator
 End Class
