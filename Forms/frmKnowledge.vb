@@ -87,11 +87,14 @@ Public Class frmKnowledge
                 For x As Integer = 0 To regions.Count - 1
                     Dim region = regions(x)
                     Dim tables = ea.Extract(page.GetArea(region.BoundingBox))
-                    For Each table In tables
+                    For Each table As Table In tables
+                        Debug.Print("---------------------------------------------------------------------------------")
+                        Debug.Print($"TABLE: Page {page.PageNumber} Rows:{table.RowCount} Columns: {table.ColumnCount}")
+                        Debug.Print("---------------------------------------------------------------------------------")
                         For Each row In table.Rows
                             Dim Str As String = ""
                             For Each cell In row
-                                Str &= cell.GetText() & Chr(7)
+                                Str &= cell.GetText() & Space(10)
                             Next
                             Debug.Print(Str)
                         Next

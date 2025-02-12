@@ -1,4 +1,13 @@
-﻿Public Module Globals
+﻿Imports System.Runtime.CompilerServices
+
+Public Module Globals
+
+
+    <Extension()>
+    Public Function ReplaceAt(ByVal str As String, ByVal index As Integer, ByVal length As Integer, ByVal replace As String) As String
+        Return str.Remove(index, Math.Min(length, str.Length - index)).Insert(index, replace)
+    End Function
+
 
 End Module
 Public Class Utils

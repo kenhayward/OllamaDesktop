@@ -27,7 +27,6 @@ Partial Class frmMain
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
         Me.FlatTabControl1 = New DarkModeForms.FlatTabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
-        Me.TreeHistory = New OllamaDesktop.TreeViewDraggableNodes()
         Me.MenuStripTree = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.mnuRename = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuCreateGroup = New System.Windows.Forms.ToolStripMenuItem()
@@ -63,6 +62,8 @@ Partial Class frmMain
         Me.ToolTip2 = New System.Windows.Forms.ToolTip(Me.components)
         Me.ToolTip3 = New System.Windows.Forms.ToolTip(Me.components)
         Me.ToolTipGeneral = New System.Windows.Forms.ToolTip(Me.components)
+        Me.lblExpansions = New System.Windows.Forms.Label()
+        Me.TreeHistory = New OllamaDesktop.TreeViewDraggableNodes()
         Me.Knowledge1 = New OllamaDesktop.Knowledge()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
@@ -138,16 +139,6 @@ Partial Class frmMain
         Me.TabPage1.Size = New System.Drawing.Size(990, 1039)
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "Chat History"
-        '
-        'TreeHistory
-        '
-        Me.TreeHistory.ContextMenuStrip = Me.MenuStripTree
-        Me.TreeHistory.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TreeHistory.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TreeHistory.Location = New System.Drawing.Point(3, 3)
-        Me.TreeHistory.Name = "TreeHistory"
-        Me.TreeHistory.Size = New System.Drawing.Size(984, 976)
-        Me.TreeHistory.TabIndex = 0
         '
         'MenuStripTree
         '
@@ -394,6 +385,7 @@ Partial Class frmMain
         '
         'Panel2
         '
+        Me.Panel2.Controls.Add(Me.lblExpansions)
         Me.Panel2.Controls.Add(Me.txtPrompt)
         Me.Panel2.Controls.Add(Me.btnSend)
         Me.Panel2.Controls.Add(Me.btnCopy)
@@ -410,7 +402,7 @@ Partial Class frmMain
         Me.txtPrompt.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtPrompt.Font = New System.Drawing.Font("Gadugi", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtPrompt.Location = New System.Drawing.Point(195, 101)
+        Me.txtPrompt.Location = New System.Drawing.Point(195, 112)
         Me.txtPrompt.Multiline = True
         Me.txtPrompt.Name = "txtPrompt"
         Me.txtPrompt.Size = New System.Drawing.Size(1179, 143)
@@ -423,7 +415,7 @@ Partial Class frmMain
         Me.btnSend.BackgroundImage = Global.OllamaDesktop.My.Resources.Resources.app
         Me.btnSend.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom
         Me.btnSend.Font = New System.Drawing.Font("Gadugi", 10.125!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnSend.Location = New System.Drawing.Point(28, 99)
+        Me.btnSend.Location = New System.Drawing.Point(28, 110)
         Me.btnSend.Name = "btnSend"
         Me.btnSend.Size = New System.Drawing.Size(172, 145)
         Me.btnSend.TabIndex = 8
@@ -483,6 +475,26 @@ Partial Class frmMain
         'ToolTipGeneral
         '
         Me.ToolTipGeneral.ToolTipTitle = "Ollama Desktop Chat"
+        '
+        'lblExpansions
+        '
+        Me.lblExpansions.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lblExpansions.Location = New System.Drawing.Point(206, 75)
+        Me.lblExpansions.Name = "lblExpansions"
+        Me.lblExpansions.Size = New System.Drawing.Size(1168, 43)
+        Me.lblExpansions.TabIndex = 12
+        Me.lblExpansions.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'TreeHistory
+        '
+        Me.TreeHistory.ContextMenuStrip = Me.MenuStripTree
+        Me.TreeHistory.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TreeHistory.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TreeHistory.Location = New System.Drawing.Point(3, 3)
+        Me.TreeHistory.Name = "TreeHistory"
+        Me.TreeHistory.Size = New System.Drawing.Size(984, 976)
+        Me.TreeHistory.TabIndex = 0
         '
         'Knowledge1
         '
@@ -563,4 +575,5 @@ Partial Class frmMain
     Friend WithEvents TabPage2 As TabPage
     Friend WithEvents TabPage3 As TabPage
     Friend WithEvents Knowledge1 As Knowledge
+    Friend WithEvents lblExpansions As Label
 End Class

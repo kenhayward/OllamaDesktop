@@ -2,6 +2,9 @@
 Imports System.ComponentModel
 Imports System.Drawing.Drawing2D
 Imports System.Drawing.Imaging
+Imports System.IO.Pipes
+Imports System.Runtime.CompilerServices
+Imports System.Text
 Imports Microsoft.Web.WebView2.Core
 
 Public Class frmMain
@@ -152,6 +155,28 @@ Public Class frmMain
     Private Sub btnSend_Click(sender As Object, e As EventArgs) Handles btnSend.Click
         ' Send the Query
         If txtPrompt.Text.Trim <> "" And cmbModel.SelectedItem IsNot Nothing And cmbServer.SelectedItem IsNot Nothing Then
+            Dim PromptText As String = txtPrompt.Text
+            ' Check for expansions
+            If ContextEntries.Count > 0 Then
+                Dim PStr As New StringBuilder
+                Dim PromptLen As Integer = PromptText.Length
+                Dim Index As Integer = 0
+                ' find the expansions
+                While PromptText.IndexOf("{", Index) > 0
+                    Dim bPos = PromptText.IndexOf("{", Index)
+                    PStr.Append(PromptText, Index, bPos - Index)
+                    Dim ePOs = PromptText.IndexOf("}", bPos)
+                    Dim entry = PromptText.Substring(bPos + 1, ePOs - bPos - 1)
+                    Dim Target = Utils.Knowledge.GetEntry(entry)
+                    If Target IsNot Nothing Then
+                        PStr.Append(Target.Text)
+                    End If
+                    Index = ePOs + 1
+                End While
+                PStr.Append(PromptText.Substring(Index))  ' The Tail
+                Dim TempPrompt = PStr.ToString
+                PromptText = PStr.ToString
+            End If
             Me.Cursor = Cursors.WaitCursor
             pnlDetails.Visible = False
             Dim StartTime = DateTime.Now
@@ -161,7 +186,7 @@ Public Class frmMain
             OllamaServer.ShowCOT = chkShowCOT.Checked
             AddHandler OllamaServer.ChatUpdate, AddressOf ChatUpdate
             AddHandler OllamaServer.ChatComplete, AddressOf ChatComplete
-            OllamaServer.SendChat(txtPrompt.Text)
+            OllamaServer.SendChat(PromptText)
             Me.Cursor = Cursors.Default
         Else
             MsgBox("Please ensure you have selected a server and a model and provided a chat prompt", MsgBoxStyle.OkOnly + MsgBoxStyle.Exclamation, "Ollama Chat")
@@ -174,6 +199,9 @@ Public Class frmMain
         If Locker Then Exit Sub
         Locker = True
         If CR.FirstPacket Then
+            WebView21.CoreWebView2.NavigateToString(CR.HTML)
+        Else
+            If CR.FullHTML Then
                 WebView21.CoreWebView2.NavigateToString(CR.HTML)
             Else
                 If CR.FullHTML Then
@@ -182,6 +210,7 @@ Public Class frmMain
                     Await UpdateElementAsync("MainContent", "innerHTML", CR.JustDiv)
                 End If
             End If
+        End If
         'Await WebView21.CoreWebView2.ExecuteScriptAsync("window.scrollTo(0,  document.body.scrollHeight)")
         ChatResponse = CR
         Locker = False
@@ -433,8 +462,32 @@ Public Class frmMain
             HistoryNode.Nodes.Insert(0, MyNode)
         End If
     End Sub
+    Private ContextEntries As New KnowledgeSet
+    Private Sub txtPrompt_TextChanged(sender As Object, e As EventArgs) Handles txtPrompt.TextChanged
+        ' Look for expansions 
+        If txtPrompt.Text <> "" Then
+            If txtPrompt.Text.EndsWith("}") Then
+                ' Expansion
+                Dim Startpos = txtPrompt.Text.LastIndexOf("{")
+                Dim EndPos = (txtPrompt.Text.Length - 1) - Startpos
+                If Startpos < 0 Then Exit Sub
+                Dim Key As String = txtPrompt.Text.Substring(Startpos + 1, EndPos - 1)
+                Key = Key.Trim
+                Dim Target = ContextEntries.GetEntry(Key)
+                If Target IsNot Nothing Then
+                    txtPrompt.Text = txtPrompt.Text.ReplaceAt(Startpos + 1, EndPos - 1, Target.Key)
+                    Exit Sub
+                Else
+                    Target = Utils.Knowledge.GetEntry(Key)
+                    If Target IsNot Nothing Then
+                        ContextEntries.Add(Target)
+                        txtPrompt.Text = txtPrompt.Text.ReplaceAt(Startpos + 1, EndPos - 1, Target.Key)
+                        If lblExpansions.Text.Length = 0 Then lblExpansions.Text = "Including Context Knowledge: "
+                        Me.lblExpansions.Text &= Target.Key & " "
+                    End If
+                End If
 
-    Private Sub btnAddKnowledge_Click(sender As Object, e As EventArgs)
-
+            End If
+        End If
     End Sub
 End Class

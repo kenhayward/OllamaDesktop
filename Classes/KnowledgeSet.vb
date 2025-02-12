@@ -28,6 +28,15 @@ Imports System.Runtime.Serialization.Formatters.Binary
         End Try
     End Function
 
+    Public Function GetEntry(Key As String) As KnowledgeEntry
+        For Each entry In Me
+            If entry.Key.Equals(Key, StringComparison.CurrentCultureIgnoreCase) Then
+                Return entry
+            End If
+        Next
+        Return Nothing
+    End Function
+
 End Class
 
 <Serializable()> Public Class KnowledgeEntry
