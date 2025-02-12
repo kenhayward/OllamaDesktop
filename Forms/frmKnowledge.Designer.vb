@@ -27,7 +27,6 @@ Partial Class frmKnowledge
         Me.Label1 = New System.Windows.Forms.Label()
         Me.btnOpenFile = New System.Windows.Forms.Button()
         Me.txtText = New System.Windows.Forms.TextBox()
-        Me.Label2 = New System.Windows.Forms.Label()
         Me.btnOK = New System.Windows.Forms.Button()
         Me.btnCancel = New System.Windows.Forms.Button()
         Me.Label3 = New System.Windows.Forms.Label()
@@ -37,6 +36,15 @@ Partial Class frmKnowledge
         Me.Label7 = New System.Windows.Forms.Label()
         Me.txtKey = New System.Windows.Forms.TextBox()
         Me.btnRecalc = New System.Windows.Forms.Button()
+        Me.TabControlMain = New DarkModeForms.FlatTabControl()
+        Me.TabPage1 = New System.Windows.Forms.TabPage()
+        Me.TabPage2 = New System.Windows.Forms.TabPage()
+        Me.TabPage3 = New System.Windows.Forms.TabPage()
+        Me.WebView21 = New Microsoft.Web.WebView2.WinForms.WebView2()
+        Me.TabControlMain.SuspendLayout()
+        Me.TabPage1.SuspendLayout()
+        Me.TabPage2.SuspendLayout()
+        CType(Me.WebView21, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'OpenFileDialog1
@@ -50,7 +58,7 @@ Partial Class frmKnowledge
         Me.txtFile.Location = New System.Drawing.Point(176, 20)
         Me.txtFile.Name = "txtFile"
         Me.txtFile.ReadOnly = True
-        Me.txtFile.Size = New System.Drawing.Size(980, 43)
+        Me.txtFile.Size = New System.Drawing.Size(1341, 43)
         Me.txtFile.TabIndex = 0
         '
         'Label1
@@ -65,7 +73,7 @@ Partial Class frmKnowledge
         'btnOpenFile
         '
         Me.btnOpenFile.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnOpenFile.Location = New System.Drawing.Point(1162, 16)
+        Me.btnOpenFile.Location = New System.Drawing.Point(1523, 16)
         Me.btnOpenFile.Name = "btnOpenFile"
         Me.btnOpenFile.Size = New System.Drawing.Size(146, 47)
         Me.btnOpenFile.TabIndex = 2
@@ -74,31 +82,20 @@ Partial Class frmKnowledge
         '
         'txtText
         '
-        Me.txtText.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.txtText.Dock = System.Windows.Forms.DockStyle.Fill
         Me.txtText.Enabled = False
         Me.txtText.Font = New System.Drawing.Font("Gadugi", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtText.Location = New System.Drawing.Point(17, 199)
+        Me.txtText.Location = New System.Drawing.Point(3, 3)
         Me.txtText.Multiline = True
         Me.txtText.Name = "txtText"
         Me.txtText.ScrollBars = System.Windows.Forms.ScrollBars.Both
-        Me.txtText.Size = New System.Drawing.Size(1290, 485)
+        Me.txtText.Size = New System.Drawing.Size(1636, 494)
         Me.txtText.TabIndex = 3
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(11, 151)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(204, 31)
-        Me.Label2.TabIndex = 4
-        Me.Label2.Text = "Knowledge Text"
         '
         'btnOK
         '
         Me.btnOK.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnOK.Location = New System.Drawing.Point(1162, 701)
+        Me.btnOK.Location = New System.Drawing.Point(1523, 722)
         Me.btnOK.Name = "btnOK"
         Me.btnOK.Size = New System.Drawing.Size(145, 57)
         Me.btnOK.TabIndex = 5
@@ -109,7 +106,7 @@ Partial Class frmKnowledge
         '
         Me.btnCancel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.btnCancel.Location = New System.Drawing.Point(1011, 701)
+        Me.btnCancel.Location = New System.Drawing.Point(1372, 722)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(145, 57)
         Me.btnCancel.TabIndex = 6
@@ -118,8 +115,9 @@ Partial Class frmKnowledge
         '
         'Label3
         '
+        Me.Label3.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(149, 714)
+        Me.Label3.Location = New System.Drawing.Point(149, 735)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(123, 31)
         Me.Label3.TabIndex = 7
@@ -127,8 +125,9 @@ Partial Class frmKnowledge
         '
         'lblsize
         '
+        Me.lblsize.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.lblsize.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.125!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblsize.Location = New System.Drawing.Point(281, 714)
+        Me.lblsize.Location = New System.Drawing.Point(281, 735)
         Me.lblsize.Name = "lblsize"
         Me.lblsize.Size = New System.Drawing.Size(145, 31)
         Me.lblsize.TabIndex = 8
@@ -136,8 +135,9 @@ Partial Class frmKnowledge
         '
         'lblTokens
         '
+        Me.lblTokens.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.lblTokens.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.125!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblTokens.Location = New System.Drawing.Point(769, 714)
+        Me.lblTokens.Location = New System.Drawing.Point(769, 735)
         Me.lblTokens.Name = "lblTokens"
         Me.lblTokens.Size = New System.Drawing.Size(116, 31)
         Me.lblTokens.TabIndex = 10
@@ -145,8 +145,9 @@ Partial Class frmKnowledge
         '
         'Label6
         '
+        Me.Label6.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(432, 714)
+        Me.Label6.Location = New System.Drawing.Point(432, 735)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(331, 31)
         Me.Label6.TabIndex = 9
@@ -169,18 +170,89 @@ Partial Class frmKnowledge
         Me.txtKey.Enabled = False
         Me.txtKey.Location = New System.Drawing.Point(176, 83)
         Me.txtKey.Name = "txtKey"
-        Me.txtKey.Size = New System.Drawing.Size(980, 43)
+        Me.txtKey.Size = New System.Drawing.Size(1341, 43)
         Me.txtKey.TabIndex = 11
         '
         'btnRecalc
         '
+        Me.btnRecalc.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.btnRecalc.Enabled = False
-        Me.btnRecalc.Location = New System.Drawing.Point(17, 701)
+        Me.btnRecalc.Location = New System.Drawing.Point(17, 722)
         Me.btnRecalc.Name = "btnRecalc"
         Me.btnRecalc.Size = New System.Drawing.Size(115, 56)
         Me.btnRecalc.TabIndex = 13
         Me.btnRecalc.Text = "Recalc"
         Me.btnRecalc.UseVisualStyleBackColor = True
+        '
+        'TabControlMain
+        '
+        Me.TabControlMain.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TabControlMain.Appearance = System.Windows.Forms.TabAppearance.Buttons
+        Me.TabControlMain.BorderColor = System.Drawing.SystemColors.ControlDark
+        Me.TabControlMain.Controls.Add(Me.TabPage1)
+        Me.TabControlMain.Controls.Add(Me.TabPage2)
+        Me.TabControlMain.Controls.Add(Me.TabPage3)
+        Me.TabControlMain.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed
+        Me.TabControlMain.LineColor = System.Drawing.SystemColors.Highlight
+        Me.TabControlMain.Location = New System.Drawing.Point(18, 148)
+        Me.TabControlMain.Name = "TabControlMain"
+        Me.TabControlMain.SelectedForeColor = System.Drawing.SystemColors.HighlightText
+        Me.TabControlMain.SelectedIndex = 0
+        Me.TabControlMain.SelectTabColor = System.Drawing.SystemColors.ControlDarkDark
+        Me.TabControlMain.ShowTabCloseButton = False
+        Me.TabControlMain.Size = New System.Drawing.Size(1650, 536)
+        Me.TabControlMain.SizeMode = System.Windows.Forms.TabSizeMode.Fixed
+        Me.TabControlMain.TabCloseColor = System.Drawing.SystemColors.ControlText
+        Me.TabControlMain.TabColor = System.Drawing.SystemColors.ControlLight
+        Me.TabControlMain.TabIndex = 14
+        '
+        'TabPage1
+        '
+        Me.TabPage1.BackColor = System.Drawing.SystemColors.ControlLight
+        Me.TabPage1.Controls.Add(Me.txtText)
+        Me.TabPage1.Location = New System.Drawing.Point(4, 32)
+        Me.TabPage1.Name = "TabPage1"
+        Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
+        Me.TabPage1.Size = New System.Drawing.Size(1642, 500)
+        Me.TabPage1.TabIndex = 0
+        Me.TabPage1.Text = "Extracted Text"
+        '
+        'TabPage2
+        '
+        Me.TabPage2.BackColor = System.Drawing.SystemColors.ControlLight
+        Me.TabPage2.Controls.Add(Me.WebView21)
+        Me.TabPage2.Location = New System.Drawing.Point(4, 32)
+        Me.TabPage2.Name = "TabPage2"
+        Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
+        Me.TabPage2.Size = New System.Drawing.Size(1642, 500)
+        Me.TabPage2.TabIndex = 1
+        Me.TabPage2.Text = "Original PDF"
+        '
+        'TabPage3
+        '
+        Me.TabPage3.BackColor = System.Drawing.SystemColors.ControlLight
+        Me.TabPage3.Location = New System.Drawing.Point(4, 32)
+        Me.TabPage3.Name = "TabPage3"
+        Me.TabPage3.Padding = New System.Windows.Forms.Padding(3)
+        Me.TabPage3.Size = New System.Drawing.Size(1642, 500)
+        Me.TabPage3.TabIndex = 2
+        Me.TabPage3.Text = "Potential Tables"
+        '
+        'WebView21
+        '
+        Me.WebView21.AllowExternalDrop = True
+        Me.WebView21.CreationProperties = Nothing
+        Me.WebView21.DefaultBackgroundColor = System.Drawing.Color.White
+        Me.WebView21.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.WebView21.Location = New System.Drawing.Point(3, 3)
+        Me.WebView21.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
+        Me.WebView21.Name = "WebView21"
+        Me.WebView21.Size = New System.Drawing.Size(1636, 494)
+        Me.WebView21.Source = New System.Uri("https://www.google.com", System.UriKind.Absolute)
+        Me.WebView21.TabIndex = 1
+        Me.WebView21.ZoomFactor = 1.0R
         '
         'frmKnowledge
         '
@@ -188,7 +260,8 @@ Partial Class frmKnowledge
         Me.AutoScaleDimensions = New System.Drawing.SizeF(15.0!, 31.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.btnCancel
-        Me.ClientSize = New System.Drawing.Size(1319, 770)
+        Me.ClientSize = New System.Drawing.Size(1680, 791)
+        Me.Controls.Add(Me.TabControlMain)
         Me.Controls.Add(Me.btnRecalc)
         Me.Controls.Add(Me.Label7)
         Me.Controls.Add(Me.txtKey)
@@ -198,16 +271,21 @@ Partial Class frmKnowledge
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.btnCancel)
         Me.Controls.Add(Me.btnOK)
-        Me.Controls.Add(Me.Label2)
-        Me.Controls.Add(Me.txtText)
         Me.Controls.Add(Me.btnOpenFile)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.txtFile)
         Me.Font = New System.Drawing.Font("Gadugi", 10.125!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.MinimizeBox = False
         Me.Name = "frmKnowledge"
+        Me.ShowIcon = False
+        Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Knowledge"
+        Me.TabControlMain.ResumeLayout(False)
+        Me.TabPage1.ResumeLayout(False)
+        Me.TabPage1.PerformLayout()
+        Me.TabPage2.ResumeLayout(False)
+        CType(Me.WebView21, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -218,7 +296,6 @@ Partial Class frmKnowledge
     Friend WithEvents Label1 As Label
     Friend WithEvents btnOpenFile As Button
     Friend WithEvents txtText As TextBox
-    Friend WithEvents Label2 As Label
     Friend WithEvents btnOK As Button
     Friend WithEvents btnCancel As Button
     Friend WithEvents Label3 As Label
@@ -228,4 +305,9 @@ Partial Class frmKnowledge
     Friend WithEvents Label7 As Label
     Friend WithEvents txtKey As TextBox
     Friend WithEvents btnRecalc As Button
+    Friend WithEvents TabControlMain As FlatTabControl
+    Friend WithEvents TabPage1 As TabPage
+    Friend WithEvents TabPage2 As TabPage
+    Friend WithEvents TabPage3 As TabPage
+    Friend WithEvents WebView21 As Microsoft.Web.WebView2.WinForms.WebView2
 End Class

@@ -36,7 +36,7 @@ Partial Class WebView
         Me.WebView21.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
         Me.WebView21.Name = "WebView21"
         Me.WebView21.Size = New System.Drawing.Size(2992, 3067)
-        Me.WebView21.Source = New System.Uri("https://ollama.com", System.UriKind.Absolute)
+        Me.WebView21.Source = New System.Uri("https://www.google.com", System.UriKind.Absolute)
         Me.WebView21.TabIndex = 0
         Me.WebView21.ZoomFactor = 1.0R
         '

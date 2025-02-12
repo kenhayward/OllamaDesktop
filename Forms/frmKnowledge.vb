@@ -1,7 +1,11 @@
 ﻿Imports System.Text
+Imports Tabula
+Imports Tabula.Detectors
+Imports Tabula.Extractors
 Imports Tiktoken
 Imports UglyToad.PdfPig
 Imports UglyToad.PdfPig.Content
+Imports UglyToad.PdfPig.DocumentLayoutAnalysis.TextExtractor
 
 Public Class frmKnowledge
 
@@ -16,9 +20,9 @@ Public Class frmKnowledge
 
         ' Add any initialization after the InitializeComponent() call.
         DarkMode = New DarkModeCS(Me, True, True) With {.ColorMode = DarkModeCS.DisplayMode.DarkMode}
-
     End Sub
     Private Sub frmKnowledge_Shown(sender As Object, e As EventArgs) Handles Me.Shown
+        WebViewSetup()
         If NewKnowledge Is Nothing Then
             OpenFile()
         Else
@@ -49,25 +53,53 @@ Public Class frmKnowledge
 
     Private Sub ShowKnowledge()
         amUpdating = True
-        Me.lblsize.Text = NewKnowledge.Size
-        Me.lblTokens.Text = NewKnowledge.Tokens
+        Me.lblsize.Text = Utils.FormatFileSize(NewKnowledge.Size)
+        Me.lblTokens.Text = NewKnowledge.Tokens.ToString("###,###,##0")
         Me.txtKey.Text = NewKnowledge.Key
         Me.txtText.Text = NewKnowledge.Text
         Me.txtText.Enabled = True
         Me.txtKey.Enabled = True
         Me.btnRecalc.Enabled = True
         Me.txtFile.Text = NewKnowledge.Name
+        ShowPDFFile(NewKnowledge.Name)
         amUpdating = False
     End Sub
     Private Function ReadPDFText(FileName As String) As String
         Dim DocumentText As New StringBuilder
         Using document As PdfDocument = PdfDocument.Open(FileName)
             For Each page In document.GetPages
-                DocumentText.AppendLine(page.Text)
+                DocumentText.Append(ContentOrderTextExtractor.GetText(page))
+                Dim Mytext = DocumentText.ToString
+                Debug.Print("")
             Next
         End Using
+        ExtractTables(FileName)
         Return DocumentText.ToString()
     End Function
+    Private Sub ExtractTables(Filename As String)
+        Using document = PdfDocument.Open(Filename, New ParsingOptions() With {.ClipPaths = True})
+            Dim Pages = Tabula.ObjectExtractor.Extract(document)
+            While Pages.MoveNext()
+                Dim page = Pages.Current
+                Dim Detector = New SimpleNurminenDetectionAlgorithm()
+                Dim regions = Detector.Detect(page)
+                Dim ea As IExtractionAlgorithm = New BasicExtractionAlgorithm()
+                For x As Integer = 0 To regions.Count - 1
+                    Dim region = regions(x)
+                    Dim tables = ea.Extract(page.GetArea(region.BoundingBox))
+                    For Each table In tables
+                        For Each row In table.Rows
+                            Dim Str As String = ""
+                            For Each cell In row
+                                Str &= cell.GetText() & Chr(7)
+                            Next
+                            Debug.Print(Str)
+                        Next
+                    Next
+                Next
+            End While
+        End Using
+    End Sub
 
     Private Function CountTokens(Text As String) As Integer
 
@@ -103,6 +135,23 @@ Public Class frmKnowledge
         NewKnowledge.Key = txtKey.Text
         NewKnowledge.Text = txtText.Text
 
+    End Sub
+
+
+    Public Async Sub WebViewSetup()
+        If WebView21.CoreWebView2 Is Nothing Then
+            Dim CacheDirectory = My.Computer.FileSystem.SpecialDirectories.CurrentUserApplicationData & "\OllamaChat\Cache"
+            Dim env = Await Microsoft.Web.WebView2.Core.CoreWebView2Environment.CreateAsync(userDataFolder:=CacheDirectory)
+            Try
+                Await WebView21.EnsureCoreWebView2Async(env)
+            Catch ex As Exception
+                Debug.Print($"CoreWebView2 threw an error {ex.Message}")
+            End Try
+        End If
+    End Sub
+
+    Public Sub ShowPDFFile(Text As String)
+        WebView21.Source = New Uri("file:////" & Text.Replace("\", "/"))
     End Sub
 
 

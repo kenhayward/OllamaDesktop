@@ -36,8 +36,8 @@
         Item.SubItems.Clear()
         Item.Text = Kn.Key
         Item.SubItems.Add(Kn.Name)
-        Item.SubItems.Add(Kn.Tokens)
-        Item.SubItems.Add(Kn.Size)
+        Item.SubItems.Add(Kn.Tokens.ToString("###,###,##0"))
+        Item.SubItems.Add(Utils.FormatFileSize(Kn.Size))
         Item.Tag = Kn
         Item.EnsureVisible()
     End Sub

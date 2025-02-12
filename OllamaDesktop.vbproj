@@ -306,6 +306,14 @@
       <Project>{cb5b5beb-1458-4909-85ec-c0f1699478b6}</Project>
       <Name>DarkModeForms</Name>
     </ProjectReference>
+    <ProjectReference Include="..\tabula-sharp\Tabula.Csv\Tabula.Csv.csproj">
+      <Project>{98bc9a8b-2723-40f8-90db-2544b9d3cbd0}</Project>
+      <Name>Tabula.Csv</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\tabula-sharp\Tabula\Tabula.csproj">
+      <Project>{092da9f8-339c-4374-bede-c18b86651dfe}</Project>
+      <Name>Tabula</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="server_network.png" />

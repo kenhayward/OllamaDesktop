@@ -24,6 +24,7 @@ Public Class frmMain
 
         'Me.TreeHistory.Nodes.Add(PromptLibraryNode)
         LoadHistory()
+
         Dim CacheDirectory = My.Computer.FileSystem.SpecialDirectories.CurrentUserApplicationData & "\OllamaChat\Cache"
         Dim env = Await Microsoft.Web.WebView2.Core.CoreWebView2Environment.CreateAsync(userDataFolder:=CacheDirectory)
         Await WebView21.EnsureCoreWebView2Async(env)

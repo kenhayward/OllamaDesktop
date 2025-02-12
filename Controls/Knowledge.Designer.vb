@@ -49,6 +49,7 @@ Partial Class Knowledge
         Me.lstKnowledge.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader1, Me.ColumnHeader2, Me.ColumnHeader3, Me.ColumnHeader4})
         Me.lstKnowledge.ContextMenuStrip = Me.MenuList
         Me.lstKnowledge.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lstKnowledge.ForeColor = System.Drawing.SystemColors.Window
         Me.lstKnowledge.FullRowSelect = True
         Me.lstKnowledge.HideSelection = False
         Me.lstKnowledge.Location = New System.Drawing.Point(0, 0)
