@@ -77,6 +77,7 @@ End Class
 
 End Class
 <Serializable()> Public Class PDFRow
-    Inherits List(Of String)
+
+    Public Property Cells As New List(Of String)
 
 End Class

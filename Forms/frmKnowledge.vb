@@ -19,7 +19,8 @@ Public Class frmKnowledge
         InitializeComponent()
 
         ' Add any initialization after the InitializeComponent() call.
-        DarkMode = New DarkModeCS(Me, True, True) With {.ColorMode = DarkModeCS.DisplayMode.DarkMode}
+
+        DarkMode = Utils.GetColorMode(Me)
     End Sub
     Private Sub frmKnowledge_Shown(sender As Object, e As EventArgs) Handles Me.Shown
         WebViewSetup()
@@ -101,8 +102,12 @@ Public Class frmKnowledge
                         For Each row In table.Rows
                             Dim MyRow As New PDFRow
                             MyTable.Rows.Add(MyRow)
+
                             For Each cell In row
-                                MyRow.Add(cell.GetText())
+                                If cell.IsSpanning Or cell.IsPlaceholder Then
+                                    Debug.Print("")
+                                End If
+                                MyRow.Cells.Add(cell.GetText())
                             Next
                         Next
                     Next
@@ -184,4 +189,23 @@ Public Class frmKnowledge
         Next
     End Sub
 
+    Private Sub lstTables_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lstTables.SelectedIndexChanged
+        If lstTables.SelectedItems.Count = 1 Then
+            Dim MyTable As PDFTable = lstTables.SelectedItems(0).Tag
+            Me.DataGridView1.Rows.Clear()
+            Me.DataGridView1.Columns.Clear()
+            For x = 0 To MyTable.ColumnCount - 1
+                Me.DataGridView1.Columns.Add($"TableCol{x}", x.ToString)
+            Next
+            For Each row In MyTable.Rows
+                Dim MyRow = New DataGridViewRow
+                MyRow.CreateCells(Me.DataGridView1)
+                For x As Integer = 1 To row.Cells.Count
+                    Dim Cell = row.Cells(x - 1)
+                    MyRow.Cells(x - 1).Value = Cell
+                Next
+                Me.DataGridView1.Rows.Add(MyRow)
+            Next
+        End If
+    End Sub
 End Class

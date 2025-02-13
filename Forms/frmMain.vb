@@ -43,7 +43,7 @@ Public Class frmMain
         InitializeComponent()
 
         ' Add any initialization after the InitializeComponent() call.
-        DarkMode = New DarkModeCS(Me, True, True) With {.ColorMode = DarkModeCS.DisplayMode.DarkMode}
+        DarkMode = Utils.GetColorMode(Me)
 
     End Sub
 

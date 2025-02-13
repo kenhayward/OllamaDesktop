@@ -1,4 +1,6 @@
-﻿Imports System.Runtime.CompilerServices
+﻿Imports System.Drawing.Drawing2D
+Imports System.Drawing.Imaging
+Imports System.Runtime.CompilerServices
 
 Public Module Globals
 
@@ -11,6 +13,12 @@ Public Module Globals
 
 End Module
 Public Class Utils
+
+    Public Shared Function GetColorMode(f As Form) As DarkModeCS
+        Return New DarkModeCS(f, True, True) With {.ColorMode = DarkModeCS.DisplayMode.ClearMode}
+    End Function
+
+
     Private Shared OServers As OllamaServers
     Public Shared ReadOnly Property OllamaServers As OllamaServers
         Get
