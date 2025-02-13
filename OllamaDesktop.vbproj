@@ -198,6 +198,12 @@
     <Compile Include="Classes\Markdown.vb" />
     <Compile Include="Classes\RegistrySettings.vb" />
     <Compile Include="Classes\Utils.vb" />
+    <Compile Include="Controls\ChatHistoryView.Designer.vb">
+      <DependentUpon>ChatHistoryView.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ChatHistoryView.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Controls\Knowledge.Designer.vb">
       <DependentUpon>Knowledge.vb</DependentUpon>
     </Compile>
@@ -256,6 +262,9 @@
     <Compile Include="Ollama.vb" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Controls\ChatHistoryView.resx">
+      <DependentUpon>ChatHistoryView.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\Knowledge.resx">
       <DependentUpon>Knowledge.vb</DependentUpon>
     </EmbeddedResource>

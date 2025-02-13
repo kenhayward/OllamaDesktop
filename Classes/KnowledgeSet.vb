@@ -56,6 +56,27 @@ End Class
     End Property
 
     Public Property Tokens As Integer
+    Public Property Tables As New PDFTables
+End Class
 
+<Serializable()> Public Class PDFTables
+    Inherits List(Of PDFTable)
+
+End Class
+<Serializable()> Public Class PDFTable
+    Public Property DocumentName As String
+
+    Public Property Page As Integer
+    Public Property RowCount As Integer
+    Public Property ColumnCount As Integer
+    Public Property Rows As New PDFRows
+
+End Class
+<Serializable()> Public Class PDFRows
+    Inherits List(Of PDFRow)
+
+End Class
+<Serializable()> Public Class PDFRow
+    Inherits List(Of String)
 
 End Class

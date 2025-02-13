@@ -40,6 +40,7 @@ Public Class frmKnowledge
             NewKnowledge.Name = FullFilename
             NewKnowledge.Key = Utils.FileNameOnly(FullFilename)
             NewKnowledge.Text = ReadPDFText(FullFilename)
+            NewKnowledge.Tables = ExtractTables(FullFilename)
             RecalculateTokens()
             amUpdating = False
             Me.Cursor = Cursors.Default
@@ -62,6 +63,7 @@ Public Class frmKnowledge
         Me.btnRecalc.Enabled = True
         Me.txtFile.Text = NewKnowledge.Name
         ShowPDFFile(NewKnowledge.Name)
+        ShowTables(NewKnowledge.Tables)
         amUpdating = False
     End Sub
     Private Function ReadPDFText(FileName As String) As String
@@ -73,10 +75,11 @@ Public Class frmKnowledge
                 Debug.Print("")
             Next
         End Using
-        ExtractTables(FileName)
         Return DocumentText.ToString()
     End Function
-    Private Sub ExtractTables(Filename As String)
+    Private Function ExtractTables(Filename As String) As PDFTables
+        Dim MyTables As New PDFTables
+
         Using document = PdfDocument.Open(Filename, New ParsingOptions() With {.ClipPaths = True})
             Dim Pages = Tabula.ObjectExtractor.Extract(document)
             While Pages.MoveNext()
@@ -88,21 +91,26 @@ Public Class frmKnowledge
                     Dim region = regions(x)
                     Dim tables = ea.Extract(page.GetArea(region.BoundingBox))
                     For Each table As Table In tables
-                        Debug.Print("---------------------------------------------------------------------------------")
-                        Debug.Print($"TABLE: Page {page.PageNumber} Rows:{table.RowCount} Columns: {table.ColumnCount}")
-                        Debug.Print("---------------------------------------------------------------------------------")
+                        Dim MyTable As New PDFTable
+                        MyTables.Add(MyTable)
+                        MyTable.Page = page.PageNumber
+                        MyTable.RowCount = table.RowCount
+                        MyTable.ColumnCount = table.ColumnCount
+                        MyTable.DocumentName = Filename
+
                         For Each row In table.Rows
-                            Dim Str As String = ""
+                            Dim MyRow As New PDFRow
+                            MyTable.Rows.Add(MyRow)
                             For Each cell In row
-                                Str &= cell.GetText() & Space(10)
+                                MyRow.Add(cell.GetText())
                             Next
-                            Debug.Print(Str)
                         Next
                     Next
                 Next
             End While
         End Using
-    End Sub
+        Return MyTables
+    End Function
 
     Private Function CountTokens(Text As String) As Integer
 
@@ -145,7 +153,7 @@ Public Class frmKnowledge
     End Sub
 
 
-    Public Async Sub WebViewSetup()
+    Private Async Sub WebViewSetup()
         If WebView21.CoreWebView2 Is Nothing Then
             Dim CacheDirectory = My.Computer.FileSystem.SpecialDirectories.CurrentUserApplicationData & "\OllamaChat\Cache"
             Dim env = Await Microsoft.Web.WebView2.Core.CoreWebView2Environment.CreateAsync(userDataFolder:=CacheDirectory)
@@ -157,9 +165,23 @@ Public Class frmKnowledge
         End If
     End Sub
 
-    Public Sub ShowPDFFile(Text As String)
+    Private Sub ShowPDFFile(Text As String)
         WebView21.Source = New Uri("file:////" & Text.Replace("\", "/"))
     End Sub
 
+    Private Sub ShowTables(Tables As PDFTables)
+        Me.lstTables.Items.Clear()
+        Dim x As Integer = 0
+        For Each table In Tables
+            x += 1
+            Dim MyNode As New ListViewItem
+            MyNode.Text = x.ToString
+            MyNode.SubItems.Add(table.Page)
+            MyNode.SubItems.Add(table.RowCount)
+            MyNode.SubItems.Add(table.ColumnCount)
+            MyNode.Tag = table
+            Me.lstTables.Items.Add(MyNode)
+        Next
+    End Sub
 
 End Class

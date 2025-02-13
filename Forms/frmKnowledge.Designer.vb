@@ -41,10 +41,23 @@ Partial Class frmKnowledge
         Me.TabPage2 = New System.Windows.Forms.TabPage()
         Me.WebView21 = New Microsoft.Web.WebView2.WinForms.WebView2()
         Me.TabPage3 = New System.Windows.Forms.TabPage()
+        Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
+        Me.DataGridView1 = New System.Windows.Forms.DataGridView()
+        Me.lstTables = New System.Windows.Forms.ListView()
+        Me.ColumnHeader1 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.ColumnHeader2 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.ColumnHeader3 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.ColumnHeader4 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.TabControlMain.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.TabPage2.SuspendLayout()
         CType(Me.WebView21, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.TabPage3.SuspendLayout()
+        CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.SplitContainer1.Panel1.SuspendLayout()
+        Me.SplitContainer1.Panel2.SuspendLayout()
+        Me.SplitContainer1.SuspendLayout()
+        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'OpenFileDialog1
@@ -89,7 +102,7 @@ Partial Class frmKnowledge
         Me.txtText.Multiline = True
         Me.txtText.Name = "txtText"
         Me.txtText.ScrollBars = System.Windows.Forms.ScrollBars.Both
-        Me.txtText.Size = New System.Drawing.Size(1636, 494)
+        Me.txtText.Size = New System.Drawing.Size(1636, 487)
         Me.txtText.TabIndex = 3
         '
         'btnOK
@@ -195,8 +208,10 @@ Partial Class frmKnowledge
         Me.TabControlMain.Controls.Add(Me.TabPage2)
         Me.TabControlMain.Controls.Add(Me.TabPage3)
         Me.TabControlMain.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed
+        Me.TabControlMain.ItemSize = New System.Drawing.Size(192, 35)
         Me.TabControlMain.LineColor = System.Drawing.SystemColors.Highlight
         Me.TabControlMain.Location = New System.Drawing.Point(18, 148)
+        Me.TabControlMain.Multiline = True
         Me.TabControlMain.Name = "TabControlMain"
         Me.TabControlMain.SelectedForeColor = System.Drawing.SystemColors.HighlightText
         Me.TabControlMain.SelectedIndex = 0
@@ -212,10 +227,10 @@ Partial Class frmKnowledge
         '
         Me.TabPage1.BackColor = System.Drawing.SystemColors.ControlLight
         Me.TabPage1.Controls.Add(Me.txtText)
-        Me.TabPage1.Location = New System.Drawing.Point(4, 32)
+        Me.TabPage1.Location = New System.Drawing.Point(4, 39)
         Me.TabPage1.Name = "TabPage1"
         Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage1.Size = New System.Drawing.Size(1642, 500)
+        Me.TabPage1.Size = New System.Drawing.Size(1642, 493)
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "Extracted Text"
         '
@@ -223,10 +238,10 @@ Partial Class frmKnowledge
         '
         Me.TabPage2.BackColor = System.Drawing.SystemColors.ControlLight
         Me.TabPage2.Controls.Add(Me.WebView21)
-        Me.TabPage2.Location = New System.Drawing.Point(4, 32)
+        Me.TabPage2.Location = New System.Drawing.Point(4, 39)
         Me.TabPage2.Name = "TabPage2"
         Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage2.Size = New System.Drawing.Size(1642, 500)
+        Me.TabPage2.Size = New System.Drawing.Size(1642, 493)
         Me.TabPage2.TabIndex = 1
         Me.TabPage2.Text = "Original PDF"
         '
@@ -239,7 +254,7 @@ Partial Class frmKnowledge
         Me.WebView21.Location = New System.Drawing.Point(3, 3)
         Me.WebView21.Margin = New System.Windows.Forms.Padding(8, 7, 8, 7)
         Me.WebView21.Name = "WebView21"
-        Me.WebView21.Size = New System.Drawing.Size(1636, 494)
+        Me.WebView21.Size = New System.Drawing.Size(1636, 487)
         Me.WebView21.Source = New System.Uri("https://www.google.com", System.UriKind.Absolute)
         Me.WebView21.TabIndex = 1
         Me.WebView21.ZoomFactor = 1.0R
@@ -247,12 +262,80 @@ Partial Class frmKnowledge
         'TabPage3
         '
         Me.TabPage3.BackColor = System.Drawing.SystemColors.ControlLight
-        Me.TabPage3.Location = New System.Drawing.Point(4, 32)
+        Me.TabPage3.Controls.Add(Me.SplitContainer1)
+        Me.TabPage3.Location = New System.Drawing.Point(4, 39)
         Me.TabPage3.Name = "TabPage3"
         Me.TabPage3.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage3.Size = New System.Drawing.Size(1642, 500)
+        Me.TabPage3.Size = New System.Drawing.Size(1642, 493)
         Me.TabPage3.TabIndex = 2
         Me.TabPage3.Text = "Potential Tables"
+        '
+        'SplitContainer1
+        '
+        Me.SplitContainer1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.SplitContainer1.Location = New System.Drawing.Point(3, 3)
+        Me.SplitContainer1.Name = "SplitContainer1"
+        '
+        'SplitContainer1.Panel1
+        '
+        Me.SplitContainer1.Panel1.Controls.Add(Me.lstTables)
+        '
+        'SplitContainer1.Panel2
+        '
+        Me.SplitContainer1.Panel2.Controls.Add(Me.DataGridView1)
+        Me.SplitContainer1.Size = New System.Drawing.Size(1636, 487)
+        Me.SplitContainer1.SplitterDistance = 632
+        Me.SplitContainer1.SplitterWidth = 10
+        Me.SplitContainer1.TabIndex = 0
+        '
+        'DataGridView1
+        '
+        Me.DataGridView1.AllowUserToAddRows = False
+        Me.DataGridView1.AllowUserToDeleteRows = False
+        Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.DataGridView1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.DataGridView1.Location = New System.Drawing.Point(0, 0)
+        Me.DataGridView1.Name = "DataGridView1"
+        Me.DataGridView1.ReadOnly = True
+        Me.DataGridView1.RowHeadersWidth = 82
+        Me.DataGridView1.RowTemplate.Height = 40
+        Me.DataGridView1.Size = New System.Drawing.Size(994, 487)
+        Me.DataGridView1.TabIndex = 0
+        '
+        'lstTables
+        '
+        Me.lstTables.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader4, Me.ColumnHeader1, Me.ColumnHeader2, Me.ColumnHeader3})
+        Me.lstTables.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lstTables.HideSelection = False
+        Me.lstTables.Location = New System.Drawing.Point(0, 0)
+        Me.lstTables.Name = "lstTables"
+        Me.lstTables.Size = New System.Drawing.Size(632, 487)
+        Me.lstTables.TabIndex = 0
+        Me.lstTables.UseCompatibleStateImageBehavior = False
+        Me.lstTables.View = System.Windows.Forms.View.Details
+        '
+        'ColumnHeader1
+        '
+        Me.ColumnHeader1.Text = "Page"
+        Me.ColumnHeader1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.ColumnHeader1.Width = 112
+        '
+        'ColumnHeader2
+        '
+        Me.ColumnHeader2.Text = "Rows"
+        Me.ColumnHeader2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.ColumnHeader2.Width = 135
+        '
+        'ColumnHeader3
+        '
+        Me.ColumnHeader3.Text = "Columns"
+        Me.ColumnHeader3.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.ColumnHeader3.Width = 164
+        '
+        'ColumnHeader4
+        '
+        Me.ColumnHeader4.Text = "Key"
+        Me.ColumnHeader4.Width = 165
         '
         'frmKnowledge
         '
@@ -286,6 +369,12 @@ Partial Class frmKnowledge
         Me.TabPage1.PerformLayout()
         Me.TabPage2.ResumeLayout(False)
         CType(Me.WebView21, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.TabPage3.ResumeLayout(False)
+        Me.SplitContainer1.Panel1.ResumeLayout(False)
+        Me.SplitContainer1.Panel2.ResumeLayout(False)
+        CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.SplitContainer1.ResumeLayout(False)
+        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -310,4 +399,11 @@ Partial Class frmKnowledge
     Friend WithEvents TabPage2 As TabPage
     Friend WithEvents TabPage3 As TabPage
     Friend WithEvents WebView21 As Microsoft.Web.WebView2.WinForms.WebView2
+    Friend WithEvents SplitContainer1 As SplitContainer
+    Friend WithEvents DataGridView1 As DataGridView
+    Friend WithEvents lstTables As ListView
+    Friend WithEvents ColumnHeader4 As ColumnHeader
+    Friend WithEvents ColumnHeader1 As ColumnHeader
+    Friend WithEvents ColumnHeader2 As ColumnHeader
+    Friend WithEvents ColumnHeader3 As ColumnHeader
 End Class

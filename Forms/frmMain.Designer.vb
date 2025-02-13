@@ -27,19 +27,8 @@ Partial Class frmMain
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
         Me.FlatTabControl1 = New DarkModeForms.FlatTabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
-        Me.TreeHistory = New OllamaDesktop.TreeViewDraggableNodes()
-        Me.MenuStripTree = New System.Windows.Forms.ContextMenuStrip(Me.components)
-        Me.mnuRename = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mnuCreateGroup = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
-        Me.mnuDelete = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mnuClear = New System.Windows.Forms.ToolStripMenuItem()
-        Me.Panel3 = New System.Windows.Forms.Panel()
-        Me.btnDelete = New System.Windows.Forms.Button()
-        Me.btnClearHistory = New System.Windows.Forms.Button()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
         Me.TabPage3 = New System.Windows.Forms.TabPage()
-        Me.Knowledge1 = New OllamaDesktop.Knowledge()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.btnCollapse = New System.Windows.Forms.Button()
         Me.Label3 = New System.Windows.Forms.Label()
@@ -65,17 +54,14 @@ Partial Class frmMain
         Me.ToolTip2 = New System.Windows.Forms.ToolTip(Me.components)
         Me.ToolTip3 = New System.Windows.Forms.ToolTip(Me.components)
         Me.ToolTipGeneral = New System.Windows.Forms.ToolTip(Me.components)
-        Me.mnuexpandall = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mnuCollapse = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
+        Me.ChatHistoryView1 = New OllamaDesktop.ChatHistoryView()
+        Me.Knowledge1 = New OllamaDesktop.Knowledge()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
         Me.SplitContainer1.SuspendLayout()
         Me.FlatTabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
-        Me.MenuStripTree.SuspendLayout()
-        Me.Panel3.SuspendLayout()
         Me.TabPage3.SuspendLayout()
         Me.Panel1.SuspendLayout()
         CType(Me.WebView21, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -124,7 +110,7 @@ Partial Class frmMain
         Me.FlatTabControl1.SelectedForeColor = System.Drawing.SystemColors.HighlightText
         Me.FlatTabControl1.SelectedIndex = 0
         Me.FlatTabControl1.SelectTabColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.FlatTabControl1.ShowTabCloseButton = True
+        Me.FlatTabControl1.ShowTabCloseButton = False
         Me.FlatTabControl1.Size = New System.Drawing.Size(998, 1082)
         Me.FlatTabControl1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed
         Me.FlatTabControl1.TabCloseColor = System.Drawing.SystemColors.ControlText
@@ -134,93 +120,13 @@ Partial Class frmMain
         'TabPage1
         '
         Me.TabPage1.BackColor = System.Drawing.SystemColors.ControlLight
-        Me.TabPage1.Controls.Add(Me.TreeHistory)
-        Me.TabPage1.Controls.Add(Me.Panel3)
+        Me.TabPage1.Controls.Add(Me.ChatHistoryView1)
         Me.TabPage1.Location = New System.Drawing.Point(4, 39)
         Me.TabPage1.Name = "TabPage1"
         Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
         Me.TabPage1.Size = New System.Drawing.Size(990, 1039)
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "Chat History"
-        '
-        'TreeHistory
-        '
-        Me.TreeHistory.ContextMenuStrip = Me.MenuStripTree
-        Me.TreeHistory.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TreeHistory.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.875!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TreeHistory.Location = New System.Drawing.Point(3, 3)
-        Me.TreeHistory.Name = "TreeHistory"
-        Me.TreeHistory.Size = New System.Drawing.Size(984, 976)
-        Me.TreeHistory.TabIndex = 0
-        '
-        'MenuStripTree
-        '
-        Me.MenuStripTree.ImageScalingSize = New System.Drawing.Size(32, 32)
-        Me.MenuStripTree.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuRename, Me.mnuCreateGroup, Me.ToolStripSeparator1, Me.mnuCollapse, Me.mnuexpandall, Me.ToolStripSeparator2, Me.mnuDelete, Me.mnuClear})
-        Me.MenuStripTree.Name = "MenuStripTree"
-        Me.MenuStripTree.Size = New System.Drawing.Size(301, 288)
-        '
-        'mnuRename
-        '
-        Me.mnuRename.Name = "mnuRename"
-        Me.mnuRename.Size = New System.Drawing.Size(300, 38)
-        Me.mnuRename.Text = "Rename"
-        '
-        'mnuCreateGroup
-        '
-        Me.mnuCreateGroup.Name = "mnuCreateGroup"
-        Me.mnuCreateGroup.Size = New System.Drawing.Size(300, 38)
-        Me.mnuCreateGroup.Text = "Create Chat Group"
-        '
-        'ToolStripSeparator1
-        '
-        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(297, 6)
-        '
-        'mnuDelete
-        '
-        Me.mnuDelete.Name = "mnuDelete"
-        Me.mnuDelete.Size = New System.Drawing.Size(300, 38)
-        Me.mnuDelete.Text = "Delete History Item"
-        '
-        'mnuClear
-        '
-        Me.mnuClear.Name = "mnuClear"
-        Me.mnuClear.Size = New System.Drawing.Size(300, 38)
-        Me.mnuClear.Text = "Clear History"
-        '
-        'Panel3
-        '
-        Me.Panel3.Controls.Add(Me.btnDelete)
-        Me.Panel3.Controls.Add(Me.btnClearHistory)
-        Me.Panel3.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.Panel3.Location = New System.Drawing.Point(3, 979)
-        Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(984, 57)
-        Me.Panel3.TabIndex = 2
-        '
-        'btnDelete
-        '
-        Me.btnDelete.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnDelete.Enabled = False
-        Me.btnDelete.Location = New System.Drawing.Point(848, 4)
-        Me.btnDelete.Name = "btnDelete"
-        Me.btnDelete.Size = New System.Drawing.Size(133, 48)
-        Me.btnDelete.TabIndex = 2
-        Me.btnDelete.Text = "Delete"
-        Me.btnDelete.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
-        Me.btnDelete.UseVisualStyleBackColor = True
-        '
-        'btnClearHistory
-        '
-        Me.btnClearHistory.Enabled = False
-        Me.btnClearHistory.Location = New System.Drawing.Point(5, 3)
-        Me.btnClearHistory.Name = "btnClearHistory"
-        Me.btnClearHistory.Size = New System.Drawing.Size(203, 48)
-        Me.btnClearHistory.TabIndex = 1
-        Me.btnClearHistory.Text = "Clear History"
-        Me.btnClearHistory.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
-        Me.btnClearHistory.UseVisualStyleBackColor = True
         '
         'TabPage2
         '
@@ -242,14 +148,6 @@ Partial Class frmMain
         Me.TabPage3.Size = New System.Drawing.Size(990, 1039)
         Me.TabPage3.TabIndex = 2
         Me.TabPage3.Text = "Knowledge"
-        '
-        'Knowledge1
-        '
-        Me.Knowledge1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Knowledge1.Location = New System.Drawing.Point(3, 3)
-        Me.Knowledge1.Name = "Knowledge1"
-        Me.Knowledge1.Size = New System.Drawing.Size(984, 1033)
-        Me.Knowledge1.TabIndex = 0
         '
         'Panel1
         '
@@ -507,22 +405,21 @@ Partial Class frmMain
         '
         Me.ToolTipGeneral.ToolTipTitle = "Ollama Desktop Chat"
         '
-        'mnuexpandall
+        'ChatHistoryView1
         '
-        Me.mnuexpandall.Name = "mnuexpandall"
-        Me.mnuexpandall.Size = New System.Drawing.Size(300, 38)
-        Me.mnuexpandall.Text = "Expand All"
+        Me.ChatHistoryView1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.ChatHistoryView1.Location = New System.Drawing.Point(3, 3)
+        Me.ChatHistoryView1.Name = "ChatHistoryView1"
+        Me.ChatHistoryView1.Size = New System.Drawing.Size(984, 1033)
+        Me.ChatHistoryView1.TabIndex = 0
         '
-        'mnuCollapse
+        'Knowledge1
         '
-        Me.mnuCollapse.Name = "mnuCollapse"
-        Me.mnuCollapse.Size = New System.Drawing.Size(300, 38)
-        Me.mnuCollapse.Text = "Collapse All"
-        '
-        'ToolStripSeparator2
-        '
-        Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
-        Me.ToolStripSeparator2.Size = New System.Drawing.Size(297, 6)
+        Me.Knowledge1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Knowledge1.Location = New System.Drawing.Point(3, 3)
+        Me.Knowledge1.Name = "Knowledge1"
+        Me.Knowledge1.Size = New System.Drawing.Size(984, 1033)
+        Me.Knowledge1.TabIndex = 0
         '
         'frmMain
         '
@@ -541,8 +438,6 @@ Partial Class frmMain
         Me.SplitContainer1.ResumeLayout(False)
         Me.FlatTabControl1.ResumeLayout(False)
         Me.TabPage1.ResumeLayout(False)
-        Me.MenuStripTree.ResumeLayout(False)
-        Me.Panel3.ResumeLayout(False)
         Me.TabPage3.ResumeLayout(False)
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
@@ -556,7 +451,6 @@ Partial Class frmMain
 
     End Sub
     Friend WithEvents SplitContainer1 As SplitContainer
-    Friend WithEvents TreeHistory As TreeViewDraggableNodes
     Friend WithEvents txtPrompt As TextBox
     Friend WithEvents Label1 As Label
     Friend WithEvents btnSend As Button
@@ -575,15 +469,6 @@ Partial Class frmMain
     Friend WithEvents Panel2 As Panel
     Friend WithEvents ToolTip2 As ToolTip
     Friend WithEvents ToolTip3 As ToolTip
-    Friend WithEvents Panel3 As Panel
-    Friend WithEvents btnDelete As Button
-    Friend WithEvents btnClearHistory As Button
-    Friend WithEvents MenuStripTree As ContextMenuStrip
-    Friend WithEvents mnuRename As ToolStripMenuItem
-    Friend WithEvents ToolStripSeparator1 As ToolStripSeparator
-    Friend WithEvents mnuDelete As ToolStripMenuItem
-    Friend WithEvents mnuClear As ToolStripMenuItem
-    Friend WithEvents mnuCreateGroup As ToolStripMenuItem
     Friend WithEvents pnlDetails As Panel
     Friend WithEvents lblHistModel As Label
     Friend WithEvents lblHistDated As Label
@@ -596,7 +481,5 @@ Partial Class frmMain
     Friend WithEvents TabPage3 As TabPage
     Friend WithEvents Knowledge1 As Knowledge
     Friend WithEvents lblExpansions As Label
-    Friend WithEvents mnuCollapse As ToolStripMenuItem
-    Friend WithEvents mnuexpandall As ToolStripMenuItem
-    Friend WithEvents ToolStripSeparator2 As ToolStripSeparator
+    Friend WithEvents ChatHistoryView1 As ChatHistoryView
 End Class
