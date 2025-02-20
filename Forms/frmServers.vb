@@ -106,7 +106,7 @@ Public Class frmServers
     Private Sub btnVerify_Click(sender As Object, e As EventArgs) Handles btnVerify.Click
         If lstServers.SelectedItems.Count = 1 Then
             Dim Server = lstServers.SelectedItems(0).Tag
-            Dim MyServer As New Ollama(Server)
+            Dim MyServer As New OllamaAccess(Server)
             If MyServer.VerifyConnection() Then
                 If cmbModel.Enabled = False Then
                     Server.models = MyServer.GetModels()
@@ -148,7 +148,7 @@ Public Class frmServers
     Private Sub btnReload_Click(sender As Object, e As EventArgs) Handles btnReload.Click
         If lstServers.SelectedItems.Count = 1 Then
             Dim Server As OllamaServer = lstServers.SelectedItems(0).Tag
-            Dim MyServer As New Ollama(Server)
+            Dim MyServer As New OllamaAccess(Server)
             Server.Models = MyServer.GetModels()
             PopulateModelList(Server)
         End If

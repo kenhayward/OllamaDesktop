@@ -42,12 +42,12 @@ Partial Class frmKnowledge
         Me.WebView21 = New Microsoft.Web.WebView2.WinForms.WebView2()
         Me.TabPage3 = New System.Windows.Forms.TabPage()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
-        Me.DataGridView1 = New System.Windows.Forms.DataGridView()
         Me.lstTables = New System.Windows.Forms.ListView()
+        Me.ColumnHeader4 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColumnHeader1 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColumnHeader2 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColumnHeader3 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.ColumnHeader4 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.DataGridView1 = New System.Windows.Forms.DataGridView()
         Me.TabControlMain.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.TabPage2.SuspendLayout()
@@ -288,20 +288,6 @@ Partial Class frmKnowledge
         Me.SplitContainer1.SplitterWidth = 10
         Me.SplitContainer1.TabIndex = 0
         '
-        'DataGridView1
-        '
-        Me.DataGridView1.AllowUserToAddRows = False
-        Me.DataGridView1.AllowUserToDeleteRows = False
-        Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.DataGridView1.Location = New System.Drawing.Point(0, 0)
-        Me.DataGridView1.Name = "DataGridView1"
-        Me.DataGridView1.ReadOnly = True
-        Me.DataGridView1.RowHeadersWidth = 82
-        Me.DataGridView1.RowTemplate.Height = 40
-        Me.DataGridView1.Size = New System.Drawing.Size(994, 487)
-        Me.DataGridView1.TabIndex = 0
-        '
         'lstTables
         '
         Me.lstTables.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader4, Me.ColumnHeader1, Me.ColumnHeader2, Me.ColumnHeader3})
@@ -313,6 +299,11 @@ Partial Class frmKnowledge
         Me.lstTables.TabIndex = 0
         Me.lstTables.UseCompatibleStateImageBehavior = False
         Me.lstTables.View = System.Windows.Forms.View.Details
+        '
+        'ColumnHeader4
+        '
+        Me.ColumnHeader4.Text = "Key"
+        Me.ColumnHeader4.Width = 165
         '
         'ColumnHeader1
         '
@@ -332,10 +323,19 @@ Partial Class frmKnowledge
         Me.ColumnHeader3.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.ColumnHeader3.Width = 164
         '
-        'ColumnHeader4
+        'DataGridView1
         '
-        Me.ColumnHeader4.Text = "Key"
-        Me.ColumnHeader4.Width = 165
+        Me.DataGridView1.AllowUserToAddRows = False
+        Me.DataGridView1.AllowUserToDeleteRows = False
+        Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.DataGridView1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.DataGridView1.Location = New System.Drawing.Point(0, 0)
+        Me.DataGridView1.Name = "DataGridView1"
+        Me.DataGridView1.ReadOnly = True
+        Me.DataGridView1.RowHeadersWidth = 82
+        Me.DataGridView1.RowTemplate.Height = 40
+        Me.DataGridView1.Size = New System.Drawing.Size(994, 487)
+        Me.DataGridView1.TabIndex = 0
         '
         'frmKnowledge
         '

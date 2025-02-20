@@ -27,8 +27,10 @@ Partial Class frmMain
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
         Me.FlatTabControl1 = New DarkModeForms.FlatTabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
+        Me.ChatHistoryView1 = New OllamaDesktop.ChatHistoryView()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
         Me.TabPage3 = New System.Windows.Forms.TabPage()
+        Me.Knowledge1 = New OllamaDesktop.Knowledge()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.btnCollapse = New System.Windows.Forms.Button()
         Me.Label3 = New System.Windows.Forms.Label()
@@ -54,8 +56,6 @@ Partial Class frmMain
         Me.ToolTip2 = New System.Windows.Forms.ToolTip(Me.components)
         Me.ToolTip3 = New System.Windows.Forms.ToolTip(Me.components)
         Me.ToolTipGeneral = New System.Windows.Forms.ToolTip(Me.components)
-        Me.ChatHistoryView1 = New OllamaDesktop.ChatHistoryView()
-        Me.Knowledge1 = New OllamaDesktop.Knowledge()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
@@ -128,6 +128,15 @@ Partial Class frmMain
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "Chat History"
         '
+        'ChatHistoryView1
+        '
+        Me.ChatHistoryView1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.ChatHistoryView1.Location = New System.Drawing.Point(3, 3)
+        Me.ChatHistoryView1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.ChatHistoryView1.Name = "ChatHistoryView1"
+        Me.ChatHistoryView1.Size = New System.Drawing.Size(984, 1033)
+        Me.ChatHistoryView1.TabIndex = 0
+        '
         'TabPage2
         '
         Me.TabPage2.BackColor = System.Drawing.SystemColors.ControlLight
@@ -148,6 +157,15 @@ Partial Class frmMain
         Me.TabPage3.Size = New System.Drawing.Size(990, 1039)
         Me.TabPage3.TabIndex = 2
         Me.TabPage3.Text = "Knowledge"
+        '
+        'Knowledge1
+        '
+        Me.Knowledge1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Knowledge1.Location = New System.Drawing.Point(3, 3)
+        Me.Knowledge1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Knowledge1.Name = "Knowledge1"
+        Me.Knowledge1.Size = New System.Drawing.Size(984, 1033)
+        Me.Knowledge1.TabIndex = 0
         '
         'Panel1
         '
@@ -404,22 +422,6 @@ Partial Class frmMain
         'ToolTipGeneral
         '
         Me.ToolTipGeneral.ToolTipTitle = "Ollama Desktop Chat"
-        '
-        'ChatHistoryView1
-        '
-        Me.ChatHistoryView1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.ChatHistoryView1.Location = New System.Drawing.Point(3, 3)
-        Me.ChatHistoryView1.Name = "ChatHistoryView1"
-        Me.ChatHistoryView1.Size = New System.Drawing.Size(984, 1033)
-        Me.ChatHistoryView1.TabIndex = 0
-        '
-        'Knowledge1
-        '
-        Me.Knowledge1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Knowledge1.Location = New System.Drawing.Point(3, 3)
-        Me.Knowledge1.Name = "Knowledge1"
-        Me.Knowledge1.Size = New System.Drawing.Size(984, 1033)
-        Me.Knowledge1.TabIndex = 0
         '
         'frmMain
         '

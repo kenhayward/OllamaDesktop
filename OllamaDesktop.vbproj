@@ -259,7 +259,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Ollama.vb" />
+    <Compile Include="OllamaAccess.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Controls\ChatHistoryView.resx">

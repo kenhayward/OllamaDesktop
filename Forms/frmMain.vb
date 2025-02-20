@@ -8,6 +8,7 @@ Imports Microsoft.Web.WebView2.Core
 
 Public Class frmMain
     Private DarkMode As DarkModeForms.DarkModeCS
+    Public Property AddTitle As Boolean = False
 
     Private Async Sub frmMain_Load(sender As Object, e As EventArgs) Handles Me.Load
         Me.SplitContainer1.Panel1Collapsed = True
@@ -70,7 +71,7 @@ Public Class frmMain
         If MyServer IsNot Nothing Then
             Me.cmbModel.Items.Clear()
             If MyServer.Models.Count = 0 Then
-                Dim MyS = New Ollama(MyServer)
+                Dim MyS = New OllamaAccess(MyServer)
                 MyS.GetModels()
             End If
             For Each model In MyServer.Models
@@ -112,7 +113,7 @@ Public Class frmMain
             Dim StartTime = DateTime.Now
             Me.btnSend.Enabled = False
             Me.txtPrompt.Enabled = False
-            Dim OllamaServer As New Ollama(Utils.OllamaServers.CurrentServer, cmbModel.SelectedItem)
+            Dim OllamaServer As New OllamaAccess(Utils.OllamaServers.CurrentServer, cmbModel.SelectedItem)
             OllamaServer.ShowCOT = chkShowCOT.Checked
             AddHandler OllamaServer.ChatUpdate, AddressOf ChatUpdate
             AddHandler OllamaServer.ChatComplete, AddressOf ChatComplete
@@ -160,7 +161,9 @@ Public Class frmMain
         Hist.Model = cmbModel.SelectedItem.ToString
         Hist.Timed = Now
         Utils.OllamaServers.ChatHistory.Add(Hist)
-        Hist.GetTitle(cmbModel.SelectedItem)
+        If Me.AddTitle Then
+            Hist.GetTitle(cmbModel.SelectedItem)
+        End If
         ChatHistoryView1.AddToHistoryNode(Hist)
         ShowDetailsPanel(Hist)
         Me.Cursor = Cursors.Default

@@ -109,7 +109,7 @@ End Class
     Private TitleResponse As ChatResponseMessage
     Public Sub GetTitle(theModel As LLMmodel)
         TitleComplete = False
-        Dim OllamaServer As New Ollama(Utils.OllamaServers.CurrentServer, theModel)
+        Dim OllamaServer As New OllamaAccess(Utils.OllamaServers.CurrentServer, theModel)
         OllamaServer.ShowCOT = False
         AddHandler OllamaServer.ChatComplete, AddressOf HistoryComplete
         AddHandler OllamaServer.ChatUpdate, AddressOf UpdateHistory

@@ -8,7 +8,7 @@ Imports Microsoft.Web.WebView2
 Imports Microsoft.Web.WebView2.WinForms
 Imports Newtonsoft.Json.Linq
 
-Public Class Ollama
+Public Class OllamaAccess
 
     Public Property Server As OllamaServer
     Public Event ChatUpdate(ChatResponse As ChatResponseMessage)
@@ -73,11 +73,7 @@ Public Class Ollama
         stream.Close()
         Return Request
     End Function
-    Public Enum HTMLState As Integer
-        Thinking = 0
-        ThinkingNoShow = 1
-        Response = 2
-    End Enum
+
     Private Sub GetChatResponse()
 
 
