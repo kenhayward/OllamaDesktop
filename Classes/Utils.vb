@@ -15,7 +15,7 @@ End Module
 Public Class Utils
 
     Public Shared Function GetColorMode(f As Form) As DarkModeCS
-        Return New DarkModeCS(f, True, True) With {.ColorMode = DarkModeCS.DisplayMode.ClearMode}
+        Return New DarkModeCS(f, True, True) With {.ColorMode = DarkModeCS.DisplayMode.DarkMode}
     End Function
 
 
